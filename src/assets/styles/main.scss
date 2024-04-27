@@ -1,0 +1,149 @@
+@import "bootstrap/scss/bootstrap";
+@import "fonts.scss";
+
+
+body{
+  color: #676767;
+}
+html{
+  font-size: 16px;
+}
+
+.container-fluid{
+  background-color: #eaeaea;
+
+  .sidebar-col{
+    background-color: #1b2034;
+
+    align-items: baseline;
+    color: #ededef;
+
+    .title{
+      width: 100%;
+      background: #0c1125;
+      color: #ededef;
+      height: 75px;
+    }
+
+    a.logo{
+      font-size: 1.5rem;
+      color: #ededef;
+    }
+
+    ul.nav{
+      margin-top: 50px;
+      li{
+        a{
+          color: #ededef;
+          i{
+            font-size: 1.9rem;
+          }
+          span{
+            font-size: 1.3rem;
+          }
+        }
+      }
+    }
+
+  }
+  .content-col{
+    .navbar-top{
+      // padding: 24px 15px;
+      background-color: #0c1125;
+      color: #ededef;
+      height: 75px;
+      .container-fluid{
+        background-color: #0c1125;
+      }
+      i.toggle{
+        font-size: 1.5rem;
+        color: #ededef;
+        flex: 0 0 10%;
+
+      }
+    }
+    .content{
+      border: 20px solid #6d7484;
+      height: calc(100% - 75px);
+    }
+    .menu-name{
+      flex: 0 0 60%;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .user{
+      flex: 0 0 30%;
+      .logout-btn{
+        display: none;
+      }
+      .profile-img{
+        width: 50px;
+        border-radius: 1.5em;
+      }
+    }
+  }
+}
+
+button.btn{
+  background-color: #ffcc00;
+    border: 1px solid #ffcc00;
+    font-weight: bold;
+    padding: 8px 35px;
+    border-radius: initial;
+}
+
+.sidebar-col{
+  display: none;
+}
+
+.sidebar-col.show{
+  display: block;
+}
+.only-mobile{
+  color:#ffcc00;
+}
+
+
+@media screen and (min-width:991px){
+
+  .sidebar-col{
+    display: block;
+  }
+  .sidebar-col.show{
+    display: none;
+  }
+
+
+  .only-mobile{
+    display: none;
+
+  }
+
+  .container-fluid{
+    .content-col{
+      .user{
+        .logout-btn{
+          display: block;
+        }
+      }
+
+      .navbar-top{
+        i.toggle{
+          flex: 0 0 10%;
+        }
+      }
+      .menu-name{
+        flex: 0 0 60%;
+      }
+
+      .user{
+        flex: 0 0 30%;
+      }
+    }
+  }
+
+
+
+}
