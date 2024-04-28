@@ -3,7 +3,7 @@
 @import "variables.scss";
 
 body{
-  color: #676767;
+  color: #b6b9c1;
   font-family: "Roboto", sans-serif;
 }
 html{
@@ -76,7 +76,7 @@ html{
 
 }
 
-button.btn{
+button.btn, input[type='submit']{
     background-color: var(--yellow-color);
     border: 1px solid var(--yellow-color);
     font-weight: bold;
@@ -93,6 +93,7 @@ button.btn{
 }
 .btn:hover{
   background-color: var(--orange-color);
+  border-color: var(--orange-color);
 }
 // .sidebar-col{
 //   display: none;
@@ -133,6 +134,24 @@ Content style
   .content{
     border: 20px solid #6d7484;
     height: calc(100% - 60px);
+    .content-title{
+        padding: 13px 15px;
+        color: white;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+        font-family: 'Roboto';
+        background-color: var(--yellow-color);
+    }
+    i.fa-plus-circle{
+      font-size: 1.5rem;
+      color: var(--yellow-color);
+    }
+    i.fa-plus-circle:hover{
+      color: var(--orange-color);
+    }
+    .empty-content{
+      max-width: 360px;
+    }
   }
   .menu-name{
     flex: 0 0 60%;
@@ -153,7 +172,33 @@ Content style
   }
 }
 
+#dialog{
+  min-width: 700px;
+  min-height: 300px;
+  border: none;
+  border-radius: 0.5em;
+  padding: 30px;
+  form{
+    input{
+      border: none;
+      &.form-task-name{
+        font-size: 1.2rem;
+      }
+      &.form-task-description{
+        font-size: 1.5rem;
+      }
+    }
+    .form-control:focus{
+      border: none;
+      box-shadow: none;
+    }
+  }
+}
 
+select, select:focus-visible{
+  border: none;
+  background: white;
+}
 
 /*Mobile style*/
 
