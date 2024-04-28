@@ -1,6 +1,6 @@
 @import "bootstrap/scss/bootstrap";
 @import "fonts.scss";
-
+@import "variables.scss";
 
 body{
   color: #676767;
@@ -15,28 +15,27 @@ html{
 
   .sidebar-col{
     background-color: #1b2034;
-    transition: all .25s;
+    // transition: all .25s;
     position: relative;
     align-items: baseline;
-    color: #8a8c96;
-    transition: transform 0.3s ease;
-
-    transform: translateX(0); /* Shown when 'open' class is added */
+    color: var(--green-color);
+    transition: all 0.25s ease;
+    width: 220px;
+    margin-left: -220px; /* Shown when 'open' class is added */
     &.hide{
 
-      transform: translateX(-100%); /* Initially hidden */
+       margin-left: 0px; /* Initially hidden */
     }
-
     .title{
       width: 100%;
-      background: #0c1125;
-      color: #8a8c96;
+      background: var(--dark-blue);
+      color: var(--green-color);
       height: 60px;
     }
 
     a.logo{
       font-size: 1.3rem;
-      color: #fdfdfd;
+      color: var(--white-color);
       font-weight: bold;
     }
     .sidebar-content{
@@ -48,7 +47,7 @@ html{
         li{
           padding: 10px 15px;
           a{
-            color: #8a8c96;
+            color: var(--green-color);
             i{
               font-size: 1.5rem;
             }
@@ -60,80 +59,40 @@ html{
         }
         li:hover{
           a{
-            color: #fdfdfd;
+            color: var(--white-color);
           }
         }
         li.active{
-          border-left: 4px solid #e79e15;
-          background-color: #0c1125;
+          border-left: 4px solid var(--orange-color);
+          background-color: var(--dark-blue);
 
           a{
-            color: #e79e15;
+            color: var(--orange-color);
           }
         }
       }
     }
-
-
-
   }
-  .content-col{
-    .navbar-top{
-      // padding: 24px 15px;
-      background-color: #0c1125;
-      color: #fdfdfd;
-      height: 60px;
-      .container-fluid{
-        background-color: #0c1125;
-      }
-      i.toggle{
-        font-size: 1rem;
-        color: #fdfdfd;
-        flex: 0 0 10%;
 
-      }
-    }
-    .content{
-      border: 20px solid #6d7484;
-      height: calc(100% - 60px);
-    }
-    .menu-name{
-      flex: 0 0 60%;
-      text-align: center;
-      font-size: 1.3rem;
-      font-weight: bold;
-    }
-
-    .user{
-      flex: 0 0 30%;
-      .logout-btn{
-        display: none;
-      }
-      .profile-img{
-        width: 35px;
-        border-radius: 1.3em;
-      }
-    }
-  }
 }
 
 button.btn{
-    background-color: #ffcc00;
-    border: 1px solid #ffcc00;
+    background-color: var(--yellow-color);
+    border: 1px solid var(--yellow-color);
     font-weight: bold;
     padding: 4px 30px;
     border-radius: initial;
     font-size: 1rem;
-    color: #fdfdfd;
+    color: var(--white-color);
 }
 .btn:hover , .btn:focus, .btn:active {
-  color: #fdfdfd;
-  background-color: #ffcc00;
-  border-color: #ffcc00;
+  color: var(--white-color);
+  background-color: var(--yellow-color);
+  border-color: var(--yellow-color);
   box-shadow: none;
 }
 .btn:hover{
-  background-color: #e79e15;
+  background-color: var(--orange-color);
 }
 // .sidebar-col{
 //   display: none;
@@ -144,21 +103,76 @@ button.btn{
 }
 
 .only-mobile{
-  color:#ffcc00;
+  color: var(--yellow-color);
   font-size: 1rem;
 }
 
+/*
+Content style
+*/
+
+.content-col{
+
+  flex-grow: 1;
+
+  .navbar-top{
+    // padding: 24px 15px;
+    background-color: var(--dark-blue);
+    color: var(--white-color);
+    height: 60px;
+    .container-fluid{
+      background-color: var(--dark-blue);
+    }
+    i.toggle{
+      font-size: 1rem;
+      color: var(--white-color);
+      flex: 0 0 10%;
+
+    }
+  }
+  .content{
+    border: 20px solid #6d7484;
+    height: calc(100% - 60px);
+  }
+  .menu-name{
+    flex: 0 0 60%;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+
+  .user{
+    flex: 0 0 30%;
+    .logout-btn{
+      display: none;
+    }
+    .profile-img{
+      width: 35px;
+      border-radius: 1.3em;
+    }
+  }
+}
+
+
+
+/*Mobile style*/
 
 @media screen and (min-width:991px){
 
-  // .sidebar-col{
-  //   left: 0px;
-  // }
+  .container-fluid{
+    .sidebar-col{
+
+      margin-left: 0px; /* Shown when 'open' class is added */
+      &.hide{
+
+        margin-left: -220px; /* Initially hidden */
+      }
+    }
+  }
   // .sidebar-col.show{
   //   left: -256px;
   //   margin-right: -256px;
   // }
-
 
   .only-mobile{
     display: none;
@@ -187,7 +201,6 @@ button.btn{
       }
     }
   }
-
-
-
 }
+
+
