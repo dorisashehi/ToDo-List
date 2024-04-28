@@ -4,6 +4,7 @@
 
 body{
   color: #676767;
+  font-family: "Roboto", sans-serif;
 }
 html{
   font-size: 16px;
@@ -14,62 +15,92 @@ html{
 
   .sidebar-col{
     background-color: #1b2034;
-
+    transition: all .25s;
+    position: relative;
     align-items: baseline;
-    color: #ededef;
+    color: #8a8c96;
+    transition: transform 0.3s ease;
+
+    transform: translateX(0); /* Shown when 'open' class is added */
+    &.hide{
+
+      transform: translateX(-100%); /* Initially hidden */
+    }
 
     .title{
       width: 100%;
       background: #0c1125;
-      color: #ededef;
-      height: 75px;
+      color: #8a8c96;
+      height: 60px;
     }
 
     a.logo{
-      font-size: 1.5rem;
-      color: #ededef;
+      font-size: 1.3rem;
+      color: #fdfdfd;
+      font-weight: bold;
     }
-
-    ul.nav{
-      margin-top: 50px;
-      li{
-        a{
-          color: #ededef;
-          i{
-            font-size: 1.9rem;
+    .sidebar-content{
+      width: 100%;
+      border-right: 2px solid #f39702;
+      height: calc(100% - 60px);
+      ul.nav{
+        padding-top: 50px;
+        li{
+          padding: 10px 15px;
+          a{
+            color: #8a8c96;
+            i{
+              font-size: 1.5rem;
+            }
+            span{
+              font-size: 0.9rem;
+              font-weight: 500;
+            }
           }
-          span{
-            font-size: 1.3rem;
+        }
+        li:hover{
+          a{
+            color: #fdfdfd;
+          }
+        }
+        li.active{
+          border-left: 4px solid #e79e15;
+          background-color: #0c1125;
+
+          a{
+            color: #e79e15;
           }
         }
       }
     }
+
+
 
   }
   .content-col{
     .navbar-top{
       // padding: 24px 15px;
       background-color: #0c1125;
-      color: #ededef;
-      height: 75px;
+      color: #fdfdfd;
+      height: 60px;
       .container-fluid{
         background-color: #0c1125;
       }
       i.toggle{
-        font-size: 1.5rem;
-        color: #ededef;
+        font-size: 1rem;
+        color: #fdfdfd;
         flex: 0 0 10%;
 
       }
     }
     .content{
       border: 20px solid #6d7484;
-      height: calc(100% - 75px);
+      height: calc(100% - 60px);
     }
     .menu-name{
       flex: 0 0 60%;
       text-align: center;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: bold;
     }
 
@@ -79,41 +110,54 @@ html{
         display: none;
       }
       .profile-img{
-        width: 50px;
-        border-radius: 1.5em;
+        width: 35px;
+        border-radius: 1.3em;
       }
     }
   }
 }
 
 button.btn{
-  background-color: #ffcc00;
+    background-color: #ffcc00;
     border: 1px solid #ffcc00;
     font-weight: bold;
-    padding: 8px 35px;
+    padding: 4px 30px;
     border-radius: initial;
+    font-size: 1rem;
+    color: #fdfdfd;
 }
-
-.sidebar-col{
-  display: none;
+.btn:hover , .btn:focus, .btn:active {
+  color: #fdfdfd;
+  background-color: #ffcc00;
+  border-color: #ffcc00;
+  box-shadow: none;
 }
+.btn:hover{
+  background-color: #e79e15;
+}
+// .sidebar-col{
+//   display: none;
+// }
 
 .sidebar-col.show{
-  display: block;
+  position: relative;
 }
+
 .only-mobile{
   color:#ffcc00;
+  font-size: 1rem;
 }
 
 
 @media screen and (min-width:991px){
 
-  .sidebar-col{
-    display: block;
-  }
-  .sidebar-col.show{
-    display: none;
-  }
+  // .sidebar-col{
+  //   left: 0px;
+  // }
+  // .sidebar-col.show{
+  //   left: -256px;
+  //   margin-right: -256px;
+  // }
 
 
   .only-mobile{
