@@ -1,13 +1,14 @@
 import './assets/styles/main.scss'
 
 
-
+//sidebar
 document.querySelector(".toggle").addEventListener("click", () => {
-    console.log("hello")
     document.querySelector(".sidebar-col").classList.toggle('hide');
 
 })
 
+
+//dialog
 const dialog = document.getElementById("dialog");
 
 document.querySelector(".fa-plus-circle").addEventListener("click", () => {
@@ -19,3 +20,19 @@ closeDialog.addEventListener("click", (e) => { //close dialog box
     e.preventDefault();
     dialog.close();
 });
+
+//priority
+
+// const priorityBtn = document.querySelector(".priority-btn");
+// priorityBtn.addEventListener("click", (button) => { //close dialog box
+
+//     button.preventDefault();
+
+//     document.querySelector(".dropdown-menu").classList.toggle("show-dropdown");
+
+//     document.querySelectorAll(".dropdown-item").forEach((item) => {
+//         item.addEventListener('click', (e) => {
+//             button.target.innerText =  e.target.innerText;
+//         })
+//     })
+// });

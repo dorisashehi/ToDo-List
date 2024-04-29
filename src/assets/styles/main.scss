@@ -108,6 +108,8 @@ button.btn, input[type='submit']{
   font-size: 1rem;
 }
 
+
+
 /*
 Content style
 */
@@ -191,6 +193,23 @@ Content style
         font-size: 0.7rem;
       }
     }
+    #form-task-date, #priority-selection{
+      font-size: 0.9rem;
+      align-items: center;
+      height: 32px;
+      width: fit-content;
+      border: 2px dashed #b7b7b7;
+      margin-top: 15px;
+      margin-left: 15px;
+      border-radius: unset;
+
+    }
+    #priority-selection{
+      padding: 0px 14px;
+      option{
+        padding: 0px 14px;
+      }
+    }
     .form-control:focus{
       border: none;
       box-shadow: none;
@@ -204,6 +223,13 @@ Content style
       padding: 15px 20px;
       margin-top: 13px;
     }
+    .priority{
+      position: relative;
+      .dropdown-menu{
+        position: absolute;
+      }
+    }
+
   }
 }
 
@@ -211,6 +237,13 @@ select, select:focus-visible{
   border: none;
   background: white;
 }
+
+ul.show-dropdown{
+  display: block;
+}
+
+
+
 
 /*Mobile style*/
 
