@@ -78,17 +78,16 @@
                     <!-- Modal -->
                     <dialog id="dialog">
                         <form method="dialog">
-                            <div class="form-group mb-0">
-                                <!-- <label for="form-task-name">Task Name</label> -->
-                                <input type="text" class="form-control" id="form-task-name" name="form-task-name" placeholder="Task name" required>
-                                <!-- <em class="title-error pt-2">Put a valid name (task name)</em> -->
+                            <div class="form-fields">
+                                <div class="form-group mb-0">
+                                    <input type="text" class="form-control" id="form-task-name" name="form-task-name" placeholder="Task name" required>
+                                </div>
+                                <div class="form-group mb-0">
+                                    <input type="text" class="form-control" id="form-task-description" name="form-task-description" placeholder="Description" required>
+                                </div>
                             </div>
-                            <div class="form-group mb-0">
-                                <!-- <label for="form-task-description">Description</label> -->
-                                <input type="text" class="form-control" id="form-task-description" name="form-task-description" placeholder="Description" required>
-                                <!-- <em class="title-error pt-2">Put a valid name (task description)</em> -->
-                            </div>
-                            <div class="mt-4 d-flex justify-content-between">
+
+                            <div class="d-flex justify-content-between form-buttons">
                                 <select class="projects-options">
                                     <option class="project-name d-flex flex-row"><i class="fas fa-inbox"></i><span>Inbox</span></option>
                                     <option class="project-name d-flex flex-row"><i class="fas fa-inbox"></i><span>Inbox1</span></option>
@@ -102,8 +101,6 @@
                             </div>
                         </form>
                     </dialog>
-
-
                 </div>
 
             </div>
