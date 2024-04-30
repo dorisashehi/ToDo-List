@@ -114,16 +114,28 @@
                         <!-- Modal -->
                         <dialog id="edit-dialog">
                             <form method="dialog">
-                                <div class="form-fields">
-                                    <div class="form-group mb-0">
+                                <div class="form-fields d-flex">
+                                    <div class="form-group mb-0 col">
                                         <input type="text" class="form-control" id="form-task-name" name="form-task-name" value="Task name" required>
-                                    </div>
-                                    <div class="form-group mb-0">
-                                        <input type="text" class="form-control" id="form-task-description" name="form-task-description" value="Description" required>
+
+                                        <textarea class="form-control" rows="5"  id="form-task-description" name="form-task-description"  rows="5" maxlength="100" required> Description here.......</textarea>
+
                                     </div>
 
-                                    <div class="form-group mb-0 d-flex flex-row" >
+                                    <div class="form-group mb-0 d-flex flex-row col-5 d-flex flex-column align-items-start">
+                                        <h6>
+                                            Project
+                                        </h6>
+                                        <select class="projects-options">
+                                            <option class="project-name d-flex flex-row"><i class="fas fa-inbox"></i><span>Inbox</span></option>
+                                            <option class="project-name d-flex flex-row"><i class="fas fa-inbox"></i><span>Inbox1</span></option>
+                                            <option class="project-name d-flex flex-row"><i class="fas fa-inbox"></i><span>Inbox2</span></option>
+                                        </select>
+
+                                        <h6 class="mt-2">Due Date</h6>
                                         <input type="date" class="form-control" id="form-task-date" name="form-task-date">
+
+                                        <h6 class="mt-2">Priority</h6>
                                         <select id="priority-selection">
                                             <option class="priority-item">Priority</option>
                                             <option class="priority-item">Priority 1</option>
@@ -133,11 +145,6 @@
                                 </div>
 
                                 <div class="d-flex justify-content-between form-buttons">
-                                    <select class="projects-options">
-                                        <option class="project-name d-flex flex-row"><i class="fas fa-inbox"></i><span>Inbox</span></option>
-                                        <option class="project-name d-flex flex-row"><i class="fas fa-inbox"></i><span>Inbox1</span></option>
-                                        <option class="project-name d-flex flex-row"><i class="fas fa-inbox"></i><span>Inbox2</span></option>
-                                    </select>
                                     <div class="buttons-group">
                                         <input type="submit" id="submit" value="Edit Task" class="btn btn-primary" formnovalidate />
                                         <input type="submit" class="btn btn-primary" id="js-close" value="Cancel" />
@@ -160,13 +167,14 @@
                         <form method="dialog">
                             <div class="form-fields">
                                 <div class="form-group mb-0">
-                                    <input type="text" class="form-control" id="form-task-name" name="form-task-name" placeholder="Task name" required>
+                                    <input type="text" class="form-control" id="form-task-name" name="form-task-name" placeholder="Task name" required />
                                 </div>
                                 <div class="form-group mb-0">
-                                    <input type="text" class="form-control" id="form-task-description" name="form-task-description" placeholder="Description" required>
+                                    <textarea class="form-control" rows="3"  id="form-task-description" name="form-task-description"  rows="5" maxlength="100" required>Description</textarea>
+
                                 </div>
 
-                                <div class="form-group mb-0 d-flex flex-row" >
+                                <div class="form-group mb-0 d-flex flex-row gap-3" >
                                     <input type="date" class="form-control" id="form-task-date" name="form-task-date">
                                     <!--
                                     <div class="priority">
