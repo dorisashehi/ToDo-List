@@ -154,6 +154,33 @@ Content style
     .empty-content{
       max-width: 360px;
     }
+    .container{
+      .task-item{
+        max-width: 600px;
+        margin: auto;
+        border: 2px dashed #bcbcbc;
+        padding: 15px 0px;
+        background-color: #ffffff;
+        .task-content{
+          .task-name{
+            color: #919191;
+            font-size: 1rem;
+            font-weight: 500;
+          }
+
+          .task-description{
+            color: #929292;
+            font-size: 0.8rem;
+          }
+          .task-date{
+            font-size: 0.7rem;
+          }
+        }
+      }
+      .complete-btn{
+
+      }
+    }
   }
   .menu-name{
     flex: 0 0 60%;
@@ -186,11 +213,13 @@ Content style
     input{
       border: none;
       &#form-task-name{
+        color: #919191;
         font-size: 1rem;
         font-weight: 500;
       }
       &#form-task-description{
-        font-size: 0.7rem;
+        color: #929292;
+        font-size: 0.8rem;
       }
     }
     #form-task-date, #priority-selection{
@@ -205,7 +234,6 @@ Content style
 
     }
     #priority-selection{
-      padding: 0px 14px;
       option{
         padding: 0px 14px;
       }
