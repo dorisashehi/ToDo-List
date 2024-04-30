@@ -22,7 +22,7 @@
 
                     </div>
                     <div class="sidebar-content col min-vh-100 px-0">
-                        <ul class="nav flex-column" id="menu">
+                        <ul class="nav flex-column" id="main-menu">
                             <li class="nav-item active" id="inbox">
                                 <a href="#" class="nav-link px-0 d-flex align-items-center">
                                     <i class="fas fa-inbox"></i><span class="px-3">Inbox</span>
@@ -39,10 +39,10 @@
                         </ul>
 
 
-                        <ul class="nav flex-column">
+                        <ul class="nav flex-column" id="second-menu">
                             <li class="nav-item" id="favorites">
                                 <a href="" class="nav-link px-0 d-flex align-items-center">
-                                    <span class="px-3">Favorites</span>
+                                    <span class="">Favorites</span><i class="fas fa-caret-down"></i>
                                 </a>
 
                                 <ul class="collapse nav flex-column ms-1 favorites">
@@ -56,7 +56,7 @@
                             </li>
                             <li class="nav-item" id="projects">
                                 <a href="" class="nav-link px-0 d-flex align-items-center">
-                                    <span class="px-3">Projects</span>
+                                    <span class="">Projects</span><i class="fas fa-caret-down"></i>
                                 </a>
                                 <ul class="collapse nav flex-column ms-1 projects">
                                     <li class="w-100 submenu-item level-1">
@@ -142,9 +142,7 @@
                                 <div class="form-fields d-flex">
                                     <div class="form-group mb-0 col">
                                         <input type="text" class="form-control" id="form-task-name" name="form-task-name" value="Task name" required>
-
                                         <textarea class="form-control" rows="5"  id="form-task-description" name="form-task-description"  rows="5" maxlength="100" required> Description here.......</textarea>
-
                                     </div>
 
                                     <div class="form-group mb-0 d-flex flex-row col-5 d-flex flex-column align-items-start">
