@@ -7,6 +7,16 @@ document.querySelector(".toggle").addEventListener("click", () => {
 
 })
 
+//toggle submenu
+document.querySelectorAll("li.nav-item").forEach((menu) => {
+    menu.addEventListener("click", (el) => {
+        el.preventDefault();
+        document.querySelector(`ul.${menu.id}`)?.classList.toggle("show");
+    })
+
+})
+
+
 
 //dialog
 const dialog = document.getElementById("dialog");
@@ -39,7 +49,6 @@ closeDialog.addEventListener("click", (e) => { //close dialog box
 
 
 //on task click
-
 const taskItems = document.querySelectorAll(".task-item");
 taskItems.forEach((task) => {
     task.addEventListener('click', (e) => {

@@ -21,28 +21,53 @@
                         </a>
 
                     </div>
-
-                    <!-- <div class="logo-img">
-                        <img src="https://clipground.com/images/things-to-do-clipart-8.png" />
-                    </div> -->
-
                     <div class="sidebar-content col min-vh-100 px-0">
                         <ul class="nav flex-column" id="menu">
-                            <li class="nav-item mb-3 active">
+                            <li class="nav-item active" id="inbox">
                                 <a href="#" class="nav-link px-0 d-flex align-items-center">
                                     <i class="fas fa-inbox"></i><span class="px-3">Inbox</span>
                                 </a>
                             </li>
-                            <li class="nav-item mb-3">
+                            <li class="nav-item" id="today">
                                 <a href="#" class="nav-link px-0 d-flex align-items-center">
                                     <i class="fas fa-calendar-day"></i><span class="px-3">Today</span></a>
                             </li>
-                            <li class="nav-item mb-3">
+                            <li class="nav-item"  id="this-week">
                                 <a href="#" class="nav-link px-0 d-flex align-items-center">
                                     <i class="fas fa-calendar-week"></i><span class="px-3">This Week</span> </a>
                             </li>
                         </ul>
 
+
+                        <ul class="nav flex-column">
+                            <li class="nav-item" id="favorites">
+                                <a href="" class="nav-link px-0 d-flex align-items-center">
+                                    <span class="px-3">Favorites</span>
+                                </a>
+
+                                <ul class="collapse nav flex-column ms-1 favorites">
+                                    <li class="w-100 submenu-item">
+                                        <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1 </a>
+                                    </li>
+                                    <li class="w-100 submenu-item">
+                                        <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2 </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item" id="projects">
+                                <a href="" class="nav-link px-0 d-flex align-items-center">
+                                    <span class="px-3">Projects</span>
+                                </a>
+                                <ul class="collapse nav flex-column ms-1 projects">
+                                    <li class="w-100 submenu-item level-1">
+                                        <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 3 </a>
+                                    </li>
+                                    <li class="w-100 submenu-item level-1">
+                                        <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 4 </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
 
                 </div>
@@ -170,7 +195,7 @@
                                     <input type="text" class="form-control" id="form-task-name" name="form-task-name" placeholder="Task name" required />
                                 </div>
                                 <div class="form-group mb-0">
-                                    <textarea class="form-control" rows="3"  id="form-task-description" name="form-task-description"  rows="5" maxlength="100" required>Description</textarea>
+                                    <textarea class="form-control" rows="3"  id="form-task-description" name="form-task-description"  rows="5" maxlength="100" placeholder="Description" required></textarea>
 
                                 </div>
 

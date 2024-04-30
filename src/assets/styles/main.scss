@@ -56,6 +56,15 @@ html{
               font-weight: 500;
             }
           }
+          &.nav-item ul{
+            display: none;
+            padding-top: 0px;
+
+            &.show{
+              display: block;
+
+            }
+          }
         }
         li:hover{
           a{
@@ -70,7 +79,17 @@ html{
             color: var(--orange-color);
           }
         }
+        // .submenu{
+        //   display: none;
+        //   padding-top: 0px;
+
+        // }
+        // .submenu.show{
+        //   display: block;
+
+        // }
       }
+
     }
   }
 
