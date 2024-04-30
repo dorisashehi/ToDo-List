@@ -110,6 +110,43 @@
 
                         </div>
 
+
+                        <!-- Modal -->
+                        <dialog id="edit-dialog">
+                            <form method="dialog">
+                                <div class="form-fields">
+                                    <div class="form-group mb-0">
+                                        <input type="text" class="form-control" id="form-task-name" name="form-task-name" value="Task name" required>
+                                    </div>
+                                    <div class="form-group mb-0">
+                                        <input type="text" class="form-control" id="form-task-description" name="form-task-description" value="Description" required>
+                                    </div>
+
+                                    <div class="form-group mb-0 d-flex flex-row" >
+                                        <input type="date" class="form-control" id="form-task-date" name="form-task-date">
+                                        <select id="priority-selection">
+                                            <option class="priority-item">Priority</option>
+                                            <option class="priority-item">Priority 1</option>
+                                            <option class="priority-item">Priority 2</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between form-buttons">
+                                    <select class="projects-options">
+                                        <option class="project-name d-flex flex-row"><i class="fas fa-inbox"></i><span>Inbox</span></option>
+                                        <option class="project-name d-flex flex-row"><i class="fas fa-inbox"></i><span>Inbox1</span></option>
+                                        <option class="project-name d-flex flex-row"><i class="fas fa-inbox"></i><span>Inbox2</span></option>
+                                    </select>
+                                    <div class="buttons-group">
+                                        <input type="submit" id="submit" value="Edit Task" class="btn btn-primary" formnovalidate />
+                                        <input type="submit" class="btn btn-primary" id="js-close" value="Cancel" />
+                                    </div>
+
+                                </div>
+                            </form>
+                        </dialog>
+
                         <div class="empty-content empty-content mx-auto mt-5">
                             <img src="https://todoist.b-cdn.net/assets/images/9b83bf5d1895df53ed06506fd3cd381c.png" />
                             <p><b>What do you need to get done today?</b></p>
