@@ -34,19 +34,29 @@ document.querySelectorAll("i.expand").forEach((icon) => {
     })
 })
 
-
-
-//dialog
-const dialog = document.getElementById("dialog");
-
-document.querySelector(".fa-plus-circle").addEventListener("click", () => {
+//Open Dialog box
+const openDialog = (dialogID) => {
+    const dialog = document.getElementById(dialogID);
     dialog.showModal();
+
+}
+
+const closeDialog = (closeBtnID) => {
+    const closeDialog = document.getElementById(closeBtnID);
+    closeDialog.close();
+
+}
+
+//Add new task dialog
+const openTaskDialog = document.querySelector(".fa-plus-circle");
+openTaskDialog.addEventListener("click", () => {
+    openDialog("dialog");
 })
 
-const closeDialog = dialog.querySelector("#js-close");
-closeDialog.addEventListener("click", (e) => { //close dialog box
+const closeTaskDialog = dialog.querySelector("#js-close");
+closeTaskDialog.addEventListener("click", (e) => { //close dialog box
     e.preventDefault();
-    dialog.close();
+    closeDialog("dialog");
 });
 
 //priority
@@ -66,11 +76,11 @@ closeDialog.addEventListener("click", (e) => { //close dialog box
 // });
 
 
-//on task click
+//on task click edit task
 const taskItems = document.querySelectorAll(".task-item");
 taskItems.forEach((task) => {
     task.addEventListener('click', (e) => {
-        console.log("open")
-        document.getElementById("edit-dialog").showModal();
+        console.log("open");
+        openDialog("edit-dialog");
     })
 })
