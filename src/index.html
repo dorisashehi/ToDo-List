@@ -22,6 +22,7 @@
 
                     </div>
                     <div class="sidebar-content col min-vh-100 px-0">
+
                         <ul class="nav flex-column" id="main-menu">
                             <li class="nav-item active" id="inbox">
                                 <a href="#" class="nav-link px-0 d-flex align-items-center">
@@ -40,33 +41,38 @@
 
 
                         <ul class="nav flex-column" id="second-menu">
+
                             <li class="nav-item" id="favorites">
-                                <a href="" class="nav-link px-0 d-flex align-items-center">
-                                    <span class="">Favorites</span><i class="fas fa-caret-down"></i>
+                                <a href="" class="nav-link px-0 d-flex align-items-center justify-content-between">
+                                    <span class="">Favorites</span><i class="fas fa-angle-down"></i>
+                                </a>
+                            </li>
+
+                            <ul class="collapse nav flex-column ms-1 favorites submenu px-3">
+                                <li class="w-100 submenu-item">
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1 </a>
+                                </li>
+                                <li class="w-100 submenu-item">
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2 </a>
+                                </li>
+                            </ul>
+
+                            <li class="nav-item" id="projects">
+                                <a href="" class="nav-link px-0 d-flex align-items-center justify-content-between">
+                                    <span class="">Projects</span><i class="fas fa-angle-down"></i>
                                 </a>
 
-                                <ul class="collapse nav flex-column ms-1 favorites">
-                                    <li class="w-100 submenu-item">
-                                        <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1 </a>
-                                    </li>
-                                    <li class="w-100 submenu-item">
-                                        <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2 </a>
-                                    </li>
-                                </ul>
                             </li>
-                            <li class="nav-item" id="projects">
-                                <a href="" class="nav-link px-0 d-flex align-items-center">
-                                    <span class="">Projects</span><i class="fas fa-caret-down"></i>
-                                </a>
-                                <ul class="collapse nav flex-column ms-1 projects">
-                                    <li class="w-100 submenu-item level-1">
-                                        <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 3 </a>
-                                    </li>
-                                    <li class="w-100 submenu-item level-1">
-                                        <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 4 </a>
-                                    </li>
-                                </ul>
-                            </li>
+
+                            <ul class="collapse nav flex-column ms-1 projects submenu px-3">
+                                <li class="w-100 submenu-item level-1">
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 3 </a>
+                                </li>
+                                <li class="w-100 submenu-item level-1">
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 4 </a>
+                                </li>
+                            </ul>
+
                         </ul>
                     </div>
 
