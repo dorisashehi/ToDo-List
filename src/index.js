@@ -7,10 +7,31 @@ document.querySelector(".toggle").addEventListener("click", () => {
 
 })
 
-//toggle submenu
 
-document.querySelectorAll("i.expand").forEach((menu) => {
-    menu.addEventListener("click", (el) => {
+//add menu as active
+document.querySelectorAll("li.nav-item").forEach((menu) => {
+
+        menu.addEventListener("click", (el) => {
+
+            if(menu.parentNode.id  === "main-menu"){
+                document.querySelector("li.nav-item.active")?.classList.remove("active");
+                el.currentTarget.classList.add("active");
+            }else{
+
+                if(menu.classList.contains("submenu-item")){
+                    document.querySelector("li.nav-item.active")?.classList.remove("active");
+                    menu.classList.add("active");
+                }
+            }
+
+        });
+
+})
+
+
+//toggle submenu
+document.querySelectorAll("i.expand").forEach((icon) => {
+    icon.addEventListener("click", (el) => {
         el.target.classList.toggle("rotate-icon");
         document.querySelector(`ul.${el.target.dataset.menuExpand}`)?.classList.toggle("show");
     })
