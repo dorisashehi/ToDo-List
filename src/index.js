@@ -34,6 +34,8 @@ document.querySelectorAll("i.expand").forEach((icon) => {
     })
 })
 
+
+
 //Open Dialog box
 const openDialog = (dialogID) => {
     const dialog = document.getElementById(dialogID);
@@ -47,13 +49,27 @@ const closeDialog = (closeBtnID) => {
 
 }
 
+
+//Add new task dialog
+const openProjectDialog = document.querySelector(".new-project");
+openProjectDialog.addEventListener("click", () => {
+    openDialog("project-dialog");
+})
+
+const closeProjectDialog = document.querySelector("#project-dialog #js-close");
+closeProjectDialog.addEventListener("click", (e) => { //close dialog box
+    e.preventDefault();
+    closeDialog("project-dialog");
+});
+
+
 //Add new task dialog
 const openTaskDialog = document.querySelector(".fa-plus-circle");
 openTaskDialog.addEventListener("click", () => {
     openDialog("dialog");
 })
 
-const closeTaskDialog = dialog.querySelector("#js-close");
+const closeTaskDialog = dialog.querySelector("#dialog #js-close");
 closeTaskDialog.addEventListener("click", (e) => { //close dialog box
     e.preventDefault();
     closeDialog("dialog");
