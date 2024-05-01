@@ -8,14 +8,12 @@ document.querySelector(".toggle").addEventListener("click", () => {
 })
 
 //toggle submenu
-document.querySelectorAll("li.nav-item").forEach((menu) => {
-    menu.addEventListener("click", (el) => {
-        el.preventDefault();
-        menu.querySelector("i.fa-angle-down").classList.toggle("rotate-icon");
-        console.log(menu.querySelector("i"));
-        document.querySelector(`ul.${menu.id}`)?.classList.toggle("show");
-    })
 
+document.querySelectorAll("i.expand").forEach((menu) => {
+    menu.addEventListener("click", (el) => {
+        el.target.classList.toggle("rotate-icon");
+        document.querySelector(`ul.${el.target.dataset.menuExpand}`)?.classList.toggle("show");
+    })
 })
 
 

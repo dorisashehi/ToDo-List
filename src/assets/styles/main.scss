@@ -62,8 +62,9 @@ html{
           }
 
           &:hover{
+            background-color: var(--dark-blue);
             a{
-              color: var(--white-color);
+              //color: var(--white-color);
             }
           }
 
@@ -100,12 +101,17 @@ html{
         li{
             i.fa-angle-down{
               transform: rotate(4.7269rad);
+
               &.rotate-icon{
                 transform: rotate(0rad);
+                color: var(--white-color);
               }
             }
             i.fa-plus{
               font-size: 1rem;
+            }
+            i.fa-plus:hover, i.fa-angle-down:hover{
+              color: var(--white-color);
             }
 
           }
