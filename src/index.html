@@ -82,8 +82,10 @@
                          <!-- Modal -->
                         <dialog id="project-dialog">
                             <form method="dialog">
+                                <h4 class="dialog-header">Add Project</h4>
                                 <div class="form-fields">
                                     <div class="form-group mb-0">
+                                        <label for="form-project-name">Project Name</label>
                                         <input type="text" class="form-control" id="form-project-name" name="form-project-name" placeholder="Project name" required />
                                     </div>
 
@@ -94,7 +96,7 @@
 
                                 <div class="d-flex justify-content-between form-buttons">
                                     <div class="buttons-group">
-                                        <input type="submit" id="submit" value="Add Task" class="btn btn-primary" formnovalidate />
+                                        <input type="submit" id="submit" value="Add" class="btn btn-primary" formnovalidate />
                                         <input type="submit" class="btn btn-primary" id="js-close" value="Cancel" />
                                     </div>
 
@@ -176,6 +178,7 @@
                         <!-- Modal -->
                         <dialog id="edit-dialog">
                             <form method="dialog">
+                                <h4 class="dialog-header">Update Task</h4>
                                 <div class="form-fields d-flex">
                                     <div class="form-group mb-0 col">
                                         <input type="text" class="form-control" id="form-task-name" name="form-task-name" value="Task name" required>
@@ -206,7 +209,7 @@
 
                                 <div class="d-flex justify-content-between form-buttons">
                                     <div class="buttons-group">
-                                        <input type="submit" id="submit" value="Edit Task" class="btn btn-primary" formnovalidate />
+                                        <input type="submit" id="submit" value="Update" class="btn btn-primary" formnovalidate />
                                         <input type="submit" class="btn btn-primary" id="js-close" value="Cancel" />
                                     </div>
 
@@ -225,6 +228,7 @@
                     <!-- Modal -->
                     <dialog id="dialog">
                         <form method="dialog">
+                            <h4 class="dialog-header">New Task</h4>
                             <div class="form-fields">
                                 <div class="form-group mb-0">
                                     <input type="text" class="form-control" id="form-task-name" name="form-task-name" placeholder="Task name" required />
@@ -251,7 +255,7 @@
                                     <option class="project-name d-flex flex-row"><i class="fas fa-inbox"></i><span>Inbox2</span></option>
                                 </select>
                                 <div class="buttons-group">
-                                    <input type="submit" id="submit" value="Add Task" class="btn btn-primary" formnovalidate />
+                                    <input type="submit" id="submit" value="Add" class="btn btn-primary" formnovalidate />
                                     <input type="submit" class="btn btn-primary" id="js-close" value="Cancel" />
                                 </div>
 
