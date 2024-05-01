@@ -11,7 +11,7 @@ document.querySelector(".toggle").addEventListener("click", () => {
 document.querySelectorAll("li.nav-item").forEach((menu) => {
     menu.addEventListener("click", (el) => {
         el.preventDefault();
-        menu.querySelector("i").classList.toggle("rotate-icon");
+        menu.querySelector("i.fa-angle-down").classList.toggle("rotate-icon");
         console.log(menu.querySelector("i"));
         document.querySelector(`ul.${menu.id}`)?.classList.toggle("show");
     })

@@ -97,13 +97,18 @@ html{
       }
 
       ul#second-menu{
-        li i{
-          transform: rotate(4.6rad);
-          &.rotate-icon{
-            transform: rotate(0rad);
-          }
+        li{
+            i.fa-angle-down{
+              transform: rotate(4.7269rad);
+              &.rotate-icon{
+                transform: rotate(0rad);
+              }
+            }
+            i.fa-plus{
+              font-size: 1rem;
+            }
 
-        }
+          }
       }
 
     }
