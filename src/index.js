@@ -9,23 +9,18 @@ document.querySelector(".toggle").addEventListener("click", () => {
 
 
 //add menu as active
+
+const handleMenuClick = (el) => {
+
+    const menuItem = el.currentTarget;
+    document.querySelector("li.nav-item.active")?.classList.remove("active");
+
+    if(menuItem.parentNode.id  === "main-menu" || menuItem.classList.contains("submenu-item"))
+        menuItem.classList.add("active");
+}
+
 document.querySelectorAll("li.nav-item").forEach((menu) => {
-
-        menu.addEventListener("click", (el) => {
-
-            if(menu.parentNode.id  === "main-menu"){
-                document.querySelector("li.nav-item.active")?.classList.remove("active");
-                el.currentTarget.classList.add("active");
-            }else{
-
-                if(menu.classList.contains("submenu-item")){
-                    document.querySelector("li.nav-item.active")?.classList.remove("active");
-                    menu.classList.add("active");
-                }
-            }
-
-        });
-
+    menu.addEventListener("click", handleMenuClick)
 })
 
 
