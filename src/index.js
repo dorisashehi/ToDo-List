@@ -9,18 +9,20 @@ document.querySelector(".toggle").addEventListener("click", () => {
 
 
 //add menu as active
-
-const handleMenuClick = (el) => {
-
-    const menuItem = el.currentTarget;
+const handleMenuClick = (menuItem) => {
     document.querySelector("li.nav-item.active")?.classList.remove("active");
+    menuItem.classList.add("active");
 
-    if(menuItem.parentNode.id  === "main-menu" || menuItem.classList.contains("submenu-item"))
-        menuItem.classList.add("active");
 }
 
 document.querySelectorAll("li.nav-item").forEach((menu) => {
-    menu.addEventListener("click", handleMenuClick)
+    menu.addEventListener("click", (el)=> {
+
+        const menuItem = el.currentTarget;
+        if(menuItem.parentNode.id  === "main-menu" || menuItem.classList.contains("submenu-item")){
+            handleMenuClick(menuItem)
+        }
+    })
 })
 
 
