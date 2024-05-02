@@ -391,7 +391,75 @@ ul.show-dropdown{
   }
 }
 
+[type="checkbox"]{
+  opacity: 0;
+}
 
+[type="checkbox"] + label{
+  position: relative;
+  // padding-left: 30px;
+  cursor: pointer;
+  // display: inline-block;
+  color: #666;
+  // line-height: 25px;
+}
+
+[type="checkbox"] + label::before{
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  outline: 2px solid #aaa;
+  background: #fff;
+  left: 0px;
+  top: 0px;
+}
+
+[type="checkbox"]:checked + label::before{
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  outline: 2px solid #e34735;
+  background: #fff;
+  left: 0px;
+  top: 0px;
+}
+
+[type="checkbox"]:checked + label::after{
+  content: '✔';
+  position: absolute;
+  color: #e34735;
+  width: 15px;
+  height: 15px;
+  outline: 2px solid #e34735;
+  background: #fff;
+  left: 0px;
+  top: 0px;
+  opacity: 1;
+  transition: all .3s ease;
+  line-height: 16px;
+}
+
+[type="checkbox"]:not(:checked) + label::after{
+  content: '✔';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  outline: 2px solid #e34735;
+  background: #fff;
+  color: #e34735;
+  left: 0px;
+  top: 0px;
+  opacity: 0;
+  line-height: 16px;
+}
+
+.complete-btn{
+  #completed{
+    display: none;
+  }
+}
 /*Mobile style*/
 
 @media screen and (min-width:991px){
