@@ -225,9 +225,6 @@ Content style
           }
         }
       }
-      .complete-btn{
-
-      }
     }
   }
   .menu-name{
@@ -261,6 +258,8 @@ Content style
     input[type="text"]{
       border: none;
       padding: 10px;
+      font-size: 0.9rem;
+      color: #181d30;
 
       ::placeholder{
         color: #919191;
@@ -273,16 +272,14 @@ Content style
         //border: 2px dashed #b7b7b7;
       }
       &#form-task-name{
-        color: #181d30;
-        font-size: 1rem;
+
         font-weight: 500;
       }
       &#form-project-name{
         border: 2px dashed #b7b7b7;
         border-radius: 0em;
         padding: 10px;
-        color: #181d30;
-        font-size: 0.9rem;
+
       }
 
 
@@ -403,14 +400,9 @@ ul.show-dropdown{
       }
     }
   }
-  // .sidebar-col.show{
-  //   left: -256px;
-  //   margin-right: -256px;
-  // }
 
   .only-mobile{
     display: none;
-
   }
 
   .container-fluid{
