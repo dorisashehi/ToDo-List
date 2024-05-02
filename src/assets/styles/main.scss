@@ -341,6 +341,12 @@ Content style
       text-align: left;
     }
 
+    .complete-btn{
+      width: 25px;
+      &:focus-visible{
+        outline: unset;
+      }
+    }
   }
 }
 #edit-dialog{

@@ -93,7 +93,7 @@ closeTaskDialog.addEventListener("click", (e) => { //close dialog box
 
 
 //on task click edit task
-const taskItems = document.querySelectorAll(".task-item");
+const taskItems = document.querySelectorAll(".task-content");
 taskItems.forEach((task) => {
     task.addEventListener('click', (e) => {
         console.log("open");
