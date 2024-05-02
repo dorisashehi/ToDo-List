@@ -2,6 +2,8 @@
 @import "fonts.scss";
 @import "variables.scss";
 
+
+//lauout style
 body{
   color: #b6b9c1;
   font-family: "Roboto", sans-serif;
@@ -361,6 +363,12 @@ Content style
         outline: unset;
       }
     }
+    .comment-editor{
+      display: none;
+    }
+    .comment-editor.show{
+      display: block;
+    }
   }
 }
 #edit-dialog{
@@ -395,11 +403,11 @@ Content style
 }
 
 
-
 //Complete task styles
 
 .completed[type="checkbox"]{
   opacity: 0;
+  display: none;
 }
 
 .completed[type="checkbox"] + label{
@@ -438,7 +446,7 @@ Content style
   transition: all .3s ease;
   line-height: 16px;
 }
-.completed[type="checkbox"]:checked + label::after{
+.completed[type="checkbox"]:checked + label::after, .completed[type="checkbox"] + label::after{
   opacity: 1;
 }
 
@@ -446,11 +454,8 @@ Content style
   opacity: 0;
 }
 
-// .complete-btn{
-//   .completed{
-//     display: none;
-//   }
-// }
+
+
 
 
 /*Mobile style*/

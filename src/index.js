@@ -100,3 +100,27 @@ taskItems.forEach((task) => {
         openDialog("edit-dialog");
     })
 })
+
+
+//cpomments
+
+
+// document.querySelector(".comment-plus").addEventListener("click", () => {
+//     document.querySelector(".comment-btn").classList.toggle("show");
+
+// })
+// var container = document.getElementById('editor'); // The container for Quill
+// console.log(container);
+//     var editor = new Quill(container, {
+//       theme: 'snow', // Theme for the Quill editor
+//       modules: {
+//         toolbar: [
+//           [{ 'header': [1, 2, false] }], // Header formatting
+//           ['bold', 'italic', 'underline'], // Text formatting
+//           [{ 'list': 'ordered' }, { 'list': 'bullet' }], // Lists
+//           ['link', 'image'], // Adding links and images
+//           ['clean'] // Removing formatting
+//         ]
+//       }
+//     });
+
