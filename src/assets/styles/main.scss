@@ -265,12 +265,15 @@ Content style
       ::placeholder{
         color: #919191;
       }
+      ::-ms-input-placeholder { /* Edge 12-18 */
+        color: #919191;
+      }
       &.form-control{
         padding-left: 0px;
         //border: 2px dashed #b7b7b7;
       }
       &#form-task-name{
-        color: #919191;
+        color: #181d30;
         font-size: 1rem;
         font-weight: 500;
       }
@@ -278,7 +281,7 @@ Content style
         border: 2px dashed #b7b7b7;
         border-radius: 0em;
         padding: 10px;
-        color: #919191;
+        color: #181d30;
         font-size: 0.9rem;
       }
 
@@ -292,7 +295,7 @@ Content style
     }
     textarea{
       &#form-task-description{
-        color: #919191;
+        color: #181d30;
         border: 2px dashed #b7b7b7;
         font-size: 0.9rem;
         border-radius: 0em;
@@ -302,11 +305,13 @@ Content style
       font-size: 0.9rem;
       align-items: center;
       height: 32px;
-      width: fit-content;
       border: 2px dashed #b7b7b7;
       margin-top: 15px;
       border-radius: unset;
 
+    }
+    #form-task-date{
+      width: 153px;
     }
     #priority-selection{
       option{
@@ -357,6 +362,9 @@ Content style
 select, select:focus-visible{
   border: none;
   background: white;
+  color: #181d30;
+  outline: none;
+  width: 153px;
 }
 
 ul.show-dropdown{
