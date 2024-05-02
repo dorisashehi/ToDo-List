@@ -96,8 +96,8 @@
 
                                 <div class="form-fields">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
-                                        <label class="form-check-label" for="flexSwitchCheckChecked">Add to favorites</label>
+                                        <input class="form-check-input" type="checkbox" id="favorites-box">
+                                        <label class="form-check-label" for="favorites-boxh">Add to favorites</label>
                                     </div>
                                 </div>
 
@@ -161,8 +161,9 @@
 
                         <div class="task">
                             <div class="row task-item">
-                                <div class="col-1 complete-btn">
+                                <div class="col-1 complete-btn d-flex justify-content-center pt-1">
                                     <input type="checkbox" id="completed" name="completed" value="1">
+                                    <label for="completed"></label>
                                 </div>
                                 <div class="col task-content">
                                     <div class="row task-name  mb-2">
@@ -184,11 +185,6 @@
                             <form method="dialog">
                                 <h4 class="dialog-header">Update Task</h4>
                                 <div class="form-fields d-flex">
-
-                                    <div class="col-1 complete-btn px-0">
-                                        <input type="checkbox" id="completed" name="completed" value="1">
-                                        <label for="completed"></label>
-                                    </div>
 
                                     <div class="form-group mb-0 col">
                                         <input type="text" class="form-control" id="form-task-name" name="form-task-name" value="Task name" placeholder="Task name" required>
