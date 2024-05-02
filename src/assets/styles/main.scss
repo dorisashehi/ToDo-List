@@ -286,7 +286,7 @@ Content style
     }
     label{
       color: #929292;
-      font-size: 1.2rem;
+      font-size: 0.9rem;
       font-weight: 500;
 
     }
@@ -363,7 +363,22 @@ ul.show-dropdown{
   display: block;
 }
 
-
+#project-dialog{
+  .form-check-input:checked{
+    background-color: var(--yellow-color);
+    border-color: var(--yellow-color);
+  }
+  .form-check-input:checked:focus{
+    border-color: var(--yellow-color);
+    --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27%3e%3ccircle r=%273%27 fill=%27%23fff%27/%3e%3c/svg%3e");
+    box-shadow: unset;
+  }
+  .form-check-input:focus{
+    border-color: var(--green-color);
+    --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27%3e%3ccircle r=%273%27 fill=%27rgba%280, 0, 0, 0.25%29%27/%3e%3c/svg%3e");
+    box-shadow: unset;
+  }
+}
 
 
 /*Mobile style*/
