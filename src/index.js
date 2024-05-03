@@ -1,4 +1,21 @@
 import './assets/styles/main.scss'
+import { Interface } from './modules/interface';
+
+//create project functionality
+Interface.createProject();
+
+//show list of tasks in container
+Interface.showTasks();
+
+//show edit task
+Interface.editTask();
+
+//show empty content
+Interface.showEmptyContent();
+
+//show create task diclog
+
+Interface.createTask();
 
 
 //sidebar
