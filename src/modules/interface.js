@@ -6,8 +6,8 @@ const Interface = (() => {
     const menuModule = (() => {
 
 
-
         const getMenuItem = (subMenu) => {
+
             return(
                 `
                     <li class="w-100 submenu-item nav-item">
@@ -19,13 +19,12 @@ const Interface = (() => {
 
         const loadSubMenu = (menuName) => { //function to load submenu
 
-            const subMenu = document.querySelector("ul.submenu."+menuName);
             let subMenuCon = '';
             if(localStorage.length !== 0){
                 subMenuCon = JSON.parse(localStorage[menuName.trim()]).map(subMenu => getMenuItem(subMenu)).join('');
             }
-            subMenu.innerHTML = subMenuCon;
 
+            document.querySelector("ul.submenu."+menuName).innerHTML = subMenuCon;
 
         }
 
@@ -300,7 +299,8 @@ const Interface = (() => {
         showTasks,
         editTask,
         showEmptyContent,
-        createTask
+        createTask,
+        menuModule
     }
 
 
