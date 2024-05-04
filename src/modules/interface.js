@@ -59,6 +59,12 @@ const Interface = (() => {
 
             }
 
+            const resetForm = (form) => {
+                form.reset();//clear form inputs
+
+            }
+
+
             const handleFormSubmit = (form) => {//after form is submited
                 form.addEventListener("submit", function (event) {
                     event.preventDefault(); // Prevent the default form submission behavior
@@ -68,6 +74,8 @@ const Interface = (() => {
                     let favoriteValue = form.elements["favorites-box"].value;
 
                     manageProject.createProject(projectName, favoriteValue);
+
+                    resetForm(form);
 
                 })
             }

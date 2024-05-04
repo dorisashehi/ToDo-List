@@ -28,7 +28,7 @@ const manageProject = (() =>{
 
     let projects = [];
 
-    const createProject = (name, favorited) => {
+    const createProject = (name, favorited) => { //create a new ptoject and add it to local storage
 
         const project = new Project(name, favorited);
         project.id = generateRandomId();
