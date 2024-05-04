@@ -1,3 +1,5 @@
+import {Project, Task, manageProject} from './app.js';
+
 const Interface = (() => {
 
 
@@ -64,7 +66,9 @@ const Interface = (() => {
                     // Get the values from form elements
                     let projectName = form.elements["form-project-name"].value;
                     let favoriteValue = form.elements["favorites-box"].value;
-                    debugger
+
+                    manageProject.createProject(projectName, favoriteValue);
+
                 })
             }
 
