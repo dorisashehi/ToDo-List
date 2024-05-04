@@ -47,6 +47,19 @@ const Interface = (() => {
 
             }
 
+            //Open Dialog box
+            const openDialog = (dialogID) => {
+                const dialog = document.getElementById(dialogID);
+                dialog.showModal();
+
+            }
+
+            const closeDialog = (closeBtnID) => {
+                const closeDialog = document.getElementById(closeBtnID);
+                closeDialog.close();
+
+            }
+
 
             const addToFavorite = () => { //add or remove from favorite
 
@@ -61,8 +74,10 @@ const Interface = (() => {
 
             const resetForm = (form) => {
                 form.reset();//clear form inputs
-
+                closeDialog("project-dialog");
             }
+
+
 
 
             const handleFormSubmit = (form) => {//after form is submited
@@ -84,7 +99,10 @@ const Interface = (() => {
 
         return{
             createProjectDialog,
-            addToFavorite
+            addToFavorite,
+            openDialog,
+            closeDialog
+
         }
     })();
 

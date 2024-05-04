@@ -76,8 +76,10 @@ const closeDialog = (closeBtnID) => {
 //Add new task dialog functionality
 const openProjectDialog = document.querySelector(".new-project");
 openProjectDialog.addEventListener("click", () => {
-    openDialog("project-dialog");
+
+    Interface.projectModule.openDialog("project-dialog");
     Interface.projectModule.addToFavorite();
+
 })
 
 
