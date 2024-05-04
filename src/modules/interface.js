@@ -1,45 +1,81 @@
 const Interface = (() => {
 
 
-    const createProject = () => {
+    const projectModule = (() => {
 
-        const projectDialog = document.getElementById("project-dialog");
 
-        const dialogForm = document.createElement('form');
-        dialogForm.setAttribute("method", "POST");
-        dialogForm.innerHTML =
-        `
-            <h4 class="dialog-header">Add Project</h4>
-            <div class="form-fields">
-                <div class="form-group mb-0">
-                    <label for="form-project-name">Project Name</label>
-                    <input type="text" class="form-control" id="form-project-name" name="form-project-name" placeholder="Project name" required />
-                </div>
 
-                <div class="form-group mb-0 d-flex flex-row gap-3" >
+            const createProjectDialog = () => {
 
-                </div>
-            </div>
+                const projectDialog = document.getElementById("project-dialog");
 
-            <div class="form-fields">
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="favorites-box">
-                    <label class="form-check-label" for="favorites-boxh">Add to favorites</label>
-                </div>
-            </div>
+                const dialogForm = document.createElement('form');
+                dialogForm.setAttribute("method", "POST");
 
-            <div class="d-flex justify-content-between form-buttons">
-                <div class="buttons-group">
-                    <input type="submit" id="submit" value="Add" class="btn btn-primary" formnovalidate />
-                    <input type="submit" class="btn btn-primary" id="js-close" value="Cancel" />
-                </div>
+                dialogForm.innerHTML =
+                `
+                    <h4 class="dialog-header">Add Project</h4>
+                    <div class="form-fields">
+                        <div class="form-group mb-0">
+                            <label for="form-project-name">Project Name</label>
+                            <input type="text" class="form-control" id="form-project-name" name="form-project-name" placeholder="Project name" required />
+                        </div>
+                    </div>
+                    <div class="form-fields">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="favorites-box" name="favorites-box">
+                            <label class="form-check-label" for="favorites-boxh">Add to favorites</label>
+                        </div>
+                    </div>
 
-            </div>
+                    <div class="d-flex justify-content-between form-buttons">
+                        <div class="buttons-group">
+                            <input type="submit" id="submit" value="Add" class="btn btn-primary" formnovalidate />
+                            <input type="submit" class="btn btn-primary" id="js-close" value="Cancel" />
+                        </div>
 
-        `;
+                    </div>
 
-        projectDialog.appendChild(dialogForm);
-    }
+                `;
+
+                projectDialog.appendChild(dialogForm);
+
+                handleFormSubmit(dialogForm);
+
+
+            }
+
+
+            const addToFavorite = () => { //add or remove from favorite
+
+                const favCheckbox  = document.getElementById("favorites-box");
+                let favoritedProject = false;
+                document.getElementById("favorites-box").addEventListener("click", () => {
+                    favoritedProject = !favoritedProject;
+                    favCheckbox.value = favoritedProject;
+                });
+
+            }
+
+            const handleFormSubmit = (form) => {//after form is submited
+                form.addEventListener("submit", function (event) {
+                    event.preventDefault(); // Prevent the default form submission behavior
+
+                    // Get the values from form elements
+                    let projectName = form.elements["form-project-name"].value;
+                    let favoriteValue = form.elements["favorites-box"].value;
+                    debugger
+                })
+            }
+
+
+
+        return{
+            createProjectDialog,
+            addToFavorite
+        }
+    })();
+
 
 
     const showTasks = () => {
@@ -191,12 +227,14 @@ const Interface = (() => {
 
         `;
         dialog.appendChild(dialogForm);
+
+
     }
 
 
 
     return {
-        createProject,
+        projectModule,
         showTasks,
         editTask,
         showEmptyContent,

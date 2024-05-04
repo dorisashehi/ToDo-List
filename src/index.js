@@ -2,7 +2,7 @@ import './assets/styles/main.scss'
 import { Interface } from './modules/interface';
 
 //create project functionality
-Interface.createProject();
+Interface.projectModule.createProjectDialog();
 
 //show list of tasks in container
 Interface.showTasks();
@@ -53,6 +53,12 @@ document.querySelectorAll("i.expand").forEach((icon) => {
 
 
 
+
+
+
+
+
+
 //Open Dialog box
 const openDialog = (dialogID) => {
     const dialog = document.getElementById(dialogID);
@@ -67,11 +73,17 @@ const closeDialog = (closeBtnID) => {
 }
 
 
-//Add new task dialog
+//Add new task dialog functionality
 const openProjectDialog = document.querySelector(".new-project");
 openProjectDialog.addEventListener("click", () => {
     openDialog("project-dialog");
+    Interface.projectModule.addToFavorite();
 })
+
+
+
+
+
 
 const closeProjectDialog = document.querySelector("#project-dialog #js-close");
 closeProjectDialog.addEventListener("click", (e) => { //close dialog box
