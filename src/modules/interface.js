@@ -3,6 +3,37 @@ import {Project, Task, manageProject} from './app.js';
 const Interface = (() => {
 
 
+    const menuModule = (() => {
+
+
+
+        const getMenuItem = (subMenu) => {
+            return(
+                `
+                    <li class="w-100 submenu-item nav-item">
+                        <a href="#" class="nav-link px-3"> <span class="d-none d-sm-inline">${subMenu.name}</span></a>
+                    </li>
+                `
+            )
+        }
+
+        const loadSubMenu = (menuName) => { //function to load submenu
+
+            const subMenu = document.querySelector("ul.submenu."+menuName);
+            let subMenuCon = '';
+            if(localStorage.length !== 0){
+                subMenuCon = JSON.parse(localStorage[menuName.trim()]).map(subMenu => getMenuItem(subMenu)).join('');
+            }
+            subMenu.innerHTML = subMenuCon;
+
+
+        }
+
+        return {loadSubMenu}
+
+    })();
+
+
     const projectModule = (() => {
 
 
@@ -47,6 +78,8 @@ const Interface = (() => {
 
             }
 
+
+
             //Open Dialog box
             const openDialog = (dialogID) => {
                 const dialog = document.getElementById(dialogID);
@@ -78,8 +111,6 @@ const Interface = (() => {
             }
 
 
-
-
             const handleFormSubmit = (form) => {//after form is submited
                 form.addEventListener("submit", function (event) {
                     event.preventDefault(); // Prevent the default form submission behavior
@@ -91,6 +122,7 @@ const Interface = (() => {
                     manageProject.createProject(projectName, favoriteValue);
 
                     resetForm(form);
+                    menuModule.loadSubMenu("projects");
 
                 })
             }

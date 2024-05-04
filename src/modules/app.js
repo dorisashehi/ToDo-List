@@ -19,7 +19,6 @@ class Project{
 const generateRandomId = () => { //create a random id to use as task id and project id
 
     const newUuid = uuidv4();
-    console.log('Generated UUID:', newUuid);
     return newUuid;
 }
 
@@ -33,10 +32,9 @@ const manageProject = (() =>{
         const project = new Project(name, favorited);
         project.id = generateRandomId();
         projects.push(project);
+
         localStorage.setItem('projects', JSON.stringify(projects));
     }
-
-
 
     return {createProject}
 
