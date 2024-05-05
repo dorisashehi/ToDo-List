@@ -35,7 +35,7 @@ const manageProject = (() =>{
         let newStorage = {
             id: project.id,
             name: project.name,
-            favorited: project.favorited
+            favorited: project.favorites
         }
 
 

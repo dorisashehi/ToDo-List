@@ -55,7 +55,7 @@ const Interface = (() => {
                     </div>
                     <div class="form-fields">
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="favorites-box" name="favorites-box">
+                            <input class="form-check-input" type="checkbox" id="favorites-box" value="false" name="favorites-box">
                             <label class="form-check-label" for="favorites-boxh">Add to favorites</label>
                         </div>
                     </div>
@@ -117,6 +117,7 @@ const Interface = (() => {
                     // Get the values from form elements
                     let projectName = form.elements["form-project-name"].value;
                     let favoriteValue = form.elements["favorites-box"].value;
+
 
                     manageProject.createProject(projectName, favoriteValue);
 
