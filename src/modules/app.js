@@ -31,9 +31,23 @@ const manageProject = (() =>{
 
         const project = new Project(name, favorited);
         project.id = generateRandomId();
-        projects.push(project);
 
+        let newStorage = {
+            id: project.id,
+            name: project.name,
+            favorited: project.favorited
+        }
+
+
+        let localStrPro = localStorage.getItem("projects");
+        if(localStrPro !== null){
+            projects = [...JSON.parse(localStrPro), newStorage]
+        }
+        else{
+            projects = [newStorage];
+        }
         localStorage.setItem('projects', JSON.stringify(projects));
+
     }
 
     return {createProject}
