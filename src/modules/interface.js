@@ -17,18 +17,30 @@ const Interface = (() => {
             )
         }
 
-        const loadSubMenu = (menuName) => { //function to load submenu
+        const filterProjects = () => { //filter only favorites submenu
+            return JSON.parse(localStorage["projects"]).map(subMenu => getMenuItem(subMenu)).join('');
+        }
+
+        const filterFavorites = () => {// filter only projects submenu
+            return   JSON.parse(localStorage["projects"]).filter(item => { return item.favorited === "true"}).map(subMenu => getMenuItem(subMenu)).join('');
+        }
+
+
+
+        const refreshSubMenu = (menuName) => { //function to load submenu
 
             let subMenuCon = '';
             if(localStorage.length !== 0){
-                subMenuCon = JSON.parse(localStorage[menuName.trim()]).map(subMenu => getMenuItem(subMenu)).join('');
+
+                if(menuName == "favorites") subMenuCon = filterFavorites();
+                if(menuName == "projects") subMenuCon = filterProjects();
+
             }
 
             document.querySelector("ul.submenu."+menuName).innerHTML = subMenuCon;
-
         }
 
-        return {loadSubMenu}
+        return {refreshSubMenu}
 
     })();
 
@@ -122,7 +134,8 @@ const Interface = (() => {
                     manageProject.createProject(projectName, favoriteValue);
 
                     resetForm(form);
-                    menuModule.loadSubMenu("projects");
+                    menuModule.refreshSubMenu("projects");
+                    menuModule.refreshSubMenu("favorites");
 
                 })
             }

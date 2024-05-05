@@ -1,8 +1,12 @@
 import './assets/styles/main.scss'
 import { Interface } from './modules/interface';
 
+//load submenu on page load
+Interface.menuModule.refreshSubMenu("projects");
+Interface.menuModule.refreshSubMenu("favorites");
 //create project functionality
 Interface.projectModule.createProjectDialog();
+
 
 //show list of tasks in container
 Interface.showTasks();
