@@ -22,10 +22,15 @@ const generateRandomId = () => { //create a random id to use as task id and proj
     return newUuid;
 }
 
+const getLocalStorage = (strName) => {
+    return localStorage.getItem(strName);
+}
+
 
 const manageProject = (() =>{
 
     let projects = [];
+
 
     const createProject = (name, favorited) => { //create a new ptoject and add it to local storage
 
@@ -39,7 +44,7 @@ const manageProject = (() =>{
         }
 
 
-        let localStrPro = localStorage.getItem("projects");
+        let localStrPro = getLocalStorage("projects");
         if(localStrPro !== null){
             projects = [...JSON.parse(localStrPro), newStorage]
         }
