@@ -133,6 +133,11 @@ button.btn, input[type='submit']{
     font-size: 1rem;
     color: var(--white-color);
 }
+.btn:disabled, .btn.disabled, fieldset:disabled .btn{
+  background-color: var(--yellow-color);
+  border-color: var(--yellow-color);
+  opacity: 0.4;
+}
 .btn:hover , .btn:focus, .btn:active {
   color: var(--white-color);
   background-color: var(--yellow-color);

@@ -49,6 +49,7 @@ const Interface = (() => {
 
 
 
+            //create project dialog
             const createProjectDialog = () => {
 
                 const projectDialog = document.getElementById("project-dialog");
@@ -74,7 +75,7 @@ const Interface = (() => {
 
                     <div class="d-flex justify-content-between form-buttons">
                         <div class="buttons-group">
-                            <input type="submit" id="submit" value="Add" class="btn btn-primary" formnovalidate />
+                            <input type="submit" id="submit" value="Add" class="btn btn-primary" disabled formnovalidate />
                             <input type="submit" class="btn btn-primary" id="js-close" value="Cancel" />
                         </div>
 
@@ -84,12 +85,33 @@ const Interface = (() => {
 
                 projectDialog.appendChild(dialogForm);
 
+                //call below functions
+                enableSubmitBtn();
                 handleFormSubmit(dialogForm);
 
 
             }
 
+            //enable submit button based on input
+            const enableSubmitBtn = () => {
+                let timer;
 
+                document.getElementById("form-project-name").addEventListener("input", (el) => {
+
+                    clearTimeout(timer);
+                    const submitBtn = document.querySelector("#submit");
+
+                    timer = setTimeout(() => {
+                        if(el.target.value !== "") {
+                            submitBtn.removeAttribute("disabled");
+                            return;
+
+                        }
+                        submitBtn.setAttribute("disabled","");
+                    },500)
+                })
+
+            }
 
             //Open Dialog box
             const openDialog = (dialogID) => {
@@ -98,13 +120,14 @@ const Interface = (() => {
 
             }
 
+            //close Dialog box
             const closeDialog = (closeBtnID) => {
                 const closeDialog = document.getElementById(closeBtnID);
                 closeDialog.close();
 
             }
 
-
+            //to as favorite project
             const addToFavorite = () => { //add or remove from favorite
 
                 const favCheckbox  = document.getElementById("favorites-box");
@@ -113,15 +136,15 @@ const Interface = (() => {
                     favoritedProject = !favoritedProject;
                     favCheckbox.value = favoritedProject;
                 });
-
             }
 
+            //reset form fields
             const resetForm = (form) => {
                 form.reset();//clear form inputs
                 closeDialog("project-dialog");
             }
 
-
+            //submit button action
             const handleFormSubmit = (form) => {//after form is submited
                 form.addEventListener("submit", function (event) {
                     event.preventDefault(); // Prevent the default form submission behavior
@@ -140,8 +163,6 @@ const Interface = (() => {
                 })
             }
 
-
-
         return{
             createProjectDialog,
             addToFavorite,
@@ -149,6 +170,7 @@ const Interface = (() => {
             closeDialog
 
         }
+
     })();
 
 
