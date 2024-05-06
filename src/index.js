@@ -9,17 +9,17 @@ Interface.projectModule.createProjectDialog();
 
 
 //show list of tasks in container
-Interface.showTasks();
+Interface.tasksModule.showTasks();
 
 //show edit task
-Interface.editTask();
+Interface.tasksModule.editTask();
 
 //show empty content
-Interface.showEmptyContent();
+Interface.tasksModule.showEmptyContent();
 
 //show create task diclog
 
-Interface.createTask();
+Interface.tasksModule.createTask();
 
 
 //sidebar

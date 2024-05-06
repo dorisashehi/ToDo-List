@@ -94,5 +94,20 @@ class Task{
 }
 
 
+const manageTask = (() => {
 
-export{Project, Task, manageProject}
+    const createTask = (name, descr, pro_id, due_date, priority) => {
+
+    }
+
+    const getProjects = (storageName) => {
+        return getLocalStorage(storageName);
+    }
+
+    return {getProjects}
+
+})();
+
+
+
+export { Project, Task, manageProject, manageTask }
