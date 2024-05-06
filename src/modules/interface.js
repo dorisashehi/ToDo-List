@@ -28,7 +28,7 @@ const Interface = (() => {
         }
 
         const filterFavorites = () => {// filter only projects submenu
-            return   JSON.parse(localStorage["projects"])
+            return  JSON.parse(localStorage["projects"])
                         .filter(item => { return item.favorited === "true"})
                         .map(subMenu => getMenuItem(subMenu)).join('');
         }
@@ -165,8 +165,9 @@ const Interface = (() => {
 
                     resetForm(form);
                     closeDialog("project-dialog");
-                    menuModule.refreshSubMenu("projects");
-                    menuModule.refreshSubMenu("favorites");
+                    menuModule.refreshSubMenu("projects"); //show project to projects submenu
+                    menuModule.refreshSubMenu("favorites");//show thta project at favorites submenu
+                    tasksModule.projectLists(); //add new project to task project select
 
                 })
             }
@@ -341,7 +342,7 @@ const Interface = (() => {
 
         //set options to project select field of form
         const projectLists = () => {
-            JSON.parse(manageTask.getProjects("projects")).forEach(item => {
+            JSON.parse(manageTask.getProjects("projects"))?.forEach(item => {
                 const option = document.createElement("option");
                 option.classList.add("project-name", "d-flex","flex-row");
                 option.value =item.id;
@@ -354,12 +355,24 @@ const Interface = (() => {
             })
         }
 
+        //Open Dialog box
+        const openDialog = (dialogID) => {
+            const dialog = document.getElementById(dialogID);
+            dialog.showModal();
+
+        }
+
+        //close Dialog box
+        const closeDialog = (closeBtnID) => {
+            const closeDialog = document.getElementById(closeBtnID);
+            closeDialog.close();
+
+        }
+
         //handle form submit
         const handleFormSubmit = (form) => {
             form.addEventListener("submit", function (event) {
                 event.preventDefault(); // Prevent the default form submission behavior
-
-
 
                 // Get the values from form elements
                 let taskName = form.elements["form-task-name"].value;
@@ -375,11 +388,13 @@ const Interface = (() => {
                 // menuModule.refreshSubMenu("favorites");
 
             })
+        }
 
+        const refreshTasks = () => {
 
         }
 
-        return { showTasks, editTask, createTask, showEmptyContent }
+        return { showTasks, editTask, createTask, showEmptyContent,  openDialog, closeDialog, projectLists }
     })();
 
 
