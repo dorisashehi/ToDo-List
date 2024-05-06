@@ -63,8 +63,8 @@ const manageProject = (() =>{
 
 class Task{
 
-    constructor(id, name, descr, pro_id, due_date, priority){
-        this.id = id;
+    constructor(name, descr, pro_id, due_date, priority){
+        this.name = name;
         this.descr = descr;
         this.pro_id = pro_id;
         this.due_date = due_date;
@@ -95,8 +95,30 @@ class Task{
 
 
 const manageTask = (() => {
+    let tasks = [];
 
     const createTask = (name, descr, pro_id, due_date, priority) => {
+        const task = new Task(name, descr, pro_id, due_date, priority);
+        task.id = generateRandomId();
+
+        let newStorage = {
+            id: task.id,
+            name: task.name,
+            descr: task.descr,
+            pro_id: task.pro_id,
+            due_date: task.due_date,
+            priority: task.priority
+        }
+
+
+        let localStrTasks = getLocalStorage("tasks");
+        if(localStrTasks !== null){
+            tasks = [...JSON.parse(localStrTasks), newStorage]
+        }
+        else{
+            tasks = [newStorage];
+        }
+        localStorage.setItem('tasks', JSON.stringify(tasks));
 
     }
 
@@ -104,7 +126,7 @@ const manageTask = (() => {
         return getLocalStorage(storageName);
     }
 
-    return {getProjects}
+    return {getProjects, createTask}
 
 })();
 

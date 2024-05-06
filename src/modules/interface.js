@@ -53,6 +53,11 @@ const Interface = (() => {
     })();
 
 
+    //reset form fields
+    const resetForm = (form) => {
+        form.reset();//clear form inputs
+    }
+
     const projectModule = (() => {
 
 
@@ -146,12 +151,6 @@ const Interface = (() => {
                 });
             }
 
-            //reset form fields
-            const resetForm = (form) => {
-                form.reset();//clear form inputs
-                closeDialog("project-dialog");
-            }
-
             //submit button action
             const handleFormSubmit = (form) => {//after form is submited
                 form.addEventListener("submit", function (event) {
@@ -165,6 +164,7 @@ const Interface = (() => {
                     manageProject.createProject(projectName, favoriteValue);
 
                     resetForm(form);
+                    closeDialog("project-dialog");
                     menuModule.refreshSubMenu("projects");
                     menuModule.refreshSubMenu("favorites");
 
@@ -321,7 +321,7 @@ const Interface = (() => {
 
                 <div class="d-flex justify-content-between form-buttons">
                     <select class="projects-options" name="project-name" id="task-pro-selection">
-                        <option class="project-name d-flex flex-row" data-pro-id = "${defaultProID}"><span>Inbox</span></option>
+                        <option class="project-name d-flex flex-row" value = "${defaultProID}"><span>Inbox</span></option>
                     </select>
                     <div class="buttons-group">
                         <input type="submit" id="submit" value="Add" class="btn btn-primary" formnovalidate />
@@ -344,7 +344,7 @@ const Interface = (() => {
             JSON.parse(manageTask.getProjects("projects")).forEach(item => {
                 const option = document.createElement("option");
                 option.classList.add("project-name", "d-flex","flex-row");
-                option.setAttribute("data-pro-id", item.id);
+                option.value =item.id;
 
                 const optionSpan = document.createElement("span");
                 optionSpan.textContent = item.name;
@@ -359,21 +359,18 @@ const Interface = (() => {
             form.addEventListener("submit", function (event) {
                 event.preventDefault(); // Prevent the default form submission behavior
 
-                console.log(form.elements);
+
 
                 // Get the values from form elements
                 let taskName = form.elements["form-task-name"].value;
                 let taskDescription = form.elements["form-task-description"].value;
                 let taskDate = form.elements["form-task-date"].value;
                 let taskPriority = form.elements["priority-selection"].value;
-                let taskProName = form.elements["project-name"].value;
+                let taskProID = form.elements["project-name"].value;
 
-                //debugger
+                manageTask.createTask(taskName, taskDescription, taskProID, taskDate, taskPriority);
 
-
-                // manageProject.createProject(projectName, favoriteValue);
-
-                // resetForm(form);
+                resetForm(form);
                 // menuModule.refreshSubMenu("projects");
                 // menuModule.refreshSubMenu("favorites");
 
