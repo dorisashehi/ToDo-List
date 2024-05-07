@@ -312,18 +312,20 @@ const Interface = (() => {
 
                     <div class="form-group mb-0 d-flex flex-row gap-3" >
                         <input type="date" class="form-control form-task-date" id="add-task-date" name="add-task-date">
-                        <select class="priority-selection" id="priority-selection">
-                            <option class="priority-item">Priority 1</option>
-                            <option class="priority-item">Priority 2</option>
-                            <option class="priority-item">Priority 3</option>
+                        <select class="priority-selection" id="add-priority-selection" name="priority-selection">
+                            <option class="priority-item" value="default" selected disabled>Priority</option>
+                            <option class="priority-item" value="priority1">Priority 1</option>
+                            <option class="priority-item" value="priority2">Priority 2</option>
+                            <option class="priority-item" value="priority3">Priority 3</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-between form-buttons">
                     <select class="projects-options task-pro-selection" name="project-name" id="add-pro-selection">
+                        <option class="project-name d-flex flex-row" value = "default" selected disabled><span>No project choosen</span></option>
                         <option class="project-name d-flex flex-row" value = "${defaultProID}"><span>Inbox</span></option>
-                    </select>
+                        </select>
                     <div class="buttons-group">
                         <input type="submit" id="submit-task" value="Add" class="btn btn-primary" disabled formnovalidate />
                         <input type="submit" class="btn btn-primary" id="js-close" value="Cancel" />
@@ -348,11 +350,15 @@ const Interface = (() => {
 
             const formFields = [
                 document.getElementById("add-task-name"),
-                document.getElementById("add-task-description")
+                document.getElementById("add-task-description"),
+                document.getElementById("add-priority-selection"),
+                document.getElementById("add-pro-selection"),
+                document.getElementById("add-task-date")
             ];
 
             formFields.forEach(field => {
-                field.addEventListener("input", () => {
+                field.addEventListener("change", () => {
+                    //console.log(document.getElementById("add-priority-selection").value);
                     clearTimeout(timer);
                     timer = setTimeout(() => {
                         toogleSubmitButton(formFields);
@@ -378,7 +384,7 @@ const Interface = (() => {
             let allFilled = true;
 
             formFields.forEach(item => {
-                if(item.value === ""){
+                if(item.value === "" || item.value === "default"){
                     allFilled = false;
                 }
             })
@@ -421,15 +427,16 @@ const Interface = (() => {
                 event.preventDefault(); // Prevent the default form submission behavior
 
                 // Get the values from form elements
-                let taskName = form.elements["form-task-name"].value;
-                let taskDescription = form.elements["form-task-description"].value;
-                let taskDate = form.elements["form-task-date"].value;
-                let taskPriority = form.elements["priority-selection"].value;
+                let taskName = form.elements["add-task-name"].value;
+                let taskDescription = form.elements["add-task-description"].value;
+                let taskDate = form.elements["add-task-date"].value;
+                let taskPriority = form.elements["add-priority-selection"].value;
                 let taskProID = form.elements["project-name"].value;
 
                 manageTask.createTask(taskName, taskDescription, taskProID, taskDate, taskPriority);
 
                 resetForm(form);
+                closeDialog("dialog");
                 // menuModule.refreshSubMenu("projects");
                 // menuModule.refreshSubMenu("favorites");
 

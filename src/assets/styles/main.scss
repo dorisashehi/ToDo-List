@@ -344,6 +344,9 @@ Content style
       border: none;
       box-shadow: none;
     }
+    .form-control.form-task-date:focus{
+      border: 2px dashed #b7b7b7;
+    }
     .form-fields{
       padding: 24px 15px 10px 15px;
 
@@ -508,4 +511,20 @@ Content style
       }
     }
   }
+}
+
+
+.dropdown{
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.dropdown.show{
+  display: block;
+  position: absolute;
+  transform: translate(431%, 19%);
+  width: 129px;
 }
