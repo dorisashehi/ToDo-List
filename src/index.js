@@ -1,9 +1,20 @@
 import './assets/styles/main.scss'
 import { Interface } from './modules/interface';
 
+
+//add default project to storage on page load
+let inboxProject = {
+    id: "17845a4b-1fc0-42e2-9084-744fa24f32e5",
+    name: "Inbox",
+    favorited: false
+}
+
+localStorage.setItem('projects', JSON.stringify([inboxProject]));
+
 //load submenu on page load
 Interface.menuModule.refreshSubMenu("projects");
-Interface.menuModule.refreshSubMenu("favorites");
+//Interface.menuModule.refreshSubMenu("favorites");
+
 //create project functionality
 Interface.projectModule.createProjectDialog();
 

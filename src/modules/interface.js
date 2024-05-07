@@ -7,9 +7,6 @@ const Interface = (() => {
     const menuModule = (() => {
 
 
-        //document.querySelector(".profile-img").src = profile;
-
-
         const getMenuItem = (subMenu) => {
 
             return(
@@ -38,10 +35,11 @@ const Interface = (() => {
         const refreshSubMenu = (menuName) => { //function to load submenu
 
             let subMenuCon = '';
+
             if(localStorage.length !== 0){
 
-                if(menuName == "favorites") subMenuCon = filterFavorites();
-                if(menuName == "projects") subMenuCon = filterProjects();
+                if(menuName == "favorites" && localStorage["projects"]) subMenuCon = filterFavorites();
+                if(menuName == "projects" &&  localStorage["projects"]) subMenuCon = filterProjects();
 
             }
 
@@ -56,6 +54,20 @@ const Interface = (() => {
     //reset form fields
     const resetForm = (form) => {
         form.reset();//clear form inputs
+    }
+
+    //Open Dialog box
+    const openDialog = (dialogID) => {
+        const dialog = document.getElementById(dialogID);
+        dialog.showModal();
+
+    }
+
+    //close Dialog box
+    const closeDialog = (closeBtnID) => {
+        const closeDialog = document.getElementById(closeBtnID);
+        closeDialog.close();
+
     }
 
     const projectModule = (() => {
@@ -123,20 +135,6 @@ const Interface = (() => {
                         submitBtn.setAttribute("disabled","");
                     },500)
                 })
-
-            }
-
-            //Open Dialog box
-            const openDialog = (dialogID) => {
-                const dialog = document.getElementById(dialogID);
-                dialog.showModal();
-
-            }
-
-            //close Dialog box
-            const closeDialog = (closeBtnID) => {
-                const closeDialog = document.getElementById(closeBtnID);
-                closeDialog.close();
 
             }
 
@@ -358,7 +356,6 @@ const Interface = (() => {
 
             formFields.forEach(field => {
                 field.addEventListener("change", () => {
-                    //console.log(document.getElementById("add-priority-selection").value);
                     clearTimeout(timer);
                     timer = setTimeout(() => {
                         toogleSubmitButton(formFields);
@@ -407,19 +404,7 @@ const Interface = (() => {
             })
         }
 
-        //Open Dialog box
-        const openDialog = (dialogID) => {
-            const dialog = document.getElementById(dialogID);
-            dialog.showModal();
 
-        }
-
-        //close Dialog box
-        const closeDialog = (closeBtnID) => {
-            const closeDialog = document.getElementById(closeBtnID);
-            closeDialog.close();
-
-        }
 
         //handle form submit
         const handleFormSubmit = (form) => {
