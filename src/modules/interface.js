@@ -76,7 +76,7 @@ const Interface = (() => {
                     <div class="form-fields">
                         <div class="form-group mb-0">
                             <label for="form-project-name">Project Name</label>
-                            <input type="text" class="form-control" id="form-project-name" name="form-project-name" placeholder="Project name" required />
+                            <input type="text" class="form-control form-project-name" id="form-project-name" name="form-project-name" placeholder="Project name" required />
                         </div>
                     </div>
                     <div class="form-fields">
@@ -229,7 +229,7 @@ const Interface = (() => {
                 <div class="form-fields d-flex">
 
                     <div class="form-group mb-0 col">
-                        <input type="text" class="form-control" id="form-task-name" name="form-task-name" value="Task name" placeholder="Task name" required>
+                        <input type="text" class="form-control form-task-name" id="form-task-name" name="form-task-name" value="Task name" placeholder="Task name" required>
                         <textarea class="form-control" rows="5"  id="form-task-description" name="form-task-description"  rows="5" maxlength="100" placeholder="Description" required> Description here.......</textarea>
                     </div>
 
@@ -247,7 +247,7 @@ const Interface = (() => {
                         <input type="date" class="form-control" id="form-task-date" name="form-task-date">
 
                         <h6 class="mt-2">Priority</h6>
-                        <select id="priority-selection">
+                        <select class="priority-selection" id="priority-selection">
                             <option class="priority-item">Priority</option>
                             <option class="priority-item">Priority 1</option>
                             <option class="priority-item">Priority 2</option>
@@ -303,16 +303,16 @@ const Interface = (() => {
                 <h4 class="dialog-header">New Task</h4>
                 <div class="form-fields">
                     <div class="form-group mb-0">
-                        <input type="text" class="form-control" id="form-task-name" name="form-task-name" placeholder="Task name" required />
+                        <input type="text" class="form-control form-task-name" id="add-task-name" name="add-task-name" placeholder="Task name" required />
                     </div>
                     <div class="form-group mb-0">
-                        <textarea class="form-control" rows="3"  id="form-task-description" name="form-task-description"  rows="5" maxlength="100" placeholder="Description" required></textarea>
+                        <textarea class="form-control form-task-description" rows="3"  id="add-task-description" name="add-task-description"  rows="5" maxlength="100" placeholder="Description" required></textarea>
 
                     </div>
 
                     <div class="form-group mb-0 d-flex flex-row gap-3" >
-                        <input type="date" class="form-control" id="form-task-date" name="form-task-date">
-                        <select id="priority-selection">
+                        <input type="date" class="form-control form-task-date" id="add-task-date" name="add-task-date">
+                        <select class="priority-selection" id="priority-selection">
                             <option class="priority-item">Priority 1</option>
                             <option class="priority-item">Priority 2</option>
                             <option class="priority-item">Priority 3</option>
@@ -321,11 +321,11 @@ const Interface = (() => {
                 </div>
 
                 <div class="d-flex justify-content-between form-buttons">
-                    <select class="projects-options" name="project-name" id="task-pro-selection">
+                    <select class="projects-options task-pro-selection" name="project-name" id="add-pro-selection">
                         <option class="project-name d-flex flex-row" value = "${defaultProID}"><span>Inbox</span></option>
                     </select>
                     <div class="buttons-group">
-                        <input type="submit" id="submit" value="Add" class="btn btn-primary" formnovalidate />
+                        <input type="submit" id="submit-task" value="Add" class="btn btn-primary" disabled formnovalidate />
                         <input type="submit" class="btn btn-primary" id="js-close" value="Cancel" />
                     </div>
 
@@ -335,10 +335,56 @@ const Interface = (() => {
             dialog.appendChild(dialogForm);
 
             projectLists();
+            enableSubmitBtn(dialogForm);
             handleFormSubmit(dialogForm);
 
 
         }
+
+        let timer;
+
+         //enable submit button based on input
+         const enableSubmitBtn = (form) => {
+
+            const formFields = [
+                document.getElementById("add-task-name"),
+                document.getElementById("add-task-description")
+            ];
+
+            formFields.forEach(field => {
+                field.addEventListener("input", () => {
+                    clearTimeout(timer);
+                    timer = setTimeout(() => {
+                        toogleSubmitButton(formFields);
+                    },500)
+                })
+
+            })
+
+        }
+
+        const toogleSubmitButton  = (formFields) => {
+            const submitBtn = document.querySelector("#submit-task");
+            if(validateFields(formFields)){
+                submitBtn.removeAttribute("disabled");
+
+            }else{
+                submitBtn.setAttribute("disabled","");
+            }
+
+        }
+
+        const validateFields = (formFields) => {
+            let allFilled = true;
+
+            formFields.forEach(item => {
+                if(item.value === ""){
+                    allFilled = false;
+                }
+            })
+            return allFilled;
+        }
+
 
         //set options to project select field of form
         const projectLists = () => {
@@ -351,7 +397,7 @@ const Interface = (() => {
                 optionSpan.textContent = item.name;
 
                 option.appendChild(optionSpan);
-                document.getElementById("task-pro-selection").appendChild(option);
+                document.getElementById("add-pro-selection").appendChild(option);
             })
         }
 

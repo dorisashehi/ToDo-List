@@ -292,11 +292,11 @@ Content style
         padding-left: 0px;
         //border: 2px dashed #b7b7b7;
       }
-      &#form-task-name{
+      &.form-task-name{
 
         font-weight: 500;
       }
-      &#form-project-name{
+      &.form-project-name{
         border: 2px dashed #b7b7b7;
         border-radius: 0em;
         padding: 10px;
@@ -312,14 +312,18 @@ Content style
 
     }
     textarea{
-      &#form-task-description{
+      &.form-task-description{
         color: #181d30;
         border: 2px dashed #b7b7b7;
         font-size: 0.9rem;
         border-radius: 0em;
+        &:focus{
+          border: 2px dashed #b7b7b7;
+
+        }
       }
     }
-    #form-task-date, #priority-selection, .projects-options{
+    .form-task-date, .priority-selection, .projects-options{
       font-size: 0.9rem;
       align-items: center;
       height: 32px;
@@ -328,10 +332,10 @@ Content style
       border-radius: unset;
 
     }
-    #form-task-date{
+    .form-task-date{
       width: 153px;
     }
-    #priority-selection{
+    .priority-selection{
       option{
         padding: 0px 14px;
       }
@@ -380,7 +384,7 @@ Content style
   width: 770px;
   min-height: 350px;
   form{
-    #form-task-date, #priority-selection, .projects-options{
+    .form-task-date, .priority-selection, .projects-options{
       margin: 0px;
     }
     h6{
