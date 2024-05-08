@@ -11,7 +11,7 @@ const Interface = (() => {
 
             return(
                 `
-                    <li class="w-100 submenu-item nav-item">
+                    <li class="w-100 submenu-item nav-item" data-project= "${subMenu.id}">
                         <a href="#" class="nav-link px-3"> <span class="d-none d-sm-inline">${subMenu.name}</span></a>
                     </li>
                 `
@@ -183,12 +183,8 @@ const Interface = (() => {
 
     const tasksModule = (() =>{
 
-        const showTasks = () => {
-            const taskList = document.querySelector(".task-list");
-
-            const taskListContainer = document.createElement("div");
-            taskListContainer.classList.add("task", "mb-3");
-            taskListContainer.innerHTML =
+        const getTaskItem = (task) => {
+            return(
             `
                 <div class="task mb-3">
                     <div class="row task-item">
@@ -209,8 +205,16 @@ const Interface = (() => {
                         </div>
                     </div>
                 </div>
-            `;
-            taskList.appendChild(taskListContainer);
+            `);
+
+        }
+
+        const showTasks = (tasks) => {
+            //debugger
+            const taskList = document.querySelector(".task-list");
+
+            const taskContent = tasks.map(task => getTaskItem(task)).join('');
+            taskList.innerHTML = taskContent;
 
         }
 
@@ -322,7 +326,6 @@ const Interface = (() => {
                 <div class="d-flex justify-content-between form-buttons">
                     <select class="projects-options task-pro-selection" name="project-name" id="add-pro-selection">
                         <option class="project-name d-flex flex-row" value = "default" selected disabled><span>No project choosen</span></option>
-                        <option class="project-name d-flex flex-row" value = "${defaultProID}"><span>Inbox</span></option>
                         </select>
                     <div class="buttons-group">
                         <input type="submit" id="submit-task" value="Add" class="btn btn-primary" disabled formnovalidate />

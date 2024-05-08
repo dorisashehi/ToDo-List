@@ -1,15 +1,10 @@
 import './assets/styles/main.scss'
 import { Interface } from './modules/interface';
+import { manageProject, manageTask } from './modules/app';
 
 
 //add default project to storage on page load
-let inboxProject = {
-    id: "17845a4b-1fc0-42e2-9084-744fa24f32e5",
-    name: "Inbox",
-    favorited: false
-}
-
-localStorage.setItem('projects', JSON.stringify([inboxProject]));
+manageProject.createProject("inbox", false);
 
 //load submenu on page load
 Interface.menuModule.refreshSubMenu("projects");
@@ -20,13 +15,13 @@ Interface.projectModule.createProjectDialog();
 
 
 //show list of tasks in container
-Interface.tasksModule.showTasks();
+//Interface.tasksModule.showTasks();
 
 //show edit task
 Interface.tasksModule.editTask();
 
 //show empty content
-Interface.tasksModule.showEmptyContent();
+//Interface.tasksModule.showEmptyContent();
 
 //show create task diclog
 
@@ -47,12 +42,24 @@ const handleMenuClick = (menuItem) => {
 
 }
 
+const handleShowTasks = (el) => {
+
+
+    const menuClicked = el.target.textContent.trim().toLowerCase();
+    const pro_id = manageProject.checkProject(menuClicked).id;
+    const proTasks = manageTask.checkProTasks(pro_id);
+
+    return proTasks;
+
+}
 document.querySelectorAll("li.nav-item").forEach((menu) => {
     menu.addEventListener("click", (el)=> {
 
         const menuItem = el.currentTarget;
         if(menuItem.parentNode.id  === "main-menu" || menuItem.classList.contains("submenu-item")){
-            handleMenuClick(menuItem)
+            handleMenuClick(menuItem);
+            let tasks = handleShowTasks(el);
+            Interface.tasksModule.showTasks(tasks);
         }
     })
 })

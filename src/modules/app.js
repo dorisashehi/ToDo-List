@@ -25,17 +25,31 @@ const generateRandomId = () => { //create a random id to use as task id and proj
 const getLocalStorage = (strName) => {
     return localStorage.getItem(strName);
 }
+const getLocalTasks = (strName) => {
+    return localStorage.getItem(strName);
+}
+
 
 
 const manageProject = (() =>{
 
     let projects = [];
 
+    const checkProject = (name) => {
+        let proExist = JSON.parse(getLocalStorage("projects"))?.find(item => item.name === name);
+        return proExist;
+    }
+
 
     const createProject = (name, favorited) => { //create a new ptoject and add it to local storage
 
+        //project exists, STOP executation
+        if(checkProject(name)) return;
+
+
         const project = new Project(name, favorited);
-        project.id = generateRandomId();
+
+        (name ==="inbox") ? project.id = "17845a4b-1fc0-42e2-9084-744fa24f32e5" : project.id = generateRandomId();
 
         let newStorage = {
             id: project.id,
@@ -43,19 +57,19 @@ const manageProject = (() =>{
             favorited: project.favorites
         }
 
-
         let localStrPro = getLocalStorage("projects");
-        if(localStrPro !== null){
+        if(localStrPro !== null && name !== "inbox"){
             projects = [...JSON.parse(localStrPro), newStorage]
         }
         else{
+
             projects = [newStorage];
         }
         localStorage.setItem('projects', JSON.stringify(projects));
 
     }
 
-    return {createProject}
+    return {createProject, checkProject}
 
 })()
 
@@ -122,11 +136,17 @@ const manageTask = (() => {
 
     }
 
+
     const getProjects = (storageName) => {
         return getLocalStorage(storageName);
     }
 
-    return {getProjects, createTask}
+    const checkProTasks = (id) => {
+        let taksExist = JSON.parse(getLocalTasks("tasks"))?.filter(item => item.pro_id === id);
+        return taksExist;
+    }
+
+    return {getProjects, createTask, checkProTasks}
 
 })();
 
