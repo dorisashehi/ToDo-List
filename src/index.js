@@ -43,6 +43,9 @@ const handleMenuClick = (menuItem) => { //funstion to add active menu
 
 }
 
+
+////TASKS FUNCTIONS
+
 const handleShowTasks = (el) => { //function to get the array of tasks of the project.
 
 
@@ -80,7 +83,7 @@ document.querySelectorAll("i.expand").forEach((icon) => { //function to rotate i
 
 
 
-
+///OPEN DIALOG BOXES
 
 //Open Dialog box
 const openDialog = (dialogID) => {
@@ -106,10 +109,6 @@ openProjectDialog.addEventListener("click", () => {
 })
 
 
-
-
-
-
 const closeProjectDialog = document.querySelector("#project-dialog #js-close");
 closeProjectDialog.addEventListener("click", (e) => { //close dialog box
     e.preventDefault();
@@ -128,23 +127,6 @@ closeTaskDialog.addEventListener("click", (e) => { //close dialog box
     e.preventDefault();
     closeDialog("dialog");
 });
-
-//priority
-
-// const priorityBtn = document.querySelector(".priority-btn");
-// priorityBtn.addEventListener("click", (button) => { //close dialog box
-
-//     button.preventDefault();
-
-//     document.querySelector(".dropdown-menu").classList.toggle("show-dropdown");
-
-//     document.querySelectorAll(".dropdown-item").forEach((item) => {
-//         item.addEventListener('click', (e) => {
-//             button.target.innerText =  e.target.innerText;
-//         })
-//     })
-// });
-
 
 //on task click edit task
 const taskItems = document.querySelectorAll(".task-content");
