@@ -184,6 +184,8 @@ const Interface = (() => {
     const tasksModule = (() =>{
 
         const getTaskItem = (task) => {
+
+            let {id, name, descr, due_date} = task;
             return(
             `
                 <div class="task mb-3">
@@ -192,15 +194,15 @@ const Interface = (() => {
                             <input type="checkbox" class="completed" id="completed-task-1" name="completed" value="1">
                             <label for="completed-task-1"></label>
                         </div>
-                        <div class="col task-content">
+                        <div class="col task-content" data-task="${id}">
                             <div class="row task-name mb-2">
-                                Task name
+                                ${name}
                             </div>
                             <div class="row task-description">
-                                Description
+                                ${descr}
                             </div>
                             <div class="row task-date">
-                                22 May
+                                ${due_date}
                             </div>
                         </div>
                     </div>
@@ -229,9 +231,10 @@ const Interface = (() => {
         }
 
 
-        const editTask = () => {
+        const editTask = (taskID) => {
             const editDialog = document.getElementById("edit-dialog");
 
+            let {id, name, descr, priority, due_date, pro_id} = manageTask.checkTask(taskID);
             const editDialogForm = document.createElement('form');
             editDialogForm.setAttribute("method", "POST");
             editDialogForm.innerHTML =
@@ -241,29 +244,27 @@ const Interface = (() => {
                 <div class="form-fields d-flex">
 
                     <div class="form-group mb-0 col">
-                        <input type="text" class="form-control form-task-name" id="form-task-name" name="form-task-name" value="Task name" placeholder="Task name" required>
-                        <textarea class="form-control" rows="5"  id="form-task-description" name="form-task-description"  rows="5" maxlength="100" placeholder="Description" required> Description here.......</textarea>
+                        <input type="text" class="form-control form-task-name" id="edit-task-name" name="edit-task-name" value="${name}" placeholder="Task name" required>
+                        <textarea class="form-control form-task-description" rows="5"  id="edit-task-description" name="edit-task-description"  rows="5" maxlength="100" placeholder="Description" required>${descr}</textarea>
                     </div>
 
                     <div class="form-group mb-0 d-flex flex-row col-5 d-flex flex-column align-items-start">
                         <h6>
                             Project
                         </h6>
-                        <select class="projects-options">
-                            <option class="project-name d-flex flex-row"><i class="fas fa-inbox"></i><span>Inbox</span></option>
-                            <option class="project-name d-flex flex-row"><i class="fas fa-inbox"></i><span>Inbox1</span></option>
-                            <option class="project-name d-flex flex-row"><i class="fas fa-inbox"></i><span>Inbox2</span></option>
-                        </select>
+
+                        <select class="projects-options task-pro-selection" name="project-name" id="edit-pro-selection"></select>
 
                         <h6 class="mt-2">Due Date</h6>
-                        <input type="date" class="form-control" id="form-task-date" name="form-task-date">
+                        <input type="date" class="form-control" id="edit-task-date form-task-date" name="edit-task-date" value="${due_date}">
 
                         <h6 class="mt-2">Priority</h6>
-                        <select class="priority-selection" id="priority-selection">
-                            <option class="priority-item">Priority</option>
-                            <option class="priority-item">Priority 1</option>
-                            <option class="priority-item">Priority 2</option>
+                        <select class="priority-selection" id="edit-priority-selection" name="edit-priority-selection">
+                            <option class="priority-item" value="priority1">Priority 1</option>
+                            <option class="priority-item" value="priority2">Priority 2</option>
+                            <option class="priority-item" value="priority3">Priority 3</option>
                         </select>
+
                     </div>
                 </div>
 
@@ -290,13 +291,21 @@ const Interface = (() => {
             `;
             editDialog.appendChild(editDialogForm);
 
+            //set selected priority
+            document.querySelector(`[value= "${priority}"]`).setAttribute("selected", "");
+            projectLists("edit-pro-selection");
+            document.querySelector(`[value= "${pro_id}"]`).setAttribute("selected", "");
+
         }
+
 
         const showEmptyContent = () => {
             const emptyContent = `
+            <div class="empty-content mx-auto mt-5">
                 <img src="https://todoist.b-cdn.net/assets/images/9b83bf5d1895df53ed06506fd3cd381c.png" />
                 <p><b>What do you need to get done today?</b></p>
                 <p>By default, tasks added here will be due today. Click + to add a task.</p>
+            </div>
             `;
             document.querySelector(".task-list").innerHTML = emptyContent;
         }
@@ -334,7 +343,7 @@ const Interface = (() => {
                 <div class="d-flex justify-content-between form-buttons">
                     <select class="projects-options task-pro-selection" name="project-name" id="add-pro-selection">
                         <option class="project-name d-flex flex-row" value = "default" selected disabled><span>No project choosen</span></option>
-                        </select>
+                    </select>
                     <div class="buttons-group">
                         <input type="submit" id="submit-task" value="Add" class="btn btn-primary" disabled formnovalidate />
                         <input type="submit" class="btn btn-primary" id="js-close" value="Cancel" />
@@ -345,7 +354,7 @@ const Interface = (() => {
             `;
             dialog.appendChild(dialogForm);
 
-            projectLists();
+            projectLists("add-pro-selection");
             enableSubmitBtn(dialogForm);
             handleFormSubmit(dialogForm);
 
@@ -401,7 +410,7 @@ const Interface = (() => {
 
 
         //set options to project select field of form
-        const projectLists = () => {
+        const projectLists = (domEl) => {
             JSON.parse(manageTask.getProjects("projects"))?.forEach(item => {
                 const option = document.createElement("option");
                 option.classList.add("project-name", "d-flex","flex-row");
@@ -411,7 +420,7 @@ const Interface = (() => {
                 optionSpan.textContent = item.name;
 
                 option.appendChild(optionSpan);
-                document.getElementById("add-pro-selection").appendChild(option);
+                document.getElementById(domEl).appendChild(option);
             })
         }
 

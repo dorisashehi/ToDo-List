@@ -146,7 +146,11 @@ const manageTask = (() => {
         return taksExist;
     }
 
-    return {getProjects, createTask, checkProTasks}
+    const checkTask = (id) => {
+        let taksExist = JSON.parse(getLocalTasks("tasks"))?.find(item => item.id === id);
+        return taksExist;
+    }
+    return {getProjects, createTask, checkProTasks, checkTask}
 
 })();
 

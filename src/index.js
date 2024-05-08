@@ -13,18 +13,9 @@ Interface.menuModule.refreshSubMenu("favorites");
 //create project functionality
 Interface.projectModule.createProjectDialog();
 
-
-
-//Interface.tasksModule.showTasks();
-
-//show edit task
-Interface.tasksModule.editTask();
-
-//show empty content
-//Interface.tasksModule.showEmptyContent();
+//Interface.tasksModule.editTask();
 
 //show create task diclog
-
 Interface.tasksModule.createTask();
 
 
@@ -54,6 +45,7 @@ document.querySelectorAll("li.nav-item").forEach((menu) => {//function on click 
             let tasks = Interface.tasksModule.handleShowTasks(menuItem); //get array of tasks
             if(tasks.length === 0) {Interface.tasksModule.showEmptyContent(); return;}
             Interface.tasksModule.showTasks(tasks);  //show taks per project with content
+
         }
     })
 })
@@ -75,23 +67,7 @@ document.querySelectorAll("i.expand").forEach((icon) => { //function to rotate i
 
 
 
-
-
-
 ///OPEN DIALOG BOXES
-
-//Open Dialog box
-const openDialog = (dialogID) => {
-    const dialog = document.getElementById(dialogID);
-    dialog.showModal();
-
-}
-
-const closeDialog = (closeBtnID) => {
-    const closeDialog = document.getElementById(closeBtnID);
-    closeDialog.close();
-
-}
 
 
 //Add new task dialog functionality
@@ -107,30 +83,46 @@ openProjectDialog.addEventListener("click", () => {
 const closeProjectDialog = document.querySelector("#project-dialog #js-close");
 closeProjectDialog.addEventListener("click", (e) => { //close dialog box
     e.preventDefault();
-    closeDialog("project-dialog");
+    Interface.projectModule.closeDialog("project-dialog");
 });
 
 
 //Add new task dialog
 const openTaskDialog = document.querySelector(".fa-plus-circle");
 openTaskDialog.addEventListener("click", () => {
-    openDialog("dialog");
+    Interface.tasksModule.openDialog("dialog");
 })
 
 const closeTaskDialog = dialog.querySelector("#dialog #js-close");
 closeTaskDialog.addEventListener("click", (e) => { //close dialog box
     e.preventDefault();
-    closeDialog("dialog");
+    Interface.tasksModule.closeDialog("dialog");
 });
 
+
+const openDialogEdit = (dialogID) => {
+    const dialog = document.getElementById(dialogID);
+    //dialog.setAttribute("data-task", taskID);
+    dialog.showModal();
+
+}
 //on task click edit task
 const taskItems = document.querySelectorAll(".task-content");
 taskItems.forEach((task) => {
     task.addEventListener('click', (e) => {
-        console.log("open");
-        openDialog("edit-dialog");
+        console.log(task.dataset.task);
+        Interface.tasksModule.editTask(task.dataset.task);
+        openDialogEdit("edit-dialog");
+        //Interface.tasksModule.openDialog("edit-dialog");
     })
 })
+
+// const closeEditTaskDialog = dialog.querySelector("#edit-dialog #js-close");
+// closeEditTaskDialog.addEventListener("click", (e) => { //close dialog box
+//     e.preventDefault();
+//     Interface.tasksModule.closeDialog("edit-dialog");
+// });
+
 
 
 //cpomments
