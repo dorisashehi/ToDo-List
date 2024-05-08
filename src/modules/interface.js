@@ -327,8 +327,9 @@ const Interface = (() => {
 
                 manageTask.editTask(taskID, taskName, taskDescription, taskProID, taskDate, taskPriority);
 
-                //resetForm(form);
-                //closeDialog("dialog");
+                resetForm(form);
+                closeDialog("dialog");
+                handleShowTasks();
                 // menuModule.refreshSubMenu("projects");
                 // menuModule.refreshSubMenu("favorites");
 
@@ -455,6 +456,13 @@ const Interface = (() => {
         }
 
 
+        const refreshTasks = () => {
+            const menuActive = document.querySelector("li.nav-item.active");
+            let tasks = Interface.tasksModule.handleShowTasks(menuActive); //get array of tasks
+            if(tasks) {Interface.tasksModule.showTasks(tasks);}  //show taks per project with content
+            else{ Interface.tasksModule.showEmptyContent(); }
+        }
+
 
         //handle form submit
         const handleFormSubmit = (form) => {
@@ -472,8 +480,7 @@ const Interface = (() => {
 
                 resetForm(form);
                 closeDialog("dialog");
-                // menuModule.refreshSubMenu("projects");
-                // menuModule.refreshSubMenu("favorites");
+                refreshTasks(); //load again tasks to see the new task added
 
             })
         }
@@ -490,7 +497,7 @@ const Interface = (() => {
         }
 
 
-        return { showTasks, editTask, createTask, showEmptyContent,  openDialog, closeDialog, projectLists, handleShowTasks }
+        return { showTasks, editTask, createTask, showEmptyContent,  openDialog, closeDialog, projectLists, handleShowTasks, refreshTasks }
     })();
 
 

@@ -43,7 +43,7 @@ document.querySelectorAll("li.nav-item").forEach((menu) => {//function on click 
         if(menuItem.parentNode.id  === "main-menu" || menuItem.classList.contains("submenu-item")){
             handleMenuClick(menuItem); //add as active
             let tasks = Interface.tasksModule.handleShowTasks(menuItem); //get array of tasks
-            if(tasks.length === 0) {Interface.tasksModule.showEmptyContent(); return;}
+            if(!tasks) {Interface.tasksModule.showEmptyContent(); return;}
             Interface.tasksModule.showTasks(tasks);  //show taks per project with content
 
         }
@@ -51,10 +51,7 @@ document.querySelectorAll("li.nav-item").forEach((menu) => {//function on click 
 })
 
 //show tasks of default menu avtive
-const menuActive = document.querySelector("li.nav-item.active");
-let tasks = Interface.tasksModule.handleShowTasks(menuActive); //get array of tasks
-if(tasks) {Interface.tasksModule.showTasks(tasks);}  //show taks per project with content
-else{ Interface.tasksModule.showEmptyContent(); }
+Interface.tasksModule.refreshTasks();
 
 //toggle submenu
 document.querySelectorAll("i.expand").forEach((icon) => { //function to rotate icon of submenu
