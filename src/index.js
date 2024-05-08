@@ -8,6 +8,7 @@ manageProject.createProject("inbox", false);
 
 //load submenu on page load
 Interface.menuModule.refreshSubMenu("projects");
+
 //Interface.menuModule.refreshSubMenu("favorites");
 
 //create project functionality
@@ -29,20 +30,20 @@ Interface.tasksModule.createTask();
 
 
 //sidebar
-document.querySelector(".toggle").addEventListener("click", () => {
+document.querySelector(".toggle").addEventListener("click", () => { //function to toggle submenu
     document.querySelector(".sidebar-col").classList.toggle('hide');
 
 })
 
 
 //add menu as active
-const handleMenuClick = (menuItem) => {
+const handleMenuClick = (menuItem) => { //funstion to add active menu
     document.querySelector("li.nav-item.active")?.classList.remove("active");
     menuItem.classList.add("active");
 
 }
 
-const handleShowTasks = (el) => {
+const handleShowTasks = (el) => { //function to get the array of tasks of the project.
 
 
     const menuClicked = el.target.textContent.trim().toLowerCase();
@@ -52,21 +53,21 @@ const handleShowTasks = (el) => {
     return proTasks;
 
 }
-document.querySelectorAll("li.nav-item").forEach((menu) => {
+document.querySelectorAll("li.nav-item").forEach((menu) => {//function on click a menu item
     menu.addEventListener("click", (el)=> {
 
         const menuItem = el.currentTarget;
         if(menuItem.parentNode.id  === "main-menu" || menuItem.classList.contains("submenu-item")){
-            handleMenuClick(menuItem);
-            let tasks = handleShowTasks(el);
-            Interface.tasksModule.showTasks(tasks);
+            handleMenuClick(menuItem); //add as active
+            let tasks = handleShowTasks(el); //get array of tasks
+            Interface.tasksModule.showTasks(tasks);  //show taks per project with content
         }
     })
 })
 
 
 //toggle submenu
-document.querySelectorAll("i.expand").forEach((icon) => {
+document.querySelectorAll("i.expand").forEach((icon) => { //function to rotate icon of submenu
     icon.addEventListener("click", (el) => {
         el.target.classList.toggle("rotate-icon");
         document.querySelector(`ul.${el.target.dataset.menuExpand}`)?.classList.toggle("show");
