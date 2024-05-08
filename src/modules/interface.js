@@ -283,7 +283,7 @@ const Interface = (() => {
                 </div>
                 <div class="d-flex justify-content-between form-buttons">
                     <div class="buttons-group">
-                        <input type="submit" id="submit-edit" value="Update" class="btn btn-primary" formnovalidate />
+                        <input type="submit" id="submit-task" value="Update" class="btn btn-primary" formnovalidate />
                         <input type="submit" class="btn btn-primary" id="close-edit-dialog" value="Cancel" />
                     </div>
 
@@ -298,16 +298,6 @@ const Interface = (() => {
             document.querySelector(`[value= "${pro_id}"]`).setAttribute("selected", "");
 
 
-            enableSubmitBtn1(editDialogForm);
-            //handleFormSubmit(editDialogForm);
-
-        }
-
-
-         //enable submit button based on input
-         const enableSubmitBtn1 = (form) => {
-
-
             const formFields = [
                 document.getElementById("edit-task-name"),
                 document.getElementById("edit-task-description"),
@@ -317,41 +307,11 @@ const Interface = (() => {
 
             ];
 
-
-            formFields.forEach(field => {
-                field.addEventListener("change", () => {
-                    clearTimeout(timer);
-                    timer = setTimeout(() => {
-                        toogleSubmitButton1(formFields);
-                    },500)
-                })
-
-            })
+            enableSubmitBtn(formFields , "edit-dialog");
+            //handleFormSubmit(editDialogForm);
 
         }
 
-        const toogleSubmitButton1  = (formFields) => {
-            const submitBtn = document.querySelector("#submit-edit");
-            if(validateFields(formFields)){
-                submitBtn.removeAttribute("disabled");
-
-            }else{
-                submitBtn.setAttribute("disabled","");
-            }
-
-        }
-
-
-        const showEmptyContent = () => {
-            const emptyContent = `
-            <div class="empty-content mx-auto mt-5">
-                <img src="https://todoist.b-cdn.net/assets/images/9b83bf5d1895df53ed06506fd3cd381c.png" />
-                <p><b>What do you need to get done today?</b></p>
-                <p>By default, tasks added here will be due today. Click + to add a task.</p>
-            </div>
-            `;
-            document.querySelector(".task-list").innerHTML = emptyContent;
-        }
 
         const createTask = () => {
 
@@ -398,16 +358,6 @@ const Interface = (() => {
             dialog.appendChild(dialogForm);
 
             projectLists("add-pro-selection");
-            enableSubmitBtn(dialogForm);
-            handleFormSubmit(dialogForm);
-
-
-        }
-
-        let timer;
-
-         //enable submit button based on input
-         const enableSubmitBtn = (form) => {
 
             const formFields = [
                 document.getElementById("add-task-name"),
@@ -416,22 +366,33 @@ const Interface = (() => {
                 document.getElementById("add-pro-selection"),
                 document.getElementById("add-task-date")
             ];
+            enableSubmitBtn(formFields , "dialog");
+            handleFormSubmit(dialogForm);
+
+
+        }
+
+        let timer;
+
+         //enable submit button based on input
+         const enableSubmitBtn = (formFields, dialogID) => {
 
 
             formFields.forEach(field => {
-                field.addEventListener("change", () => {
+                field.addEventListener("input", () => {
                     clearTimeout(timer);
                     timer = setTimeout(() => {
-                        toogleSubmitButton(formFields);
-                    },500)
+                        toogleSubmitButton(formFields, dialogID);
+                    },100)
                 })
 
             })
 
         }
 
-        const toogleSubmitButton  = (formFields) => {
-            const submitBtn = document.querySelector("#submit-task");
+        const toogleSubmitButton  = (formFields, dialogID) => {
+
+            const submitBtn = document.querySelector(`#${dialogID} #submit-task`);
             if(validateFields(formFields)){
                 submitBtn.removeAttribute("disabled");
 
@@ -492,9 +453,17 @@ const Interface = (() => {
             })
         }
 
-        const refreshTasks = () => {
-
+        const showEmptyContent = () => {
+            const emptyContent = `
+            <div class="empty-content mx-auto mt-5">
+                <img src="https://todoist.b-cdn.net/assets/images/9b83bf5d1895df53ed06506fd3cd381c.png" />
+                <p><b>What do you need to get done today?</b></p>
+                <p>By default, tasks added here will be due today. Click + to add a task.</p>
+            </div>
+            `;
+            document.querySelector(".task-list").innerHTML = emptyContent;
         }
+
 
         return { showTasks, editTask, createTask, showEmptyContent,  openDialog, closeDialog, projectLists, handleShowTasks }
     })();
