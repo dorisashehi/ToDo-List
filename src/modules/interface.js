@@ -219,6 +219,16 @@ const Interface = (() => {
         }
 
 
+        const handleShowTasks = (el) => { //function to get the array of tasks of the project.
+            const menuClicked = el.textContent.trim().toLowerCase();
+            const pro_id = manageProject.checkProject(menuClicked).id;
+            const proTasks = manageTask.checkProTasks(pro_id);
+
+            return proTasks;
+
+        }
+
+
         const editTask = () => {
             const editDialog = document.getElementById("edit-dialog");
 
@@ -283,14 +293,12 @@ const Interface = (() => {
         }
 
         const showEmptyContent = () => {
-            const emptyContent = document.createElement("div");
-
-            emptyContent.innerHTML = `
+            const emptyContent = `
                 <img src="https://todoist.b-cdn.net/assets/images/9b83bf5d1895df53ed06506fd3cd381c.png" />
                 <p><b>What do you need to get done today?</b></p>
                 <p>By default, tasks added here will be due today. Click + to add a task.</p>
             `;
-            document.querySelector(".empty-content").appendChild(emptyContent);
+            document.querySelector(".task-list").innerHTML = emptyContent;
         }
 
         const createTask = () => {
@@ -435,7 +443,7 @@ const Interface = (() => {
 
         }
 
-        return { showTasks, editTask, createTask, showEmptyContent,  openDialog, closeDialog, projectLists }
+        return { showTasks, editTask, createTask, showEmptyContent,  openDialog, closeDialog, projectLists, handleShowTasks }
     })();
 
 

@@ -8,14 +8,13 @@ manageProject.createProject("inbox", false);
 
 //load submenu on page load
 Interface.menuModule.refreshSubMenu("projects");
-
-//Interface.menuModule.refreshSubMenu("favorites");
+Interface.menuModule.refreshSubMenu("favorites");
 
 //create project functionality
 Interface.projectModule.createProjectDialog();
 
 
-//show list of tasks in container
+
 //Interface.tasksModule.showTasks();
 
 //show edit task
@@ -46,27 +45,23 @@ const handleMenuClick = (menuItem) => { //funstion to add active menu
 
 ////TASKS FUNCTIONS
 
-const handleShowTasks = (el) => { //function to get the array of tasks of the project.
-
-
-    const menuClicked = el.target.textContent.trim().toLowerCase();
-    const pro_id = manageProject.checkProject(menuClicked).id;
-    const proTasks = manageTask.checkProTasks(pro_id);
-
-    return proTasks;
-
-}
 document.querySelectorAll("li.nav-item").forEach((menu) => {//function on click a menu item
     menu.addEventListener("click", (el)=> {
 
         const menuItem = el.currentTarget;
         if(menuItem.parentNode.id  === "main-menu" || menuItem.classList.contains("submenu-item")){
             handleMenuClick(menuItem); //add as active
-            let tasks = handleShowTasks(el); //get array of tasks
+            let tasks = Interface.tasksModule.handleShowTasks(menuItem); //get array of tasks
+            if(tasks.length === 0) {Interface.tasksModule.showEmptyContent(); return;}
             Interface.tasksModule.showTasks(tasks);  //show taks per project with content
         }
     })
 })
+
+//show tasks of default menu avtive
+const menuActive = document.querySelector("li.nav-item.active");
+let tasks = Interface.tasksModule.handleShowTasks(menuActive); //get array of tasks
+Interface.tasksModule.showTasks(tasks);  //show taks per project with content
 
 
 //toggle submenu
