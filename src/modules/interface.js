@@ -58,7 +58,6 @@ const Interface = (() => {
 
     //Open Dialog box
     const openDialog = (dialogID) => {
-        console.log("hello");
         const dialog = document.getElementById(dialogID);
         dialog.showModal();
 
@@ -226,6 +225,7 @@ const Interface = (() => {
             const menuClicked = el.textContent.trim().toLowerCase();
             const pro_id = manageProject.checkProject(menuClicked).id;
             const proTasks = manageTask.checkProTasks(pro_id);
+            //debugger
 
             return proTasks;
 
@@ -308,8 +308,31 @@ const Interface = (() => {
             ];
 
             enableSubmitBtn(formFields , "edit-dialog");
-            //handleFormSubmit(editDialogForm);
+            handleFormUpdate(editDialogForm, taskID);
 
+        }
+
+
+        //handle form submit
+        const handleFormUpdate = (form, taskID) => {
+            form.addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent the default form submission behavior
+
+                // Get the values from form elements
+                let taskName = form.elements["edit-task-name"].value;
+                let taskDescription = form.elements["edit-task-description"].value;
+                let taskDate = form.elements["edit-task-date"].value;
+                let taskPriority = form.elements["edit-priority-selection"].value;
+                let taskProID = form.elements["project-name"].value;
+
+                manageTask.editTask(taskID, taskName, taskDescription, taskProID, taskDate, taskPriority);
+
+                //resetForm(form);
+                //closeDialog("dialog");
+                // menuModule.refreshSubMenu("projects");
+                // menuModule.refreshSubMenu("favorites");
+
+            })
         }
 
 
@@ -371,6 +394,8 @@ const Interface = (() => {
 
 
         }
+
+
 
         let timer;
 

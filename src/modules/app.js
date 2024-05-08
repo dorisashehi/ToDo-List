@@ -36,8 +36,12 @@ const manageProject = (() =>{
     let projects = [];
 
     const checkProject = (name) => {
-        let proExist = JSON.parse(getLocalStorage("projects"))?.find(item => item.name === name);
+
+        if(!getLocalStorage("projects")) return false
+
+        let proExist = JSON.parse(getLocalStorage("projects")).find(item => item.name === name);
         return proExist;
+
     }
 
 
@@ -137,20 +141,63 @@ const manageTask = (() => {
     }
 
 
+    const editTask = (id, name, descr, pro_id, due_date, priority) => {
+
+
+
+        const task = checkTask(id);
+
+        task.name = name;
+        task.descr = descr;
+        task.pro_id = pro_id;
+        task.due_date = due_date;
+        task.priority = priority;
+
+        console.log(task);
+
+        localStorage.setItem("tasks", JSON.stringify(task));
+
+
+        // const task = new Task(name, descr, pro_id, due_date, priority);
+        // task.id = generateRandomId();
+
+        // let newStorage = {
+        //     id: task.id,
+        //     name: task.name,
+        //     descr: task.descr,
+        //     pro_id: task.pro_id,
+        //     due_date: task.due_date,
+        //     priority: task.priority
+        // }
+
+
+        // let localStrTasks = getLocalStorage("tasks");
+        // if(localStrTasks !== null){
+        //     tasks = [...JSON.parse(localStrTasks), newStorage]
+        // }
+        // else{
+        //     tasks = [newStorage];
+        // }
+        // localStorage.setItem('tasks', JSON.stringify(tasks));
+
+    }
+
     const getProjects = (storageName) => {
         return getLocalStorage(storageName);
     }
 
-    const checkProTasks = (id) => {
-        let taksExist = JSON.parse(getLocalTasks("tasks"))?.filter(item => item.pro_id === id);
+    const checkProTasks = (id) => { //get all tasks of the specific project
+        if(!getLocalTasks("tasks")) return;
+
+        let taksExist = JSON.parse(getLocalTasks("tasks")).filter(item => item.pro_id === id);
         return taksExist;
     }
 
-    const checkTask = (id) => {
+    const checkTask = (id) => {//find task with specific id
         let taksExist = JSON.parse(getLocalTasks("tasks"))?.find(item => item.id === id);
         return taksExist;
     }
-    return {getProjects, createTask, checkProTasks, checkTask}
+    return {getProjects, createTask, checkProTasks, checkTask, editTask}
 
 })();
 

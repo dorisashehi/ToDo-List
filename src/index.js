@@ -53,8 +53,8 @@ document.querySelectorAll("li.nav-item").forEach((menu) => {//function on click 
 //show tasks of default menu avtive
 const menuActive = document.querySelector("li.nav-item.active");
 let tasks = Interface.tasksModule.handleShowTasks(menuActive); //get array of tasks
-Interface.tasksModule.showTasks(tasks);  //show taks per project with content
-
+if(tasks) {Interface.tasksModule.showTasks(tasks);}  //show taks per project with content
+else{ Interface.tasksModule.showEmptyContent(); }
 
 //toggle submenu
 document.querySelectorAll("i.expand").forEach((icon) => { //function to rotate icon of submenu
