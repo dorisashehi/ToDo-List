@@ -58,6 +58,7 @@ const Interface = (() => {
 
     //Open Dialog box
     const openDialog = (dialogID) => {
+        console.log("hello");
         const dialog = document.getElementById(dialogID);
         dialog.showModal();
 
@@ -101,7 +102,7 @@ const Interface = (() => {
                     <div class="d-flex justify-content-between form-buttons">
                         <div class="buttons-group">
                             <input type="submit" id="submit" value="Add" class="btn btn-primary" disabled formnovalidate />
-                            <input type="submit" class="btn btn-primary" id="js-close" value="Cancel" />
+                            <input type="submit" class="btn btn-primary" id="close-add-pro" value="Cancel" />
                         </div>
 
                     </div>
@@ -244,7 +245,7 @@ const Interface = (() => {
                 <div class="form-fields d-flex">
 
                     <div class="form-group mb-0 col">
-                        <input type="text" class="form-control form-task-name" id="edit-task-name" name="edit-task-name" value="${name}" placeholder="Task name" required>
+                        <input type="text" class="form-control form-task-name" id="edit-task-name" name="add-task-name" value="${name}" placeholder="Task name" required>
                         <textarea class="form-control form-task-description" rows="5"  id="edit-task-description" name="edit-task-description"  rows="5" maxlength="100" placeholder="Description" required>${descr}</textarea>
                     </div>
 
@@ -256,10 +257,10 @@ const Interface = (() => {
                         <select class="projects-options task-pro-selection" name="project-name" id="edit-pro-selection"></select>
 
                         <h6 class="mt-2">Due Date</h6>
-                        <input type="date" class="form-control" id="edit-task-date form-task-date" name="edit-task-date" value="${due_date}">
+                        <input type="date" class="form-control form-task-date" id="edit-task-date" name="add-task-date" value="${due_date}">
 
                         <h6 class="mt-2">Priority</h6>
-                        <select class="priority-selection" id="edit-priority-selection" name="edit-priority-selection">
+                        <select class="priority-selection" id="edit-priority-selection" name="add-priority-selection">
                             <option class="priority-item" value="priority1">Priority 1</option>
                             <option class="priority-item" value="priority2">Priority 2</option>
                             <option class="priority-item" value="priority3">Priority 3</option>
@@ -282,8 +283,8 @@ const Interface = (() => {
                 </div>
                 <div class="d-flex justify-content-between form-buttons">
                     <div class="buttons-group">
-                        <input type="submit" id="submit" value="Update" class="btn btn-primary" formnovalidate />
-                        <input type="submit" class="btn btn-primary" id="js-close" value="Cancel" />
+                        <input type="submit" id="submit-edit" value="Update" class="btn btn-primary" formnovalidate />
+                        <input type="submit" class="btn btn-primary" id="close-edit-dialog" value="Cancel" />
                     </div>
 
                 </div>
@@ -295,6 +296,48 @@ const Interface = (() => {
             document.querySelector(`[value= "${priority}"]`).setAttribute("selected", "");
             projectLists("edit-pro-selection");
             document.querySelector(`[value= "${pro_id}"]`).setAttribute("selected", "");
+
+
+            enableSubmitBtn1(editDialogForm);
+            //handleFormSubmit(editDialogForm);
+
+        }
+
+
+         //enable submit button based on input
+         const enableSubmitBtn1 = (form) => {
+
+
+            const formFields = [
+                document.getElementById("edit-task-name"),
+                document.getElementById("edit-task-description"),
+                document.getElementById("edit-priority-selection"),
+                document.getElementById("edit-pro-selection"),
+                document.getElementById("edit-task-date")
+
+            ];
+
+
+            formFields.forEach(field => {
+                field.addEventListener("change", () => {
+                    clearTimeout(timer);
+                    timer = setTimeout(() => {
+                        toogleSubmitButton1(formFields);
+                    },500)
+                })
+
+            })
+
+        }
+
+        const toogleSubmitButton1  = (formFields) => {
+            const submitBtn = document.querySelector("#submit-edit");
+            if(validateFields(formFields)){
+                submitBtn.removeAttribute("disabled");
+
+            }else{
+                submitBtn.setAttribute("disabled","");
+            }
 
         }
 
@@ -346,7 +389,7 @@ const Interface = (() => {
                     </select>
                     <div class="buttons-group">
                         <input type="submit" id="submit-task" value="Add" class="btn btn-primary" disabled formnovalidate />
-                        <input type="submit" class="btn btn-primary" id="js-close" value="Cancel" />
+                        <input type="submit" class="btn btn-primary" id="close-add-task" value="Cancel" />
                     </div>
 
                 </div>
@@ -373,6 +416,7 @@ const Interface = (() => {
                 document.getElementById("add-pro-selection"),
                 document.getElementById("add-task-date")
             ];
+
 
             formFields.forEach(field => {
                 field.addEventListener("change", () => {

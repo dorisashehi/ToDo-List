@@ -80,7 +80,7 @@ openProjectDialog.addEventListener("click", () => {
 })
 
 
-const closeProjectDialog = document.querySelector("#project-dialog #js-close");
+const closeProjectDialog = document.querySelector("#project-dialog #close-add-pro");
 closeProjectDialog.addEventListener("click", (e) => { //close dialog box
     e.preventDefault();
     Interface.projectModule.closeDialog("project-dialog");
@@ -93,32 +93,25 @@ openTaskDialog.addEventListener("click", () => {
     Interface.tasksModule.openDialog("dialog");
 })
 
-const closeTaskDialog = dialog.querySelector("#dialog #js-close");
+const closeTaskDialog = dialog.querySelector("#dialog #close-add-task");
 closeTaskDialog.addEventListener("click", (e) => { //close dialog box
     e.preventDefault();
     Interface.tasksModule.closeDialog("dialog");
 });
 
 
-const openDialogEdit = (dialogID) => {
-    const dialog = document.getElementById(dialogID);
-    //dialog.setAttribute("data-task", taskID);
-    dialog.showModal();
-
-}
 //on task click edit task
 const taskItems = document.querySelectorAll(".task-content");
 taskItems.forEach((task) => {
     task.addEventListener('click', (e) => {
-        console.log(task.dataset.task);
         Interface.tasksModule.editTask(task.dataset.task);
-        openDialogEdit("edit-dialog");
-        //Interface.tasksModule.openDialog("edit-dialog");
+        Interface.tasksModule.openDialog("edit-dialog");
     })
 })
 
-// const closeEditTaskDialog = dialog.querySelector("#edit-dialog #js-close");
+// const closeEditTaskDialog = dialog.querySelector("#edit-dialog #close-edit-dialog");
 // closeEditTaskDialog.addEventListener("click", (e) => { //close dialog box
+
 //     e.preventDefault();
 //     Interface.tasksModule.closeDialog("edit-dialog");
 // });
