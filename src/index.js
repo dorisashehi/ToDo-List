@@ -6,9 +6,7 @@ import { manageProject, manageTask } from './modules/app';
 //add default project to storage on page load
 manageProject.createProject("inbox", false);
 
-//load submenu on page load
-Interface.menuModule.refreshSubMenu("projects");
-Interface.menuModule.refreshSubMenu("favorites");
+
 
 //create project functionality
 Interface.projectModule.createProjectDialog();
@@ -24,11 +22,11 @@ document.querySelector(".toggle").addEventListener("click", () => { //function t
 
 
 //add menu as active
-const handleMenuClick = (menuItem) => { //funstion to add active menu
-    document.querySelector("li.nav-item.active")?.classList.remove("active");
-    menuItem.classList.add("active");
+// const handleMenuClick = (menuItem) => { //funstion to add active menu
+//     document.querySelector("li.nav-item.active")?.classList.remove("active");
+//     menuItem.classList.add("active");
 
-}
+// }
 
 
 
@@ -37,24 +35,24 @@ const handleMenuClick = (menuItem) => { //funstion to add active menu
 
 ////TASKS FUNCTIONS
 
+///ALL THESE FUNCTIONS ARE EXECUTED ON PAGE LOAD
 document.querySelectorAll("li.nav-item").forEach((menu) => {//function on click a menu item
     menu.addEventListener("click", (el)=> {
 
         const menuItem = el.currentTarget;
         if(menuItem.parentNode.id  === "main-menu" || menuItem.classList.contains("submenu-item")){
-            handleMenuClick(menuItem); //add as active
-            let tasks = Interface.tasksModule.getMenuActTasks(menuItem); //get array of tasks
-            if(!tasks) {
-                Interface.tasksModule.showEmptyContent();
-                return;
-            }
-            Interface.tasksModule.showTasksHTML(tasks);  //show taks per project with content
+            Interface.menuModule.handleMenuClick(menuItem); //add as active
+            Interface.menuModule.getMenuTasks(menuItem);
 
         }
     })
 })
 
-//show tasks of default menu avtive
+//LOAD SUBMENU ON PAGE LOAD
+Interface.menuModule.refreshSubMenu("projects");
+Interface.menuModule.refreshSubMenu("favorites");
+
+//DEFAULT ACTIVE MENU TASKS
 Interface.tasksModule.refreshTasks();
 
 

@@ -6,8 +6,49 @@ const Interface = (() => {
 
     const menuModule = (() => {
 
+        const getMenuTasks = (menuLi) => { //get clicked menu tasks
+            let tasks = tasksModule.getMenuActTasks(menuLi); //get array of tasks
+
+            if(!tasks || tasks.length === 0) {
+                tasksModule.showEmptyContent();
+                return;
+            }
+            tasksModule.showTasksHTML(tasks);  //show taks per project with content
+
+        }
+
+        const handleMenuClick = (menuItem) => { //funstion to add active menu
+            document.querySelector("li.nav-item.active")?.classList.remove("active");
+            menuItem.classList.add("active");
+
+        }
+
 
         const getMenuItem = (subMenu) => {
+
+            let {id, name} = subMenu;
+
+            const menuLi = document.createElement("li");
+            menuLi.classList.add("w-100", "submenu-item", "nav-item");
+            menuLi.setAttribute("data-project", id);
+            menuLi.addEventListener("click", () => {
+                handleMenuClick(menuLi);
+                getMenuTasks(menuLi);
+            })
+
+
+            const link = document.createElement("a");
+            link.classList.add("nav-link", "px-3");
+
+
+            const span = document.createElement("span");
+            span.classList.add("d-none", "d-sm-inline");
+            span.textContent = name;
+
+            link.appendChild(span);
+            menuLi.appendChild(link);
+
+            return menuLi;
 
             return(
                 `
@@ -20,14 +61,14 @@ const Interface = (() => {
 
         const filterProjects = () => { //filter only favorites submenu
             return JSON.parse(localStorage["projects"])
-                    .filter(item => { return item.favorited === "false"})
-                    .map(subMenu => getMenuItem(subMenu)).join('');
+                    .filter(item => { return item.favorited === "false"});
+                    //.map(subMenu => getMenuItem(subMenu)).join('');
         }
 
         const filterFavorites = () => {// filter only projects submenu
             return  JSON.parse(localStorage["projects"])
-                        .filter(item => { return item.favorited === "true"})
-                        .map(subMenu => getMenuItem(subMenu)).join('');
+                        .filter(item => { return item.favorited === "true"});
+                        //.map(subMenu => getMenuItem(subMenu)).join('');
         }
 
 
@@ -35,18 +76,31 @@ const Interface = (() => {
         const refreshSubMenu = (menuName) => { //function to load submenu
 
             let subMenuCon = '';
+            const ulContent = document.querySelector("ul.submenu."+menuName);
 
             if(localStorage.length !== 0){
 
-                if(menuName == "favorites" && localStorage["projects"]) subMenuCon = filterFavorites();
-                if(menuName == "projects" &&  localStorage["projects"]) subMenuCon = filterProjects();
+                if(menuName == "favorites" && localStorage["projects"]) {
+                    ulContent.innerHTML = "";
+                    subMenuCon = filterFavorites();
+                    subMenuCon.forEach(item => {
+                        ulContent.appendChild(getMenuItem(item));
+                    })
+                }
+
+                if(menuName == "projects" &&  localStorage["projects"]) {
+                    ulContent.innerHTML = "";
+                    subMenuCon = filterProjects();
+                    subMenuCon.forEach(item => {
+                        ulContent.appendChild(getMenuItem(item));
+                    })
+                }
 
             }
 
-            document.querySelector("ul.submenu."+menuName).innerHTML = subMenuCon;
         }
 
-        return {refreshSubMenu}
+        return {refreshSubMenu, getMenuTasks, handleMenuClick}
 
     })();
 
@@ -165,7 +219,7 @@ const Interface = (() => {
                     closeDialog("project-dialog");
                     menuModule.refreshSubMenu("projects"); //show project to projects submenu
                     menuModule.refreshSubMenu("favorites");//show thta project at favorites submenu
-                    //tasksModule.projectLists(); //add new project to task project select
+                    tasksModule.projectLists("add-pro-selection"); //add new project to task project select
 
                 })
             }
@@ -315,17 +369,13 @@ const Interface = (() => {
 
         }
 
-        const refreshTasks = () => {
+        const refreshTasks = () => { //GET ACTIVE MENU TASKS
 
             const menuActive = document.querySelector("li.nav-item.active");
             let tasks = getMenuActTasks(menuActive); //get array of tasks
 
-            if(tasks) {
-                showTasksHTML(tasks);
-                return;
-            }  //show taks per project with content
-
-            showEmptyContent();  //if not tasks for menu active , show empty content
+            if(!tasks || tasks.length === 0) {showEmptyContent(); return;}  //if not tasks for menu active , show empty content
+            showTasksHTML(tasks);
         }
 
 
@@ -549,7 +599,12 @@ const Interface = (() => {
 
 
         //set options to project select field of form
-        const projectLists = (domEl) => {
+        const projectLists = (domEl) => { console.log("heyyyyyy");
+
+            const projectSelect = document.getElementById(domEl);
+
+            projectSelect.innerHTML = "";
+
             JSON.parse(manageTask.getProjects("projects"))?.forEach(item => {
                 const option = document.createElement("option");
                 option.classList.add("project-name", "d-flex","flex-row");
@@ -559,7 +614,7 @@ const Interface = (() => {
                 optionSpan.textContent = item.name;
 
                 option.appendChild(optionSpan);
-                document.getElementById(domEl).appendChild(option);
+                projectSelect.appendChild(option);
             })
         }
 
