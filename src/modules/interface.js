@@ -380,9 +380,10 @@ const Interface = (() => {
 
 
         const editTask = (taskID) => {
+            console.log(taskID);
             const editDialog = document.getElementById("edit-dialog");
 
-            let {id, name, descr, priority, due_date, pro_id} = manageTask.checkTask(taskID);
+            let {descr, due_date, id, name, priority, pro_id} = manageTask.checkTask(taskID);
 
             const editDialogForm = document.createElement('form');
             editDialogForm.setAttribute("method", "POST");
@@ -395,7 +396,9 @@ const Interface = (() => {
                     <div class="form-group mb-0 col">
                         <input type="text" class="form-control form-task-name" id="edit-task-name" name="add-task-name" value="${name}" placeholder="Task name" required>
                         <textarea class="form-control form-task-description" rows="5"  id="edit-task-description" name="edit-task-description"  rows="5" maxlength="100" placeholder="Description" required>${descr}</textarea>
-                    </div>
+                        <input type="hidden"  name="edit-task-id" id="edit-task-id" value="${id}">
+
+                        </div>
 
                     <div class="form-group mb-0 d-flex flex-row col-5 d-flex flex-column align-items-start">
                         <h6>
@@ -432,7 +435,7 @@ const Interface = (() => {
                 <div class="d-flex justify-content-between form-buttons">
                     <div class="buttons-group">
 
-                        <input type="submit" id="submit-edit-task" value="Update" class="btn btn-primary"  formnovalidate />
+                        <input type="submit" id="submit-task" value="Update" class="btn btn-primary"  formnovalidate />
                         <input type="submit" class="btn btn-primary" id="close-edit-dialog" value="Cancel" />
 
                     </div>
@@ -455,42 +458,38 @@ const Interface = (() => {
 
 
             const formFields = [
-                document.getElementById("edit-task-name"),
-                document.getElementById("edit-task-description"),
-                document.getElementById("edit-priority-selection"),
-                document.getElementById("edit-pro-selection"),
-                document.getElementById("edit-task-date")
 
+                document.getElementById("edit-task-description"),
+                document.getElementById("edit-task-date"),
+                document.getElementById("edit-task-id"),
+                document.getElementById("edit-task-name"),
+                document.getElementById("edit-priority-selection"),
+                document.getElementById("edit-pro-selection")
             ];
 
+
+            document.querySelector("#edit-dialog #submit-task").addEventListener("click", (e) => {
+                e.preventDefault();
+                handleFormUpdate(formFields);
+                // resetForm(editDialogForm);  //clear form fields
+                // refreshTasks(); //load task is container from storage
+                // closeDialog("dialog");
+            });
+
+
+
             enableSubmitBtn(formFields , "edit-dialog");
-            handleFormUpdate(editDialogForm, taskID);
+
 
         }
 
 
         //handle form submit
-        const handleFormUpdate = (form, taskID) => { console.log("ssss");
-            form.addEventListener("submit", function (event) {
-                event.preventDefault(); // Prevent the default form submission behavior
+        const handleFormUpdate = (formFields) => {
 
-                // Get the values from form elements
-                let taskName = form.elements["edit-task-name"].value;
-                let taskDescription = form.elements["edit-task-description"].value;
-                let taskDate = form.elements["edit-task-date"].value;
-                let taskPriority = form.elements["edit-priority-selection"].value;
-                let taskProID = form.elements["project-name"].value;
+            let [descr, taskDate, id, name, taskPriority, taskProID] = formFields;
+            manageTask.editTask(descr.value, taskDate.value, id.value, name.value, taskPriority.value, taskProID.value);
 
-                manageTask.editTask(taskID, taskName, taskDescription, taskProID, taskDate, taskPriority);
-
-                //resetForm(form);  //clear form fields
-                //refreshTasks(); //load task is container from storage
-                //closeDialog("dialog");
-
-                // menuModule.refreshSubMenu("projects");
-                // menuModule.refreshSubMenu("favorites");
-
-            })
         }
 
 
