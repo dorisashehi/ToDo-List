@@ -3,37 +3,20 @@ import { Interface } from './modules/interface';
 import { manageProject, manageTask } from './modules/app';
 
 
-//add default project to storage on page load
+
+////ALL THESE CODES BELOW ARE EXECUTED ON PAGE LOAD
+
+
+
+//ADD DEFAULT PROJECT TO STORAGE ON PAGE LOAD
 manageProject.createProject("inbox", false);
 
-
-
-//create project functionality
+//CREATE PROJECT DIALOD APPEND TO CODE
 Interface.projectModule.createProjectDialog();
-//show create task diclog
+
+//CREATE TASK DIALOG  APPENDED
 Interface.tasksModule.createTask();
 
-
-//sidebar
-document.querySelector(".toggle").addEventListener("click", () => { //function to toggle submenu
-    document.querySelector(".sidebar-col").classList.toggle('hide');
-
-})
-
-
-//add menu as active
-// const handleMenuClick = (menuItem) => { //funstion to add active menu
-//     document.querySelector("li.nav-item.active")?.classList.remove("active");
-//     menuItem.classList.add("active");
-
-// }
-
-
-
-
-
-
-////TASKS FUNCTIONS
 
 ///ALL THESE FUNCTIONS ARE EXECUTED ON PAGE LOAD
 document.querySelectorAll("li.nav-item").forEach((menu) => {//function on click a menu item
@@ -58,14 +41,13 @@ Interface.tasksModule.refreshTasks();
 
 
 
+//SIDEBAR SHOW HIDE
+document.querySelector(".toggle").addEventListener("click", () => { //function to toggle submenu
+    document.querySelector(".sidebar-col").classList.toggle('hide');
 
+})
 
-
-
-
-
-
-//toggle submenu
+//TOGGLE SUBMENU
 document.querySelectorAll("i.expand").forEach((icon) => { //function to rotate icon of submenu
     icon.addEventListener("click", (el) => {
         el.target.classList.toggle("rotate-icon");
@@ -78,8 +60,7 @@ document.querySelectorAll("i.expand").forEach((icon) => { //function to rotate i
 
 ///OPEN DIALOG BOXES
 
-
-//Add new task dialog functionality
+//ADD, CLOSE NEW PROJECT DIALOG OPEN WHEN CLICKING THE PLUS ICON
 const openProjectDialog = document.querySelector(".new-project");
 openProjectDialog.addEventListener("click", () => {
 
@@ -96,7 +77,7 @@ closeProjectDialog.addEventListener("click", (e) => { //close dialog box
 });
 
 
-//Add new task dialog
+//ADD, CLOSE NEW TASK DIALOG OPEN WHEN CLICKING THE PLUS ICON
 const openTaskDialog = document.querySelector(".fa-plus-circle");
 openTaskDialog.addEventListener("click", () => {
     Interface.tasksModule.openDialog("dialog");

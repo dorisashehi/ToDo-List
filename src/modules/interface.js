@@ -599,8 +599,7 @@ const Interface = (() => {
 
 
         //set options to project select field of form
-        const projectLists = (domEl) => { console.log("heyyyyyy");
-
+        const projectLists = (domEl) => {
             const projectSelect = document.getElementById(domEl);
 
             projectSelect.innerHTML = "";
