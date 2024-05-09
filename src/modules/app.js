@@ -147,15 +147,17 @@ const manageTask = (() => {
 
         const task = checkTask(id);
 
-        task.name = name;
-        task.descr = descr;
-        task.pro_id = pro_id;
-        task.due_date = due_date;
-        task.priority = priority;
+
+
+        // task.name = name;
+        // task.descr = descr;
+        // task.pro_id = pro_id;
+        // task.due_date = due_date;
+        // task.priority = priority;
 
         console.log(task);
 
-        localStorage.setItem("tasks", JSON.stringify(task));
+        //localStorage.setItem("tasks", JSON.stringify(task));
 
 
         // const task = new Task(name, descr, pro_id, due_date, priority);

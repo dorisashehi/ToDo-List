@@ -12,9 +12,6 @@ Interface.menuModule.refreshSubMenu("favorites");
 
 //create project functionality
 Interface.projectModule.createProjectDialog();
-
-//Interface.tasksModule.editTask();
-
 //show create task diclog
 Interface.tasksModule.createTask();
 
@@ -34,6 +31,10 @@ const handleMenuClick = (menuItem) => { //funstion to add active menu
 }
 
 
+
+
+
+
 ////TASKS FUNCTIONS
 
 document.querySelectorAll("li.nav-item").forEach((menu) => {//function on click a menu item
@@ -42,9 +43,12 @@ document.querySelectorAll("li.nav-item").forEach((menu) => {//function on click 
         const menuItem = el.currentTarget;
         if(menuItem.parentNode.id  === "main-menu" || menuItem.classList.contains("submenu-item")){
             handleMenuClick(menuItem); //add as active
-            let tasks = Interface.tasksModule.handleShowTasks(menuItem); //get array of tasks
-            if(!tasks) {Interface.tasksModule.showEmptyContent(); return;}
-            Interface.tasksModule.showTasks(tasks);  //show taks per project with content
+            let tasks = Interface.tasksModule.getMenuActTasks(menuItem); //get array of tasks
+            if(!tasks) {
+                Interface.tasksModule.showEmptyContent();
+                return;
+            }
+            Interface.tasksModule.showTasksHTML(tasks);  //show taks per project with content
 
         }
     })
@@ -52,6 +56,16 @@ document.querySelectorAll("li.nav-item").forEach((menu) => {//function on click 
 
 //show tasks of default menu avtive
 Interface.tasksModule.refreshTasks();
+
+
+
+
+
+
+
+
+
+
 
 //toggle submenu
 document.querySelectorAll("i.expand").forEach((icon) => { //function to rotate icon of submenu
@@ -88,9 +102,11 @@ closeProjectDialog.addEventListener("click", (e) => { //close dialog box
 const openTaskDialog = document.querySelector(".fa-plus-circle");
 openTaskDialog.addEventListener("click", () => {
     Interface.tasksModule.openDialog("dialog");
+    console.log("helooo");
+
 })
 
-const closeTaskDialog = dialog.querySelector("#dialog #close-add-task");
+const closeTaskDialog = dialog.querySelector("#close-add-task");
 closeTaskDialog.addEventListener("click", (e) => { //close dialog box
     e.preventDefault();
     Interface.tasksModule.closeDialog("dialog");
@@ -98,13 +114,13 @@ closeTaskDialog.addEventListener("click", (e) => { //close dialog box
 
 
 //on task click edit task
-const taskItems = document.querySelectorAll(".task-content");
-taskItems.forEach((task) => {
-    task.addEventListener('click', (e) => {
-        Interface.tasksModule.editTask(task.dataset.task);
-        Interface.tasksModule.openDialog("edit-dialog");
-    })
-})
+// const taskItems = document.querySelectorAll(".task-content");
+// taskItems.forEach((task) => {
+//     task.addEventListener('click', (e) => {
+//         Interface.tasksModule.editTask(task.dataset.task);
+//         Interface.tasksModule.openDialog("edit-dialog");
+//     })
+// })
 
 // const closeEditTaskDialog = dialog.querySelector("#edit-dialog #close-edit-dialog");
 // closeEditTaskDialog.addEventListener("click", (e) => { //close dialog box

@@ -59,6 +59,7 @@ const Interface = (() => {
     //Open Dialog box
     const openDialog = (dialogID) => {
         const dialog = document.getElementById(dialogID);
+        //debugger
         dialog.showModal();
 
     }
@@ -114,7 +115,6 @@ const Interface = (() => {
                 enableSubmitBtn();
                 handleFormSubmit(dialogForm);
 
-
             }
 
             //enable submit button based on input
@@ -165,7 +165,7 @@ const Interface = (() => {
                     closeDialog("project-dialog");
                     menuModule.refreshSubMenu("projects"); //show project to projects submenu
                     menuModule.refreshSubMenu("favorites");//show thta project at favorites submenu
-                    tasksModule.projectLists(); //add new project to task project select
+                    //tasksModule.projectLists(); //add new project to task project select
 
                 })
             }
@@ -186,7 +186,74 @@ const Interface = (() => {
         const getTaskItem = (task) => {
 
             let {id, name, descr, due_date} = task;
-            return(
+
+             // Create the main div with class "task mb-3"
+            const taskDiv = document.createElement('div');
+            taskDiv.classList.add('task', 'mb-3');
+
+            // Create the inner div with class "row task-item"
+            const rowDiv = document.createElement('div');
+            rowDiv.classList.add('row', 'task-item');
+
+            // Create the checkbox div with class "col-1 complete-btn d-flex justify-content-center pt-1"
+            const checkboxDiv = document.createElement('div');
+            checkboxDiv.classList.add('col-1', 'complete-btn', 'd-flex', 'justify-content-center', 'pt-1');
+
+            // Create the checkbox input
+            const checkboxInput = document.createElement('input');
+            checkboxInput.setAttribute('type', 'checkbox');
+            checkboxInput.classList.add('completed');
+            checkboxInput.setAttribute('id', `completed-task-${id}`);
+            checkboxInput.setAttribute('name', 'completed');
+            checkboxInput.setAttribute('value', id);
+
+            // Create the checkbox label
+            const checkboxLabel = document.createElement('label');
+            checkboxLabel.setAttribute('for', `completed-task-${id}`);
+
+            // Append input and label to checkbox div
+            checkboxDiv.appendChild(checkboxInput);
+            checkboxDiv.appendChild(checkboxLabel);
+
+            // Create the task content div with class "col task-content" and data-task attribute
+            const taskContentDiv = document.createElement('div');
+            taskContentDiv.classList.add('col', 'task-content');
+            taskContentDiv.addEventListener("click", () => {
+                editTask(id); //pass info of the task to the edit dialog
+                openDialog("edit-dialog");
+            } );
+            taskContentDiv.setAttribute('data-task', id);
+
+            // Create the inner div with class "row task-name mb-2" for task name
+            const nameDiv = document.createElement('div');
+            nameDiv.classList.add('row', 'task-name', 'mb-2');
+            nameDiv.textContent = name;
+
+            // Create the inner div with class "row task-description" for task description
+            const descrDiv = document.createElement('div');
+            descrDiv.classList.add('row', 'task-description');
+            descrDiv.textContent = descr;
+
+            // Create the inner div with class "row task-date" for task due date
+            const dueDateDiv = document.createElement('div');
+            dueDateDiv.classList.add('row', 'task-date');
+            dueDateDiv.textContent = due_date;
+
+            // Append name, description, and due date to task content div
+            taskContentDiv.appendChild(nameDiv);
+            taskContentDiv.appendChild(descrDiv);
+            taskContentDiv.appendChild(dueDateDiv);
+
+            // Append checkbox and task content to row div
+            rowDiv.appendChild(checkboxDiv);
+            rowDiv.appendChild(taskContentDiv);
+
+            // Append row div to task div
+            taskDiv.appendChild(rowDiv);
+
+            // Return the created task div
+            return taskDiv;
+
             `
                 <div class="task mb-3">
                     <div class="row task-item">
@@ -207,28 +274,58 @@ const Interface = (() => {
                         </div>
                     </div>
                 </div>
-            `);
+            `
 
         }
 
-        const showTasks = (tasks) => {
-            //debugger
-            const taskList = document.querySelector(".task-list");
+        const addTaskEditEvent = () => {  //open edit dialog box
+            const taskItems = document.querySelectorAll(".task-content");
+            taskItems.forEach((task) => {
+                task.addEventListener('click', (e) => {
+                    editTask(task.dataset.task); //pass info of the task to the edit dialog
+                    openDialog("edit-dialog");  //open edit dialog on click
+                })
+            })
+        }
 
-            const taskContent = tasks.map(task => getTaskItem(task)).join('');
-            taskList.innerHTML = taskContent;
+        const showTasksHTML = (tasks) => {  //get html of each task of the active menu
+            //debugger
+            const taskList = document.querySelector(".task-list"); //that is the container where tasks have to stay
+            taskList.innerHTML = ""; //clear content
+            tasks.forEach(task => { //add list of the tasks
+                taskList.appendChild(getTaskItem(task));
+            })
+
+            //const taskContent = tasks.map(task => {getTaskItem(task);}); //get html of each task passing the pas infos
+            //console.log(taskContent);
+
+           // taskList.innerHTML = taskContent; //show tasks to content
+
+            //addTaskEditEvent(); //add on click event listener for each task of active menu
 
         }
 
 
-        const handleShowTasks = (el) => { //function to get the array of tasks of the project.
-            const menuClicked = el.textContent.trim().toLowerCase();
-            const pro_id = manageProject.checkProject(menuClicked).id;
-            const proTasks = manageTask.checkProTasks(pro_id);
-            //debugger
+        const getMenuActTasks = (el) => { //function to get the array of tasks of the project.
+            const menuClicked = el.textContent.trim().toLowerCase(); //get project tesxt in lower case
+            const pro_id = manageProject.checkProject(menuClicked).id; //get project id from storage based on the name of menu
+            const proTasks = manageTask.checkProTasks(pro_id);   //get tasks of the project based on the id of the project
 
-            return proTasks;
+            return proTasks; //return tasks
 
+        }
+
+        const refreshTasks = () => {
+
+            const menuActive = document.querySelector("li.nav-item.active");
+            let tasks = getMenuActTasks(menuActive); //get array of tasks
+
+            if(tasks) {
+                showTasksHTML(tasks);
+                return;
+            }  //show taks per project with content
+
+            showEmptyContent();  //if not tasks for menu active , show empty content
         }
 
 
@@ -236,6 +333,7 @@ const Interface = (() => {
             const editDialog = document.getElementById("edit-dialog");
 
             let {id, name, descr, priority, due_date, pro_id} = manageTask.checkTask(taskID);
+
             const editDialogForm = document.createElement('form');
             editDialogForm.setAttribute("method", "POST");
             editDialogForm.innerHTML =
@@ -283,19 +381,27 @@ const Interface = (() => {
                 </div>
                 <div class="d-flex justify-content-between form-buttons">
                     <div class="buttons-group">
-                        <input type="submit" id="submit-task" value="Update" class="btn btn-primary" formnovalidate />
+
+                        <input type="submit" id="submit-edit-task" value="Update" class="btn btn-primary"  formnovalidate />
                         <input type="submit" class="btn btn-primary" id="close-edit-dialog" value="Cancel" />
+
                     </div>
 
                 </div>
 
             `;
-            editDialog.appendChild(editDialogForm);
+            editDialog.innerHTML = editDialogForm.outerHTML;
 
             //set selected priority
             document.querySelector(`[value= "${priority}"]`).setAttribute("selected", "");
             projectLists("edit-pro-selection");
             document.querySelector(`[value= "${pro_id}"]`).setAttribute("selected", "");
+
+            document.querySelector("#close-edit-dialog").addEventListener("click", (e) => {
+                e.preventDefault();
+                closeDialog("edit-dialog");
+                return;
+            });
 
 
             const formFields = [
@@ -314,7 +420,7 @@ const Interface = (() => {
 
 
         //handle form submit
-        const handleFormUpdate = (form, taskID) => {
+        const handleFormUpdate = (form, taskID) => { console.log("ssss");
             form.addEventListener("submit", function (event) {
                 event.preventDefault(); // Prevent the default form submission behavior
 
@@ -327,9 +433,10 @@ const Interface = (() => {
 
                 manageTask.editTask(taskID, taskName, taskDescription, taskProID, taskDate, taskPriority);
 
-                resetForm(form);
-                closeDialog("dialog");
-                handleShowTasks();
+                //resetForm(form);  //clear form fields
+                //refreshTasks(); //load task is container from storage
+                //closeDialog("dialog");
+
                 // menuModule.refreshSubMenu("projects");
                 // menuModule.refreshSubMenu("favorites");
 
@@ -394,6 +501,7 @@ const Interface = (() => {
             handleFormSubmit(dialogForm);
 
 
+
         }
 
 
@@ -456,13 +564,6 @@ const Interface = (() => {
         }
 
 
-        const refreshTasks = () => {
-            const menuActive = document.querySelector("li.nav-item.active");
-            let tasks = Interface.tasksModule.handleShowTasks(menuActive); //get array of tasks
-            if(tasks) {Interface.tasksModule.showTasks(tasks);}  //show taks per project with content
-            else{ Interface.tasksModule.showEmptyContent(); }
-        }
-
 
         //handle form submit
         const handleFormSubmit = (form) => {
@@ -479,8 +580,10 @@ const Interface = (() => {
                 manageTask.createTask(taskName, taskDescription, taskProID, taskDate, taskPriority);
 
                 resetForm(form);
-                closeDialog("dialog");
                 refreshTasks(); //load again tasks to see the new task added
+                closeDialog("dialog");
+
+
 
             })
         }
@@ -497,7 +600,7 @@ const Interface = (() => {
         }
 
 
-        return { showTasks, editTask, createTask, showEmptyContent,  openDialog, closeDialog, projectLists, handleShowTasks, refreshTasks }
+        return { showTasksHTML, editTask, createTask, showEmptyContent,  openDialog, closeDialog, projectLists, getMenuActTasks, refreshTasks }
     })();
 
 
