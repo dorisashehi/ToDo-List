@@ -450,15 +450,8 @@ const Interface = (() => {
             projectLists("edit-pro-selection");
             document.querySelector(`[value= "${pro_id}"]`).setAttribute("selected", "");
 
-            document.querySelector("#close-edit-dialog").addEventListener("click", (e) => {
-                e.preventDefault();
-                closeDialog("edit-dialog");
-                return;
-            });
-
 
             const formFields = [
-
                 document.getElementById("edit-task-description"),
                 document.getElementById("edit-task-date"),
                 document.getElementById("edit-task-id"),
@@ -467,25 +460,27 @@ const Interface = (() => {
                 document.getElementById("edit-pro-selection")
             ];
 
+            enableSubmitBtn(formFields , "edit-dialog");
 
             document.querySelector("#edit-dialog #submit-task").addEventListener("click", (e) => {
                 e.preventDefault();
-                handleFormUpdate(formFields);
-                // resetForm(editDialogForm);  //clear form fields
-                // refreshTasks(); //load task is container from storage
-                // closeDialog("dialog");
+                handleFormUpdate(formFields); //submit form
+                resetForm(editDialogForm);  //clear form fields
+                refreshTasks(); //load task is container from storage
+                closeDialog("edit-dialog"); //close edit form
             });
 
-
-
-            enableSubmitBtn(formFields , "edit-dialog");
-
+            document.querySelector("#close-edit-dialog").addEventListener("click", (e) => {
+                e.preventDefault();
+                closeDialog("edit-dialog");
+                return;
+            });
 
         }
 
 
         //handle form submit
-        const handleFormUpdate = (formFields) => {
+        const handleFormUpdate = (formFields) => { //update to storage
 
             let [descr, taskDate, id, name, taskPriority, taskProID] = formFields;
             manageTask.editTask(descr.value, taskDate.value, id.value, name.value, taskPriority.value, taskProID.value);
