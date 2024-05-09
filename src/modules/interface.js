@@ -62,13 +62,11 @@ const Interface = (() => {
         const filterProjects = () => { //filter only favorites submenu
             return JSON.parse(localStorage["projects"])
                     .filter(item => { return item.favorited === "false"});
-                    //.map(subMenu => getMenuItem(subMenu)).join('');
         }
 
         const filterFavorites = () => {// filter only projects submenu
             return  JSON.parse(localStorage["projects"])
                         .filter(item => { return item.favorited === "true"});
-                        //.map(subMenu => getMenuItem(subMenu)).join('');
         }
 
 
@@ -332,30 +330,14 @@ const Interface = (() => {
 
         }
 
-        const addTaskEditEvent = () => {  //open edit dialog box
-            const taskItems = document.querySelectorAll(".task-content");
-            taskItems.forEach((task) => {
-                task.addEventListener('click', (e) => {
-                    editTask(task.dataset.task); //pass info of the task to the edit dialog
-                    openDialog("edit-dialog");  //open edit dialog on click
-                })
-            })
-        }
 
         const showTasksHTML = (tasks) => {  //get html of each task of the active menu
-            //debugger
+
             const taskList = document.querySelector(".task-list"); //that is the container where tasks have to stay
             taskList.innerHTML = ""; //clear content
             tasks.forEach(task => { //add list of the tasks
                 taskList.appendChild(getTaskItem(task));
             })
-
-            //const taskContent = tasks.map(task => {getTaskItem(task);}); //get html of each task passing the pas infos
-            //console.log(taskContent);
-
-           // taskList.innerHTML = taskContent; //show tasks to content
-
-            //addTaskEditEvent(); //add on click event listener for each task of active menu
 
         }
 
@@ -380,9 +362,8 @@ const Interface = (() => {
 
 
         const editTask = (taskID) => {
-            console.log(taskID);
-            const editDialog = document.getElementById("edit-dialog");
 
+            const editDialog = document.getElementById("edit-dialog");
             let {descr, due_date, id, name, priority, pro_id} = manageTask.checkTask(taskID);
 
             const editDialogForm = document.createElement('form');

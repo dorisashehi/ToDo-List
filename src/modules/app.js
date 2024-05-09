@@ -143,8 +143,6 @@ const manageTask = (() => {
 
     const editTask = (descr, due_date, id, name, priority, pro_id) => {
 
-
-
         const taskIndex = JSON.parse(localStorage.getItem("tasks")).findIndex(item => item.id === id);
 
         var obj = {
