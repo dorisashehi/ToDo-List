@@ -28,14 +28,6 @@ class Project{
         this.favorites = favorites;
     }
 
-    changeName(name){
-        this.name = name;
-    }
-
-    changeFavorites(favorites){
-        this.favorites = favorites;
-    }
-
 }
 
 const generateRandomId = () => { //create a random id to use as task id and project id
@@ -683,31 +675,10 @@ const manageProject = (() =>{
         //project exists, STOP executation
         if(checkProject(name)) return;
 
-
         const project = new Project(name, favorited);
-
         (name ==="inbox") ? project.id = "17845a4b-1fc0-42e2-9084-744fa24f32e5" : project.id = generateRandomId();
-
         projects = [...projects, project];
-
         Storage.addToStorage(projects, "projects");
-        console.log(projects);
-
-        // let newStorage = {
-        //     id: project.id,
-        //     name: project.name,
-        //     favorited: project.favorites
-        // }
-
-        // let localStrPro = getLocalStorage("projects");
-        // if(localStrPro !== null && name !== "inbox"){
-        //     projects = [...JSON.parse(localStrPro), newStorage]
-        // }
-        // else{
-
-        //     projects = [newStorage];
-        // }
-        // localStorage.setItem('projects', JSON.stringify(projects));
 
     }
 
@@ -730,26 +701,6 @@ class Task{
         this.priority = priority;
     }
 
-    changeName(newName){
-        this.name = newName;
-    }
-
-    changeDescr(newDescr){
-        this.descr = newDescr;
-    }
-
-    changeProID(newProID){
-        this.pro_id = newProID;
-    }
-
-    changeDueDate(newDueDate){
-        this.due_date = newDueDate;
-    }
-
-    changePriority(newPriority){
-        this.priority = newPriority;
-    }
-
 }
 
 
@@ -762,30 +713,7 @@ const manageTask = (() => {
         task.id = generateRandomId();
 
         todoArr = [...todoArr, task];
-
         Storage.addToStorage(todoArr, "tasks");
-
-        console.log(todoArr);
-
-        // let newStorage = {
-        //     id: task.id,
-        //     name: task.name,
-        //     descr: task.descr,
-        //     pro_id: task.pro_id,
-        //     due_date: task.due_date,
-        //     priority: task.priority
-        // }
-
-
-        // let localStrTasks = getLocalStorage("tasks");
-        // if(localStrTasks !== null){
-        //     tasks = [...JSON.parse(localStrTasks), newStorage]
-        // }
-        // else{
-        //     tasks = [newStorage];
-        // }
-        // localStorage.setItem('tasks', JSON.stringify(tasks));
-
     }
 
 
