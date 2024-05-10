@@ -1,6 +1,6 @@
 import './assets/styles/main.scss'
 import { Interface } from './modules/interface';
-import { manageProject, manageTask } from './modules/app';
+import { manageProject, manageTask, UiMenu } from './modules/app';
 
 
 
@@ -9,7 +9,7 @@ import { manageProject, manageTask } from './modules/app';
 
 
 //ADD DEFAULT PROJECT TO STORAGE ON PAGE LOAD
-manageProject.createProject("inbox", false);
+//manageProject.createProject("inbox", false);
 
 //CREATE PROJECT DIALOD APPEND TO CODE
 Interface.projectModule.createProjectDialog();
@@ -19,24 +19,27 @@ Interface.tasksModule.createTask();
 
 
 ///ALL THESE FUNCTIONS ARE EXECUTED ON PAGE LOAD
-document.querySelectorAll("li.nav-item").forEach((menu) => {//function on click a menu item
-    menu.addEventListener("click", (el)=> {
+// document.querySelectorAll("li.nav-item").forEach((menu) => {//function on click a menu item
+//     menu.addEventListener("click", (el)=> {
 
-        const menuItem = el.currentTarget;
-        if(menuItem.parentNode.id  === "main-menu" || menuItem.classList.contains("submenu-item")){
-            Interface.menuModule.handleMenuClick(menuItem); //add as active
-            Interface.menuModule.getMenuTasks(menuItem);
+//         const menuItem = el.currentTarget;
+//         if(menuItem.parentNode.id  === "main-menu" || menuItem.classList.contains("submenu-item")){
+//             Interface.menuModule.handleMenuClick(menuItem); //add as active
+//             Interface.menuModule.getMenuTasks(menuItem);
 
-        }
-    })
-})
+//         }
+//     })
+// })
 
 //LOAD SUBMENU ON PAGE LOAD
-Interface.menuModule.refreshSubMenu("projects");
-Interface.menuModule.refreshSubMenu("favorites");
+// Interface.menuModule.refreshSubMenu("projects");
+// Interface.menuModule.refreshSubMenu("favorites");
+
+UiMenu.refreshSubMenu("projects");
+//UiMenu.refreshSubMenu("favorites");
 
 //DEFAULT ACTIVE MENU TASKS
-Interface.tasksModule.refreshTasks();
+//Interface.tasksModule.refreshTasks();
 
 
 

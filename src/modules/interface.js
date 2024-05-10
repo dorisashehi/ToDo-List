@@ -1,4 +1,4 @@
-import {Project, Task, manageProject, manageTask} from './app.js';
+import {Project, Task, manageProject, manageTask, UiMenu, UiTasks} from './app.js';
 import {profile} from '../assets/images/profile.jpg';
 
 const Interface = (() => {
@@ -214,10 +214,11 @@ const Interface = (() => {
                     manageProject.createProject(projectName, favoriteValue);
 
                     resetForm(form);
+                    UiMenu.refreshSubMenu("projects"); //show project to projects submenu
+                    UiMenu.refreshSubMenu("favorites");//show thta project at favorites submenu
+                    UiTasks.projectLists("add-pro-selection"); //add new project to task project select
                     closeDialog("project-dialog");
-                    menuModule.refreshSubMenu("projects"); //show project to projects submenu
-                    menuModule.refreshSubMenu("favorites");//show thta project at favorites submenu
-                    tasksModule.projectLists("add-pro-selection"); //add new project to task project select
+
 
                 })
             }
@@ -609,7 +610,7 @@ const Interface = (() => {
                 manageTask.createTask(taskName, taskDescription, taskProID, taskDate, taskPriority);
 
                 resetForm(form);
-                refreshTasks(); //load again tasks to see the new task added
+                //refreshTasks(); //load again tasks to see the new task added
                 closeDialog("dialog");
 
 
