@@ -1,6 +1,6 @@
 import './assets/styles/main.scss'
 import { Interface } from './modules/interface';
-import { manageProject, manageTask, UiMenu, UiTasks } from './modules/app';
+import { manageProject, UiMenu, UiTasks, UiProject, openDialog, closeDialog } from './modules/app';
 
 
 
@@ -12,10 +12,10 @@ import { manageProject, manageTask, UiMenu, UiTasks } from './modules/app';
 manageProject.createProject("inbox", false);
 
 //CREATE PROJECT DIALOD APPEND TO CODE
-Interface.projectModule.createProjectDialog();
+UiProject.createProjectDialog();
 
 //CREATE TASK DIALOG  APPENDED
-Interface.tasksModule.createTask();
+UiTasks.createTask();
 
 
 ///ALL THESE FUNCTIONS ARE EXECUTED ON PAGE LOAD
@@ -63,9 +63,8 @@ document.querySelectorAll("i.expand").forEach((icon) => { //function to rotate i
 //ADD, CLOSE NEW PROJECT DIALOG OPEN WHEN CLICKING THE PLUS ICON
 const openProjectDialog = document.querySelector(".new-project");
 openProjectDialog.addEventListener("click", () => {
-
-    Interface.projectModule.openDialog("project-dialog");
-    Interface.projectModule.addToFavorite();
+    openDialog("project-dialog");
+    UiProject.addToFavorite();
 
 })
 
@@ -73,22 +72,21 @@ openProjectDialog.addEventListener("click", () => {
 const closeProjectDialog = document.querySelector("#project-dialog #close-add-pro");
 closeProjectDialog.addEventListener("click", (e) => { //close dialog box
     e.preventDefault();
-    Interface.projectModule.closeDialog("project-dialog");
+    closeDialog("project-dialog");
 });
 
 
 //ADD, CLOSE NEW TASK DIALOG OPEN WHEN CLICKING THE PLUS ICON
 const openTaskDialog = document.querySelector(".fa-plus-circle");
 openTaskDialog.addEventListener("click", () => {
-    Interface.tasksModule.openDialog("dialog");
-    console.log("helooo");
+    openDialog("dialog");
 
 })
 
 const closeTaskDialog = dialog.querySelector("#close-add-task");
 closeTaskDialog.addEventListener("click", (e) => { //close dialog box
     e.preventDefault();
-    Interface.tasksModule.closeDialog("dialog");
+    closeDialog("dialog");
 });
 
 

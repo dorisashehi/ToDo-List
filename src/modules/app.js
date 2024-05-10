@@ -15,6 +15,7 @@ class Storage{
     }
 }
 
+
 let projects = Storage.getStorage("projects");
 
 let todoArr = Storage.getStorage("tasks");
@@ -166,6 +167,90 @@ class UiMenu{
 
 let timer;
 class UiTasks{
+
+    static createTask = () => {
+
+        const dialog = document.getElementById("dialog");
+        const defaultProID = '17845a4b-1fc0-42e2-9084-744fa24f32e5';
+
+        const dialogForm = document.createElement('form');
+        dialogForm.setAttribute("method", "POST");
+        dialogForm.innerHTML =
+        `
+            <h4 class="dialog-header">New Task</h4>
+            <div class="form-fields">
+                <div class="form-group mb-0">
+                    <input type="text" class="form-control form-task-name" id="add-task-name" name="add-task-name" placeholder="Task name" required />
+                </div>
+                <div class="form-group mb-0">
+                    <textarea class="form-control form-task-description" rows="3"  id="add-task-description" name="add-task-description"  rows="5" maxlength="100" placeholder="Description" required></textarea>
+
+                </div>
+
+                <div class="form-group mb-0 d-flex flex-row gap-3" >
+                    <input type="date" class="form-control form-task-date" id="add-task-date" name="add-task-date">
+                    <select class="priority-selection" id="add-priority-selection" name="priority-selection">
+                        <option class="priority-item" value="default" selected disabled>Priority</option>
+                        <option class="priority-item" value="priority1">Priority 1</option>
+                        <option class="priority-item" value="priority2">Priority 2</option>
+                        <option class="priority-item" value="priority3">Priority 3</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between form-buttons">
+                <select class="projects-options task-pro-selection" name="project-name" id="add-pro-selection">
+                    <option class="project-name d-flex flex-row" value = "default" selected disabled><span>No project choosen</span></option>
+                </select>
+                <div class="buttons-group">
+                    <input type="submit" id="submit-task" value="Add" class="btn btn-primary" disabled formnovalidate />
+                    <input type="submit" class="btn btn-primary" id="close-add-task" value="Cancel" />
+                </div>
+
+            </div>
+
+        `;
+        dialog.appendChild(dialogForm);
+
+        this.projectLists("add-pro-selection");
+
+        const formFields = [
+            document.getElementById("add-task-name"),
+            document.getElementById("add-task-description"),
+            document.getElementById("add-priority-selection"),
+            document.getElementById("add-pro-selection"),
+            document.getElementById("add-task-date")
+        ];
+        this.enableSubmitBtn(formFields , "dialog");
+        this.handleFormSubmit(dialogForm);
+
+
+
+    }
+
+    //handle form submit
+    static handleFormSubmit = (form) => {
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+            // Get the values from form elements
+            let taskName = form.elements["add-task-name"].value;
+            let taskDescription = form.elements["add-task-description"].value;
+            let taskDate = form.elements["add-task-date"].value;
+            let taskPriority = form.elements["add-priority-selection"].value;
+            let taskProID = form.elements["project-name"].value;
+
+            manageTask.createTask(taskName, taskDescription, taskProID, taskDate, taskPriority);
+
+            resetForm(form);
+            UiTasks.refreshTasks(); //load again tasks to see the new task added
+            closeDialog("dialog");
+
+
+
+        })
+    }
+
 
     static projectLists = (domEl) => { //SHOW PROJECTS AT PROJECT SELECT OPTIONS
         const projectSelect = document.getElementById(domEl);
@@ -477,6 +562,108 @@ class UiTasks{
 
 }
 
+
+class UiProject{
+
+    //create project dialog
+    static createProjectDialog = () => {
+
+        const projectDialog = document.getElementById("project-dialog");
+
+        const dialogForm = document.createElement('form');
+        dialogForm.setAttribute("method", "POST");
+
+        dialogForm.innerHTML =
+        `
+            <h4 class="dialog-header">Add Project</h4>
+            <div class="form-fields">
+                <div class="form-group mb-0">
+                    <label for="form-project-name">Project Name</label>
+                    <input type="text" class="form-control form-project-name" id="form-project-name" name="form-project-name" placeholder="Project name" required />
+                </div>
+            </div>
+            <div class="form-fields">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="favorites-box" value="false" name="favorites-box">
+                    <label class="form-check-label" for="favorites-boxh">Add to favorites</label>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between form-buttons">
+                <div class="buttons-group">
+                    <input type="submit" id="submit" value="Add" class="btn btn-primary" disabled formnovalidate />
+                    <input type="submit" class="btn btn-primary" id="close-add-pro" value="Cancel" />
+                </div>
+
+            </div>
+
+        `;
+
+        projectDialog.appendChild(dialogForm);
+
+        //call below functions
+        this.enableSubmitBtn();
+        this.handleFormSubmit(dialogForm);
+
+    }
+
+    //to as favorite project
+    static addToFavorite = () => { //add or remove from favorite
+
+        const favCheckbox  = document.getElementById("favorites-box");
+        let favoritedProject = false;
+        document.getElementById("favorites-box").addEventListener("click", () => {
+            favoritedProject = !favoritedProject;
+            favCheckbox.value = favoritedProject;
+        });
+    }
+
+    //enable submit button based on input
+    static enableSubmitBtn = () => {
+        let timer;
+
+        document.getElementById("form-project-name").addEventListener("input", (el) => {
+
+            clearTimeout(timer);
+            const submitBtn = document.querySelector("#submit");
+
+            timer = setTimeout(() => {
+                if(el.target.value !== "") {
+                    submitBtn.removeAttribute("disabled");
+                    return;
+
+                }
+                submitBtn.setAttribute("disabled","");
+            },500)
+        })
+
+    }
+
+    //submit button action
+     static handleFormSubmit = (form) => {//after form is submited
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+            // Get the values from form elements
+            let projectName = form.elements["form-project-name"].value;
+            let favoriteValue = form.elements["favorites-box"].value;
+
+
+            manageProject.createProject(projectName, favoriteValue);
+
+            resetForm(form);
+            UiMenu.refreshSubMenu("projects"); //show project to projects submenu
+            UiMenu.refreshSubMenu("favorites");//show thta project at favorites submenu
+            UiTasks.projectLists("add-pro-selection"); //add new project to task project select
+            closeDialog("project-dialog");
+
+
+        })
+    }
+
+
+}
+
 const manageProject = (() =>{
 
 
@@ -633,4 +820,4 @@ const manageTask = (() => {
 
 
 
-export { Project, Task, manageProject, manageTask,UiMenu, UiTasks }
+export {manageProject, manageTask,UiMenu, UiTasks , UiProject, openDialog, closeDialog}

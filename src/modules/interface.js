@@ -1,5 +1,5 @@
-import {Project, Task, manageProject, manageTask, UiMenu, UiTasks} from './app.js';
-import {profile} from '../assets/images/profile.jpg';
+import {manageProject, manageTask, UiMenu, UiTasks} from './app.js';
+
 
 const Interface = (() => {
 
