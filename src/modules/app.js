@@ -52,6 +52,25 @@ const getLocalTasks = (strName) => {
 
 
 
+//reset form fields
+const resetForm = (form) => {
+    form.reset();//clear form inputs
+}
+
+//Open Dialog box
+const openDialog = (dialogID) => {
+    const dialog = document.getElementById(dialogID);
+    dialog.showModal();
+
+}
+
+//close Dialog box
+const closeDialog = (closeBtnID) => {
+    const closeDialog = document.getElementById(closeBtnID);
+    closeDialog.close();
+
+}
+
 
 
 
@@ -62,13 +81,13 @@ const getLocalTasks = (strName) => {
 class UiMenu{
 
     static getMenuTasks = (menuLi) => { //get clicked menu tasks
-        let tasks = tasksModule.getMenuActTasks(menuLi); //get array of tasks
+        let tasks = UiTasks.getMenuActTasks(menuLi); //get array of tasks
 
         if(!tasks || tasks.length === 0) {
-            tasksModule.showEmptyContent();
+            UiTasks.showEmptyContent();
             return;
         }
-        tasksModule.showTasksHTML(tasks);  //show taks per project with content
+        UiTasks.showTasksHTML(tasks);  //show taks per project with content
 
     }
 
@@ -144,6 +163,8 @@ class UiMenu{
 
 }
 
+
+let timer;
 class UiTasks{
 
     static projectLists = (domEl) => { //SHOW PROJECTS AT PROJECT SELECT OPTIONS
@@ -224,7 +245,7 @@ class UiTasks{
         const taskContentDiv = document.createElement('div');
         taskContentDiv.classList.add('col', 'task-content');
         taskContentDiv.addEventListener("click", () => {
-            editTask(id); //pass info of the task to the edit dialog
+            UiTasks.editTask(id); //pass info of the task to the edit dialog
             openDialog("edit-dialog");
         } );
         taskContentDiv.setAttribute('data-task', id);
@@ -303,6 +324,155 @@ class UiTasks{
         if(!tasks || tasks.length === 0) {this.showEmptyContent(); return;}  //if not tasks for menu active , show empty content
         this.showTasksHTML(tasks);
     }
+
+    static editTask = (taskID) => {
+
+        const editDialog = document.getElementById("edit-dialog");
+        let {descr, due_date, id, name, priority, pro_id} = manageTask.checkTask(taskID);
+
+        const editDialogForm = document.createElement('form');
+        editDialogForm.setAttribute("method", "POST");
+        editDialogForm.innerHTML =
+        `
+
+            <h4 class="dialog-header">Update Task</h4>
+            <div class="form-fields d-flex">
+
+                <div class="form-group mb-0 col">
+                    <input type="text" class="form-control form-task-name" id="edit-task-name" name="add-task-name" value="${name}" placeholder="Task name" required>
+                    <textarea class="form-control form-task-description" rows="5"  id="edit-task-description" name="edit-task-description"  rows="5" maxlength="100" placeholder="Description" required>${descr}</textarea>
+                    <input type="hidden"  name="edit-task-id" id="edit-task-id" value="${id}">
+
+                    </div>
+
+                <div class="form-group mb-0 d-flex flex-row col-5 d-flex flex-column align-items-start">
+                    <h6>
+                        Project
+                    </h6>
+
+                    <select class="projects-options task-pro-selection" name="project-name" id="edit-pro-selection"></select>
+
+                    <h6 class="mt-2">Due Date</h6>
+                    <input type="date" class="form-control form-task-date" id="edit-task-date" name="add-task-date" value="${due_date}">
+
+                    <h6 class="mt-2">Priority</h6>
+                    <select class="priority-selection" id="edit-priority-selection" name="add-priority-selection">
+                        <option class="priority-item" value="priority1">Priority 1</option>
+                        <option class="priority-item" value="priority2">Priority 2</option>
+                        <option class="priority-item" value="priority3">Priority 3</option>
+                    </select>
+
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="row comment-btn">
+                    <i class="fas fa-plus-circle" id="comment-plus"></i>
+                    <label for="comment-plus">Add Comment</label>
+                </div>
+
+                <div class="row comment-editor" style="width: 500px;height: 150px;">
+                    <div id="editor"></div>
+
+                </div>
+
+            </div>
+            <div class="d-flex justify-content-between form-buttons">
+                <div class="buttons-group">
+
+                    <input type="submit" id="submit-task" value="Update" class="btn btn-primary"  formnovalidate />
+                    <input type="submit" class="btn btn-primary" id="close-edit-dialog" value="Cancel" />
+
+                </div>
+
+            </div>
+
+        `;
+        editDialog.innerHTML = editDialogForm.outerHTML;
+
+        //set selected priority
+        document.querySelector(`[value= "${priority}"]`).setAttribute("selected", "");
+        this.projectLists("edit-pro-selection");
+        document.querySelector(`[value= "${pro_id}"]`).setAttribute("selected", "");
+
+
+        const formFields = [
+            document.getElementById("edit-task-description"),
+            document.getElementById("edit-task-date"),
+            document.getElementById("edit-task-id"),
+            document.getElementById("edit-task-name"),
+            document.getElementById("edit-priority-selection"),
+            document.getElementById("edit-pro-selection")
+        ];
+
+        this.enableSubmitBtn(formFields , "edit-dialog");
+
+        document.querySelector("#edit-dialog #submit-task").addEventListener("click", (e) => {
+            e.preventDefault();
+            this.handleFormUpdate(formFields); //submit form
+            resetForm(editDialogForm);  //clear form fields
+            this.refreshTasks(); //load task is container from storage
+            closeDialog("edit-dialog"); //close edit form
+        });
+
+        document.querySelector("#close-edit-dialog").addEventListener("click", (e) => {
+            e.preventDefault();
+            closeDialog("edit-dialog");
+            return;
+        });
+
+
+
+    }
+
+    //handle form submit
+    static handleFormUpdate = (formFields) => { //update to storage
+
+        let [descr, taskDate, id, name, taskPriority, taskProID] = formFields;
+        manageTask.editTask(descr.value, taskDate.value, id.value, name.value, taskPriority.value, taskProID.value);
+
+    }
+
+
+    //enable submit button based on input
+    static enableSubmitBtn = (formFields, dialogID) => {
+
+
+       formFields.forEach(field => {
+           field.addEventListener("input", () => {
+               clearTimeout(timer);
+               timer = setTimeout(() => {
+                   this.toogleSubmitButton(formFields, dialogID);
+               },100)
+           })
+
+       })
+   }
+
+   static toogleSubmitButton  = (formFields, dialogID) => {
+
+        const submitBtn = document.querySelector(`#${dialogID} #submit-task`);
+        if(this.validateFields(formFields)){
+            submitBtn.removeAttribute("disabled");
+
+        }else{
+            submitBtn.setAttribute("disabled","");
+        }
+
+    }
+
+    static validateFields = (formFields) => {
+        let allFilled = true;
+
+        formFields.forEach(item => {
+            if(item.value === "" || item.value === "default"){
+                allFilled = false;
+            }
+        })
+        return allFilled;
+    }
+
+
 
 
 }
@@ -432,23 +602,13 @@ const manageTask = (() => {
     }
 
 
-    const editTask = (descr, due_date, id, name, priority, pro_id) => {
+    const editTask = (descr, due_date, id, name, priority, pro_id) => { //EDIT TASK STORADE
 
-        const taskIndex = JSON.parse(localStorage.getItem("tasks")).findIndex(item => item.id === id);
-
-        var obj = {
-            id : id,
-            name: name,
-            descr:descr,
-            pro_id:pro_id,
-            due_date: due_date,
-            priority: priority
-        }
-
-        let localStrTasks = JSON.parse(getLocalTasks("tasks"));
-        localStrTasks[taskIndex] = obj;
-
-        localStorage.setItem('tasks', JSON.stringify(localStrTasks));
+        const task = new Task(name,descr,pro_id,due_date,priority);
+        task.id = id;
+        const taskIndex = todoArr.findIndex(item => item.id === id);
+        todoArr[taskIndex] = task;
+        Storage.addToStorage(todoArr, "tasks");
 
     }
 

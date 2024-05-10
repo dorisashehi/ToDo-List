@@ -610,7 +610,7 @@ const Interface = (() => {
                 manageTask.createTask(taskName, taskDescription, taskProID, taskDate, taskPriority);
 
                 resetForm(form);
-                //refreshTasks(); //load again tasks to see the new task added
+                UiTasks.refreshTasks(); //load again tasks to see the new task added
                 closeDialog("dialog");
 
 
