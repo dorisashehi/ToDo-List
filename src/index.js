@@ -1,13 +1,15 @@
 import './assets/styles/main.scss'
-import { Interface } from './modules/interface';
-import { manageProject, UiMenu, UiTasks, UiProject, openDialog, closeDialog } from './modules/app';
-
+import { Project } from './modules/app';
+import { UiMenu} from './modules/menu_view';
+import { UiTasks} from './modules/tasks_view';
+import { UiProject} from './modules/project_view';
+import { openDialog, closeDialog} from './modules/utils';
 
 
 ////ALL THESE CODES BELOW ARE EXECUTED ON PAGE LOAD
 
 //ADD DEFAULT PROJECT TO STORAGE ON PAGE LOAD
-manageProject.createProject("inbox", false);
+Project.createProject("inbox", false);
 
 //CREATE PROJECT DIALOD APPEND TO CODE
 UiProject.createProjectDialog();
