@@ -6,8 +6,6 @@ import { manageProject, UiMenu, UiTasks, UiProject, openDialog, closeDialog } fr
 
 ////ALL THESE CODES BELOW ARE EXECUTED ON PAGE LOAD
 
-
-
 //ADD DEFAULT PROJECT TO STORAGE ON PAGE LOAD
 manageProject.createProject("inbox", false);
 
@@ -56,8 +54,6 @@ document.querySelectorAll("i.expand").forEach((icon) => { //function to rotate i
 })
 
 
-
-
 ///OPEN DIALOG BOXES
 
 //ADD, CLOSE NEW PROJECT DIALOG OPEN WHEN CLICKING THE PLUS ICON
@@ -89,26 +85,6 @@ closeTaskDialog.addEventListener("click", (e) => { //close dialog box
     closeDialog("dialog");
 });
 
-
-//on task click edit task
-// const taskItems = document.querySelectorAll(".task-content");
-// taskItems.forEach((task) => {
-//     task.addEventListener('click', (e) => {
-//         Interface.tasksModule.editTask(task.dataset.task);
-//         Interface.tasksModule.openDialog("edit-dialog");
-//     })
-// })
-
-// const closeEditTaskDialog = dialog.querySelector("#edit-dialog #close-edit-dialog");
-// closeEditTaskDialog.addEventListener("click", (e) => { //close dialog box
-
-//     e.preventDefault();
-//     Interface.tasksModule.closeDialog("edit-dialog");
-// });
-
-
-
-//cpomments
 
 
 // document.querySelector(".comment-plus").addEventListener("click", () => {

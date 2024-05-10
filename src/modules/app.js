@@ -604,6 +604,7 @@ class UiProject{
 
         const favCheckbox  = document.getElementById("favorites-box");
         let favoritedProject = false;
+        favCheckbox.value = false;
         document.getElementById("favorites-box").addEventListener("click", () => {
             favoritedProject = !favoritedProject;
             favCheckbox.value = favoritedProject;
@@ -662,9 +663,11 @@ const manageProject = (() =>{
 
     const checkProject = (name) => {
 
+
+
         if(!projects) return false
 
-        let proExist = projects.find(item => item.name === name);
+        let proExist = projects.find(item => item.name === name.trim());
         return proExist;
 
     }
