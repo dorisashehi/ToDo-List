@@ -94,6 +94,14 @@ class Task{
 
     }
 
+    static editPriority = (taskID, priority) => { //EDIT ONLY PRIORITY OF SPECIFIC TASK
+
+        const taskIndex = todoArr.findIndex(item => item.id === taskID);
+        todoArr[taskIndex].priority = priority;
+        Storage.addToStorage(todoArr, "tasks");
+
+    }
+
     static getProjects = (storageName) => {
         return getLocalStorage(storageName);
     }

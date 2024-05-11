@@ -30,6 +30,14 @@ class UiTasks{
 
     }
 
+    static onClickPriority(taskID, e){ //ON CLICK OF THE PRIORITY ICON
+
+        let priority = e.target.dataset.value; //GET CALUE OF THE PRIORITY CLICKED
+        Task.editPriority(taskID, priority); //EDIT PRIORITY OF THAT TASK
+        this.refreshTasks();
+
+    }
+
     static getTaskItem = (task) => {
 
         let {id, name, descr, due_date} = task;
@@ -64,24 +72,25 @@ class UiTasks{
          priorityRow.classList.add("priority-row","edit-row");
          priorityRow.textContent = "Priority";
 
-
-         const priority1 = document.createElement("i");
-         priority1.classList.add("fas", "fa-flag","red-color");
-         priority1.title = "Priority 1";
-
-         const priority2 = document.createElement("i");
-         priority2.classList.add("fas", "fa-flag","orange-color");
-         priority2.title = "Priority 2";
-
-         const priority3 = document.createElement("i");
-         priority3.classList.add("fas", "fa-flag", "blue-color");
-         priority3.title = "Priority 3";
-
          priorityDiv.appendChild(priorityRow);
-         priorityDiv.appendChild(priority1);
-         priorityDiv.appendChild(priority2);
-         priorityDiv.appendChild(priority3);
 
+         let priorityList = [
+            {name: "Priority 1", value: "priority1"},
+            {name: "Priority 2", value: "priority2"},
+            {name: "Priority 3", value: "priority3"}
+        ]
+
+        priorityList.forEach(priority => {
+
+            let prioritIcon = document.createElement("i");
+            prioritIcon.classList.add("fas", "fa-flag");
+            prioritIcon.setAttribute("data-value", priority.value);
+            prioritIcon.title = priority.name;
+
+            prioritIcon.addEventListener("click", (e) => this.onClickPriority(id, e));
+            priorityDiv.appendChild(prioritIcon);
+
+        });
 
          const dateDiv = document.createElement("div");
          dateDiv.classList.add("date-container");
