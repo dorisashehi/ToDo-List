@@ -1,113 +1,9 @@
-import {projects} from './app';
+import {UiProject} from "./project_view";;
 import { Task, Project } from './app';
 import {resetForm, openDialog, closeDialog} from './utils';
 
 
 class UiTasks{
-
-    static createTask = () => {
-
-        const dialog = document.getElementById("dialog");
-        const defaultProID = '17845a4b-1fc0-42e2-9084-744fa24f32e5';
-
-        const dialogForm = document.createElement('form');
-        dialogForm.setAttribute("method", "POST");
-        dialogForm.innerHTML =
-        `
-            <h4 class="dialog-header">New Task</h4>
-            <div class="form-fields">
-                <div class="form-group mb-0">
-                    <input type="text" class="form-control form-task-name" id="add-task-name" name="add-task-name" placeholder="Task name" required />
-                </div>
-                <div class="form-group mb-0">
-                    <textarea class="form-control form-task-description" rows="3"  id="add-task-description" name="add-task-description"  rows="5" maxlength="100" placeholder="Description" required></textarea>
-
-                </div>
-
-                <div class="form-group mb-0 d-flex flex-row gap-3" >
-                    <input type="date" class="form-control form-task-date" id="add-task-date" name="add-task-date">
-                    <select class="priority-selection" id="add-priority-selection" name="priority-selection">
-                        <option class="priority-item" value="default" selected disabled>Priority</option>
-                        <option class="priority-item" value="priority1">Priority 1</option>
-                        <option class="priority-item" value="priority2">Priority 2</option>
-                        <option class="priority-item" value="priority3">Priority 3</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="d-flex justify-content-between form-buttons">
-                <select class="projects-options task-pro-selection" name="project-name" id="add-pro-selection">
-                    <option class="project-name d-flex flex-row" value = "default" selected disabled><span>No project choosen</span></option>
-                </select>
-                <div class="buttons-group">
-                    <input type="submit" id="submit-task" value="Add" class="btn btn-primary" disabled formnovalidate />
-                    <input type="submit" class="btn btn-primary" id="close-add-task" value="Cancel" />
-                </div>
-
-            </div>
-
-        `;
-        dialog.appendChild(dialogForm);
-
-        this.projectLists("add-pro-selection");
-
-        const formFields = [
-            document.getElementById("add-task-name"),
-            document.getElementById("add-task-description"),
-            document.getElementById("add-priority-selection"),
-            document.getElementById("add-pro-selection"),
-            document.getElementById("add-task-date")
-        ];
-        this.enableSubmitBtn(formFields , "dialog");
-        this.handleFormSubmit(dialogForm);
-
-
-
-    }
-
-    //handle form submit
-    static handleFormSubmit = (form) => {
-        form.addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevent the default form submission behavior
-
-            // Get the values from form elements
-            let taskName = form.elements["add-task-name"].value;
-            let taskDescription = form.elements["add-task-description"].value;
-            let taskDate = form.elements["add-task-date"].value;
-            let taskPriority = form.elements["add-priority-selection"].value;
-            let taskProID = form.elements["project-name"].value;
-
-            Task.createTask(taskName, taskDescription, taskProID, taskDate, taskPriority);
-
-            resetForm(form);
-            this.refreshTasks(); //load again tasks to see the new task added
-            closeDialog("dialog");
-
-
-
-        })
-    }
-
-
-    static projectLists = (domEl) => { //SHOW PROJECTS AT PROJECT SELECT OPTIONS
-        const projectSelect = document.getElementById(domEl);
-
-        projectSelect.innerHTML = "";
-
-        projects?.forEach(item => {
-            const option = document.createElement("option");
-            option.classList.add("project-name", "d-flex","flex-row");
-            option.value =item.id;
-
-            const optionSpan = document.createElement("span");
-            optionSpan.textContent = item.name;
-
-            option.appendChild(optionSpan);
-            projectSelect.appendChild(option);
-        })
-    }
-
-
 
     static showEmptyContent = () => {
         const emptyContent = `
@@ -120,8 +16,6 @@ class UiTasks{
         document.querySelector(".task-list").innerHTML = emptyContent;
     }
 
-
-
     static getMenuActTasks = (el) => { //GET TASKS OF THE ACTIVE MENU
         const menuClicked = el.textContent.trim().toLowerCase(); //get project tesxt in lower case
         const pro_id = Project.checkProject(menuClicked).id; //get project id from storage based on the name of menu
@@ -131,7 +25,7 @@ class UiTasks{
 
     }
 
-    static handleOpenOptions(dotsDiv){console.log(dotsDiv);
+    static handleOpenOptions(dotsDiv){
         dotsDiv.querySelector(".edit-box").classList.toggle("show");
 
     }
@@ -285,7 +179,6 @@ class UiTasks{
         return taskDiv;
     }
 
-
     static showTasksHTML = (tasks) => {  //get html of each task of the active menu
 
         const taskList = document.querySelector(".task-list"); //that is the container where tasks have to stay
@@ -295,7 +188,6 @@ class UiTasks{
         })
 
     }
-
 
     static refreshTasks = () => { //GET ACTIVE MENU TASKS
 
@@ -373,7 +265,7 @@ class UiTasks{
 
         //set selected priority
         document.querySelector(`[value= "${priority}"]`).setAttribute("selected", "");
-        this.projectLists("edit-pro-selection");
+        UiProject.projectLists("edit-pro-selection");
         document.querySelector(`[value= "${pro_id}"]`).setAttribute("selected", "");
 
 
@@ -414,7 +306,6 @@ class UiTasks{
 
     }
 
-
     //enable submit button based on input
     static enableSubmitBtn = (formFields, dialogID) => {
         let timer;
@@ -452,6 +343,88 @@ class UiTasks{
         })
         return allFilled;
     }
+
+    static createTask = () => {
+
+        const dialog = document.getElementById("dialog");
+        const defaultProID = '17845a4b-1fc0-42e2-9084-744fa24f32e5';
+
+        const dialogForm = document.createElement('form');
+        dialogForm.setAttribute("method", "POST");
+        dialogForm.innerHTML =
+        `
+            <h4 class="dialog-header">New Task</h4>
+            <div class="form-fields">
+                <div class="form-group mb-0">
+                    <input type="text" class="form-control form-task-name" id="add-task-name" name="add-task-name" placeholder="Task name" required />
+                </div>
+                <div class="form-group mb-0">
+                    <textarea class="form-control form-task-description" rows="3"  id="add-task-description" name="add-task-description"  rows="5" maxlength="100" placeholder="Description" required></textarea>
+
+                </div>
+
+                <div class="form-group mb-0 d-flex flex-row gap-3" >
+                    <input type="date" class="form-control form-task-date" id="add-task-date" name="add-task-date">
+                    <select class="priority-selection" id="add-priority-selection" name="priority-selection">
+                        <option class="priority-item" value="default" selected disabled>Priority</option>
+                        <option class="priority-item" value="priority1">Priority 1</option>
+                        <option class="priority-item" value="priority2">Priority 2</option>
+                        <option class="priority-item" value="priority3">Priority 3</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between form-buttons">
+                <select class="projects-options task-pro-selection" name="project-name" id="add-pro-selection">
+                    <option class="project-name d-flex flex-row" value = "default" selected disabled><span>No project choosen</span></option>
+                </select>
+                <div class="buttons-group">
+                    <input type="submit" id="submit-task" value="Add" class="btn btn-primary" disabled formnovalidate />
+                    <input type="submit" class="btn btn-primary" id="close-add-task" value="Cancel" />
+                </div>
+
+            </div>
+
+        `;
+        dialog.appendChild(dialogForm);
+
+        UiProject.projectLists("add-pro-selection");
+
+        const formFields = [
+            document.getElementById("add-task-name"),
+            document.getElementById("add-task-description"),
+            document.getElementById("add-priority-selection"),
+            document.getElementById("add-pro-selection"),
+            document.getElementById("add-task-date")
+        ];
+        this.enableSubmitBtn(formFields , "dialog");
+        this.handleFormSubmit(dialogForm);
+
+
+
+    }
+
+    //handle form submit
+    static handleFormSubmit = (form) => {
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+            // Get the values from form elements
+            let taskName = form.elements["add-task-name"].value;
+            let taskDescription = form.elements["add-task-description"].value;
+            let taskDate = form.elements["add-task-date"].value;
+            let taskPriority = form.elements["add-priority-selection"].value;
+            let taskProID = form.elements["project-name"].value;
+
+            Task.createTask(taskName, taskDescription, taskProID, taskDate, taskPriority);
+
+            resetForm(form);
+            UiTasks.refreshTasks(); //load again tasks to see the new task added
+            closeDialog("dialog");
+
+        })
+    }
+
 }
 
 

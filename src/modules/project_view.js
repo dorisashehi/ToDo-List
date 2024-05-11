@@ -1,9 +1,26 @@
-import { Project } from "./app";
+import { Project, projects } from "./app";
 import { UiMenu } from "./menu_view";
-import { UiTasks } from "./tasks_view"
 import {resetForm, closeDialog} from './utils';
 
 class UiProject{
+
+    static projectLists = (domEl) => { //SHOW PROJECTS AT PROJECT SELECT OPTIONS
+        const projectSelect = document.getElementById(domEl);
+
+        projectSelect.innerHTML = "";
+
+        projects?.forEach(item => {
+            const option = document.createElement("option");
+            option.classList.add("project-name", "d-flex","flex-row");
+            option.value =item.id;
+
+            const optionSpan = document.createElement("span");
+            optionSpan.textContent = item.name;
+
+            option.appendChild(optionSpan);
+            projectSelect.appendChild(option);
+        })
+    }
 
     //create project dialog
     static createProjectDialog = () => {
@@ -95,7 +112,7 @@ class UiProject{
             resetForm(form);
             UiMenu.refreshSubMenu("projects"); //show project to projects submenu
             UiMenu.refreshSubMenu("favorites");//show thta project at favorites submenu
-            UiTasks.projectLists("add-pro-selection"); //add new project to task project select
+            this.projectLists("add-pro-selection"); //add new project to task project select
             closeDialog("project-dialog");
 
 
