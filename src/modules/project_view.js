@@ -99,6 +99,7 @@ class UiProject{
 
     //submit button action
      static handleFormSubmit = (form) => {//after form is submited
+
         form.addEventListener("submit", function (event) {
             event.preventDefault(); // Prevent the default form submission behavior
 
@@ -112,7 +113,7 @@ class UiProject{
             resetForm(form);
             UiMenu.refreshSubMenu("projects"); //show project to projects submenu
             UiMenu.refreshSubMenu("favorites");//show thta project at favorites submenu
-            this.projectLists("add-pro-selection"); //add new project to task project select
+            UiProject.projectLists("add-pro-selection"); //add new project to task project select
             closeDialog("project-dialog");
 
 

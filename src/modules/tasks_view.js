@@ -20,6 +20,10 @@ class UiTasks{
 
     static getMenuActTasks = (el) => { //GET TASKS OF THE ACTIVE MENU
         const menuClicked = el.textContent.trim().toLowerCase(); //get project tesxt in lower case
+        if(menuClicked === "today"){
+            console.log(menuClicked);
+            return;
+        }
         const pro_id = Project.checkProject(menuClicked).id; //get project id from storage based on the name of menu
         const proTasks = Task.checkProTasks(pro_id);   //get tasks of the project based on the id of the project
 
