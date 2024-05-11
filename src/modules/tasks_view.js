@@ -38,6 +38,12 @@ class UiTasks{
 
     }
 
+    static onDeleteEvent(taskID){
+
+        Task.deleteTask(taskID); //DELETE TASK WITH ID
+        this.refreshTasks();
+    }
+
     static getTaskItem = (task) => {
 
         let {id, name, descr, due_date} = task;
@@ -120,6 +126,8 @@ class UiTasks{
 
          const deleteIcon = document.createElement("i");
          deleteIcon.classList.add("fas", "fa-trash");
+
+         deleteIcon.addEventListener("click", () => this.onDeleteEvent(id));
 
          deleteDiv.appendChild(deleteIcon);
          deleteDiv.appendChild(deleteText);

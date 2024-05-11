@@ -102,6 +102,14 @@ class Task{
 
     }
 
+    static deleteTask = (taskID) => { //EDIT ONLY PRIORITY OF SPECIFIC TASK
+
+        const taskIndex = todoArr.findIndex(item => item.id === taskID);
+        todoArr.splice(taskIndex, 1);
+        Storage.addToStorage(todoArr, "tasks");
+
+    }
+
     static getProjects = (storageName) => {
         return getLocalStorage(storageName);
     }
