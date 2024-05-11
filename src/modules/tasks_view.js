@@ -1,6 +1,8 @@
 import {UiProject} from "./project_view";;
 import { Task, Project } from './app';
 import {resetForm, openDialog, closeDialog} from './utils';
+import { format } from 'date-fns';
+
 
 
 class UiTasks{
@@ -165,23 +167,35 @@ class UiTasks{
 
         // Create the inner div with class "row task-name mb-2" for task name
         const nameDiv = document.createElement('div');
-        nameDiv.classList.add('row', 'task-name', 'mb-2');
+        nameDiv.classList.add('row', 'task-name', 'mb-3');
         nameDiv.textContent = name;
 
         // Create the inner div with class "row task-description" for task description
         const descrDiv = document.createElement('div');
-        descrDiv.classList.add('row', 'task-description');
+        descrDiv.classList.add('row', 'task-description',"mb-3");
         descrDiv.textContent = descr;
+
+        //Container for date icon and text
+        const dateCon = document.createElement("div");
+        dateCon.classList.add("row", "task-date", "align-items-center");
+
+        //Create date icon
+        const dateIcon = document.createElement("i");
+        dateIcon.classList.add("fas", "fa-calendar", "px-0");
+
 
         // Create the inner div with class "row task-date" for task due date
         const dueDateDiv = document.createElement('div');
-        dueDateDiv.classList.add('row', 'task-date');
-        dueDateDiv.textContent = due_date;
+        dueDateDiv.classList.add('date-text',"px-2");
+        dueDateDiv.textContent = format(due_date, 'MMMM d');
+
+        dateCon.appendChild(dateIcon);
+        dateCon.appendChild(dueDateDiv);
 
         // Append name, description, and due date to task content div
         taskContentDiv.appendChild(nameDiv);
         taskContentDiv.appendChild(descrDiv);
-        taskContentDiv.appendChild(dueDateDiv);
+        taskContentDiv.appendChild(dateCon);
 
         // Append checkbox and task content to row div
         rowDiv.appendChild(checkboxDiv);

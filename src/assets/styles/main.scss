@@ -230,6 +230,8 @@ Content style
         background-color: #ffffff;
         box-shadow: 0px 4px 8px #d0d0d0;
         .task-content{
+          text-align: left;
+
           .task-name{
             color: #919191;
             font-size: 1rem;
@@ -240,9 +242,13 @@ Content style
           .task-description{
             color: #929292;
             font-size: 0.9rem;
+            line-height: 0.9em;
           }
           .task-date{
             font-size: 0.7rem;
+            .date-text, i{
+              width: fit-content;
+            }
           }
         }
         .edit-dots{
