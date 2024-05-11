@@ -131,6 +131,11 @@ class UiTasks{
 
     }
 
+    static handleOpenOptions(dotsDiv){console.log(dotsDiv);
+        dotsDiv.querySelector(".edit-box").classList.toggle("show");
+
+    }
+
     static getTaskItem = (task) => {
 
         let {id, name, descr, due_date} = task;
@@ -221,12 +226,7 @@ class UiTasks{
          editDiv.appendChild(deleteDiv);
          dotsDiv.appendChild(editDiv);
 
-         dotsDiv.addEventListener("click", () => {
-            dotsDiv.querySelector(".edit-box").classList.toggle("show");
-            console.log(dotsDiv.querySelector(".edit-box"));
-
-         })
-
+         dotsDiv.addEventListener("click", () => this.handleOpenOptions(dotsDiv));
 
         // Create the checkbox input
         const checkboxInput = document.createElement('input');
@@ -283,29 +283,6 @@ class UiTasks{
 
         // Return the created task div
         return taskDiv;
-
-        `
-            <div class="task mb-3">
-                <div class="row task-item">
-                    <div class="col-1 complete-btn d-flex justify-content-center pt-1">
-                        <input type="checkbox" class="completed" id="completed-task-1" name="completed" value="1">
-                        <label for="completed-task-1"></label>
-                    </div>
-                    <div class="col task-content" data-task="${id}">
-                        <div class="row task-name mb-2">
-                            ${name}
-                        </div>
-                        <div class="row task-description">
-                            ${descr}
-                        </div>
-                        <div class="row task-date">
-                            ${due_date}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `
-
     }
 
 
