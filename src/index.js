@@ -88,6 +88,17 @@ closeTaskDialog.addEventListener("click", (e) => { //close dialog box
 });
 
 
+//ON DOTS CLICK FUMCTIONALITY
+
+const dots = document.querySelector(".edit-dots");
+dots.addEventListener("click", () => {
+
+})
+
+
+
+
+
 
 // document.querySelector(".comment-plus").addEventListener("click", () => {
 //     document.querySelector(".comment-btn").classList.toggle("show");

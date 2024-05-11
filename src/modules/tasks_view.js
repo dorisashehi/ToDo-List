@@ -145,7 +145,88 @@ class UiTasks{
 
         // Create the checkbox div with class "col-1 complete-btn d-flex justify-content-center pt-1"
         const checkboxDiv = document.createElement('div');
-        checkboxDiv.classList.add('col-1', 'complete-btn', 'd-flex', 'justify-content-center', 'pt-1');
+        checkboxDiv.classList.add('col-1', 'complete-btn', 'd-flex', "flex-column", 'justify-content-center', 'pt-1');
+
+         // Three dots"
+         const dotsDiv = document.createElement('div');
+         dotsDiv.classList.add('col-1', 'edit-dots', 'd-flex', 'justify-content-center', 'pt-1');
+
+         const dotsIcon = document.createElement("i");
+         dotsIcon.classList.add("fas", "fa-ellipsis-h");
+         dotsDiv.appendChild(dotsIcon);
+
+         const editDiv = document.createElement("div");
+         editDiv.classList.add("edit-box");
+
+         const priorityDiv = document.createElement("div");
+         priorityDiv.classList.add("priority-container");
+
+         const priorityRow = document.createElement("div");
+         priorityRow.classList.add("priority-row","edit-row");
+         priorityRow.textContent = "Priority";
+
+
+         const priority1 = document.createElement("i");
+         priority1.classList.add("fas", "fa-flag","red-color");
+         priority1.title = "Priority 1";
+
+         const priority2 = document.createElement("i");
+         priority2.classList.add("fas", "fa-flag","orange-color");
+         priority2.title = "Priority 2";
+
+         const priority3 = document.createElement("i");
+         priority3.classList.add("fas", "fa-flag", "blue-color");
+         priority3.title = "Priority 3";
+
+         priorityDiv.appendChild(priorityRow);
+         priorityDiv.appendChild(priority1);
+         priorityDiv.appendChild(priority2);
+         priorityDiv.appendChild(priority3);
+
+
+         const dateDiv = document.createElement("div");
+         dateDiv.classList.add("date-container");
+
+         const dateRow = document.createElement("div");
+         dateRow.classList.add("date-row","edit-row");
+         dateRow.textContent = "Due Date";
+
+
+         const weekDiv = document.createElement("i");
+         weekDiv.classList.add("week-item", "fas" ,"fa-calendar-week");
+         weekDiv.title = "This Week"
+         const todayDiv = document.createElement("i");
+         todayDiv.classList.add("today-item", "fas", "fa-calendar-day");
+         todayDiv.title = "Today"
+
+         dateDiv.appendChild(dateRow);
+         dateDiv.appendChild(todayDiv);
+         dateDiv.appendChild(weekDiv);
+
+         const deleteDiv = document.createElement("div");
+         deleteDiv.classList.add("delete-container","edit-row");
+
+         const deleteText = document.createElement("div");
+         deleteText.classList.add("delete");
+         deleteText.textContent = "Delete";
+
+         const deleteIcon = document.createElement("i");
+         deleteIcon.classList.add("fas", "fa-trash");
+
+         deleteDiv.appendChild(deleteIcon);
+         deleteDiv.appendChild(deleteText);
+
+         editDiv.appendChild(priorityDiv);
+         editDiv.appendChild(dateDiv);
+         editDiv.appendChild(deleteDiv);
+         dotsDiv.appendChild(editDiv);
+
+         dotsDiv.addEventListener("click", () => {
+            dotsDiv.querySelector(".edit-box").classList.toggle("show");
+            console.log(dotsDiv.querySelector(".edit-box"));
+
+         })
+
 
         // Create the checkbox input
         const checkboxInput = document.createElement('input');
@@ -195,6 +276,7 @@ class UiTasks{
         // Append checkbox and task content to row div
         rowDiv.appendChild(checkboxDiv);
         rowDiv.appendChild(taskContentDiv);
+        rowDiv.appendChild(dotsDiv);
 
         // Append row div to task div
         taskDiv.appendChild(rowDiv);
