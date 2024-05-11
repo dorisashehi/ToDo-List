@@ -9,7 +9,7 @@ import { openDialog, closeDialog} from './modules/utils';
 ////ALL THESE CODES BELOW ARE EXECUTED ON PAGE LOAD
 
 //ADD DEFAULT PROJECT TO STORAGE ON PAGE LOAD
-Project.createProject("inbox", false);
+Project.createProject("17845a4b-1fc0-42e2-9084-744fa24f32e5", "inbox", false);
 
 //CREATE PROJECT DIALOD APPEND TO CODE
 UiProject.createProjectDialog();

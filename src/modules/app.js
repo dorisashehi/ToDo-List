@@ -1,4 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
+import { isEqual } from 'date-fns';
+
 class Storage{
 
     static addToStorage = (arr, strName) => {
@@ -19,32 +21,30 @@ let todoArr = Storage.getStorage("tasks");
 
 class Project{
 
-    constructor(name, favorites){
+    constructor(id, name, favorites){
+        this.id = id;
         this.name = name;
         this.favorites = favorites;
     }
 
 
 
-    static checkProject = (name) => {
-
-
+    static checkProject = (id) => {
 
         if(!projects) return false
 
-        let proExist = projects.find(item => item.name === name.trim());
+        let proExist = projects.find(item => item.id === id);
         return proExist;
 
     }
 
 
-    static createProject = (name, favorited) => { //create a new ptoject and add it to local storage
+    static createProject = (id, name, favorited) => { //create a new ptoject and add it to local storage
 
         //project exists, STOP executation
-        if(this.checkProject(name)) return;
+        if(this.checkProject(id)) return;
 
-        const project = new Project(name, favorited);
-        (name ==="inbox") ? project.id = "17845a4b-1fc0-42e2-9084-744fa24f32e5" : project.id = generateRandomId();
+        const project = new Project(id, name, favorited);
         projects = [...projects, project];
         Storage.addToStorage(projects, "projects");
 
@@ -121,6 +121,14 @@ class Task{
         return taksExist;
     }
 
+    static checkTasksByDate = (date) => {
+        if(!todoArr) return;
+
+        let taksExist = todoArr.filter(item => isEqual(item.due_date, date));
+        return taksExist;
+
+    }
+
     static checkTask = (id) => {//find task with specific id
         let taksExist = JSON.parse(getLocalTasks("tasks"))?.find(item => item.id === id);
         return taksExist;
@@ -131,4 +139,4 @@ class Task{
 
 
 
-export {Project, Task, projects, todoArr}
+export {Project, Task, projects, todoArr, generateRandomId}

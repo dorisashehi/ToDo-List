@@ -1,4 +1,4 @@
-import { Project, projects } from "./app";
+import { Project, projects, generateRandomId } from "./app";
 import { UiMenu } from "./menu_view";
 import {resetForm, closeDialog} from './utils';
 
@@ -107,8 +107,10 @@ class UiProject{
             let projectName = form.elements["form-project-name"].value;
             let favoriteValue = form.elements["favorites-box"].value;
 
+            let id = generateRandomId();
 
-            Project.createProject(projectName, favoriteValue);
+
+            Project.createProject(id ,projectName, favoriteValue);
 
             resetForm(form);
             UiMenu.refreshSubMenu("projects"); //show project to projects submenu
