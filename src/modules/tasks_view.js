@@ -58,7 +58,7 @@ class UiTasks{
 
         // Create the checkbox div with class "col-1 complete-btn d-flex justify-content-center pt-1"
         const checkboxDiv = document.createElement('div');
-        checkboxDiv.classList.add('col-1', 'complete-btn', 'd-flex', "flex-column", 'justify-content-center', 'pt-1');
+        checkboxDiv.classList.add('col-1', 'complete-btn', 'd-flex', "flex-column", 'pt-1');
 
          // Three dots"
          const dotsDiv = document.createElement('div');
@@ -105,7 +105,6 @@ class UiTasks{
          dateRow.classList.add("date-row","edit-row");
          dateRow.textContent = "Due Date";
 
-
          const weekDiv = document.createElement("i");
          weekDiv.classList.add("week-item", "fas" ,"fa-calendar-week");
          weekDiv.title = "This Week"
@@ -118,19 +117,19 @@ class UiTasks{
          dateDiv.appendChild(weekDiv);
 
          const deleteDiv = document.createElement("div");
-         deleteDiv.classList.add("delete-container","edit-row");
+         deleteDiv.classList.add("delete-container");
 
-         const deleteText = document.createElement("div");
-         deleteText.classList.add("delete");
-         deleteText.textContent = "Delete";
+         const deleteRow = document.createElement("div");
+         deleteRow.classList.add("delete-row");
+         deleteRow.textContent = "Delete";
 
          const deleteIcon = document.createElement("i");
          deleteIcon.classList.add("fas", "fa-trash");
 
          deleteIcon.addEventListener("click", () => this.onDeleteEvent(id));
 
+         deleteDiv.appendChild(deleteRow);
          deleteDiv.appendChild(deleteIcon);
-         deleteDiv.appendChild(deleteText);
 
          editDiv.appendChild(priorityDiv);
          editDiv.appendChild(dateDiv);

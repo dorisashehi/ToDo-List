@@ -319,9 +319,13 @@ Content style
               flex-direction: row;
               i{
                 color: #e34735;
+                order: 1;
                 &:hover{
                   color: #ff1a00;
                 }
+              }
+              .delete-row{
+                order: 2;
               }
             }
             .edit-row{
