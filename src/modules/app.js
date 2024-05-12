@@ -144,7 +144,7 @@ class Task{
     static checkTasksByDate = (date) => { //GET TASKS BASED ON TODAY DATE
         if(!todoArr) return;
 
-        let taksExist = todoArr.filter(item => isEqual(item.due_date, date));
+        let taksExist = todoArr.filter(item => isEqual(item.due_date, date) && item.completed === false);
         return taksExist;
 
     }
