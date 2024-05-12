@@ -84,36 +84,42 @@ class Task{
         Storage.addToStorage(todoArr, "tasks");
     }
 
+    static findTaskInx = (id) => {
+
+        return todoArr.findIndex(item => item.id === id);
+
+    }
+
 
     static editTask = (descr, due_date, id, name, priority, pro_id) => { //EDIT TASK STORADE
 
         const task = new Task(name,descr,pro_id,due_date,priority);
         task.id = id;
-        const taskIndex = todoArr.findIndex(item => item.id === id);
+        const taskIndex = this.findTaskInx(id);
         todoArr[taskIndex] = task;
         Storage.addToStorage(todoArr, "tasks");
 
     }
 
-    static editPriority = (taskID, priority) => { //EDIT ONLY PRIORITY OF SPECIFIC TASK
+    static editPriority = (id, priority) => { //EDIT ONLY PRIORITY OF SPECIFIC TASK
 
-        const taskIndex = todoArr.findIndex(item => item.id === taskID);
+        const taskIndex = this.findTaskInx(id);
         todoArr[taskIndex].priority = priority;
         Storage.addToStorage(todoArr, "tasks");
 
     }
 
-    static deleteTask = (taskID) => { //EDIT ONLY PRIORITY OF SPECIFIC TASK
+    static deleteTask = (id) => { //EDIT ONLY PRIORITY OF SPECIFIC TASK
 
-        const taskIndex = todoArr.findIndex(item => item.id === taskID);
+        const taskIndex = this.findTaskInx(id);
         todoArr.splice(taskIndex, 1);
         Storage.addToStorage(todoArr, "tasks");
 
     }
 
-    static editCompleted = (taskID) => { //EDIT ONLY COMPLETED OF SPECIFIC TASK
+    static editCompleted = (id) => { //EDIT ONLY COMPLETED OF SPECIFIC TASK
 
-        const taskIndex = todoArr.findIndex(item => item.id === taskID);
+        const taskIndex = this.findTaskInx(id);
         todoArr[taskIndex].completed = !todoArr[taskIndex].completed;
         Storage.addToStorage(todoArr, "tasks");
 
