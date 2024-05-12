@@ -28,8 +28,13 @@ class UiTasks{
 
         }
         if(menuClicked === "week"){
-            Task.checkTasksByWeek();
-            return;
+
+            return Task.checkTasksByWeek();
+        }
+
+        if(menuClicked === "completed"){
+
+            return Task.checkTasksByStatus();
 
         }
         const pro_id = Project.checkProject(menuClicked).id; //get project id from storage based on the name of menu
@@ -54,11 +59,13 @@ class UiTasks{
 
     static onCompletedEvent(taskID, el){ //ON CLICK COMPLETED CHECKBOX
 
-        if(Task.editCompleted(taskID)) {
-            setTimeout(() => {
-                el.target.closest(".task").remove();
-            }, 700)
-        } //CALL THE COMPLETED FUNCTION TO CHANGE IT IN STORAGE AND REMOVE IT FROM DOM
+        Task.editCompleted(taskID); //MARK TASK AS COMPLETED
+
+        setTimeout(() => {
+            el.target.closest(".task").remove();
+            this.refreshTasks();
+        }, 700);
+        //CALL THE COMPLETED FUNCTION TO CHANGE IT IN STORAGE AND REMOVE IT FROM DOM
 
     }
 
@@ -171,6 +178,7 @@ class UiTasks{
         checkboxInput.setAttribute('id', `completed-task-${id}`);
         checkboxInput.setAttribute('name', 'completed');
         checkboxInput.setAttribute('value', id);
+        if(Task.getComplited(id)) checkboxInput.setAttribute("checked", ""); //set as checkke if it is completed task
 
 
         // Create the checkbox label

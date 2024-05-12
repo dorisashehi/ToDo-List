@@ -84,7 +84,7 @@ class Task{
         Storage.addToStorage(todoArr, "tasks");
     }
 
-    static findTaskInx = (id) => {
+    static findTaskInx = (id) => { //FIND INDEX OF THE TASK IN THE STORAGE ARRAY
 
         return todoArr.findIndex(item => item.id === id);
 
@@ -126,6 +126,10 @@ class Task{
         return todoArr[taskIndex].completed;
     }
 
+    static getComplited = (id) => { //CHECK IF TTASK IS COMPLETED OR NOT
+        return todoArr.find(item => item.id === id).completed;
+    }
+
     static getProjects = (storageName) => {
         return getLocalStorage(storageName);
     }
@@ -159,6 +163,15 @@ class Task{
 
         });
 
+        return taksExist;
+
+    }
+
+    static checkTasksByStatus = () => {
+
+        if(!todoArr) return;
+
+        let taksExist = todoArr.filter(item => item.completed === true);
         return taksExist;
 
     }
