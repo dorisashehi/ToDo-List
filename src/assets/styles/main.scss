@@ -60,11 +60,13 @@ html{
 
         li{
           padding: 10px 15px;
+          text-transform: capitalize;
 
 
           &.active{
             border-left: 4px solid var(--orange-color);
             background-color: var(--dark-blue);
+
 
             a{
               color: var(--orange-color);
@@ -245,6 +247,7 @@ Content style
             font-size: 1rem;
             font-weight: 500;
             border-bottom: 1px solid #dddddd;
+            text-transform: uppercase;
           }
 
           .task-description{

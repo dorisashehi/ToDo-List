@@ -24,6 +24,7 @@ document.querySelectorAll("li.nav-item").forEach((menu) => {//function on click 
 
         const menuItem = el.currentTarget;
         if(menuItem.parentNode.id  === "main-menu" || menuItem.classList.contains("submenu-item")){
+
             UiMenu.handleMenuClick(menuItem); //add as active
             UiMenu.getMenuTasks(menuItem);
 

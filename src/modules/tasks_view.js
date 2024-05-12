@@ -1,7 +1,7 @@
 import {UiProject} from "./project_view";;
 import { Task, Project } from './app';
 import {resetForm, openDialog, closeDialog} from './utils';
-import { format, isAfter, isBefore } from 'date-fns';
+import { format, isBefore } from 'date-fns';
 
 
 

@@ -17,6 +17,8 @@ class UiMenu{
     static handleMenuClick = (menuItem) => { //funstion to add active menu
         document.querySelector("li.nav-item.active")?.classList.remove("active");
         menuItem.classList.add("active");
+        document.querySelector(".menu-name").innerHTML = menuItem.querySelector("a.nav-link").innerHTML;
+
 
     }
 
