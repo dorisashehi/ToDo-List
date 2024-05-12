@@ -2,15 +2,14 @@ import {UiProject} from "./project_view";;
 import { Task, Project } from './app';
 import {resetForm, openDialog, closeDialog} from './utils';
 import { format, isBefore } from 'date-fns';
-
-
+import empty from '../assets/images/empty.png';
 
 class UiTasks{
 
     static showEmptyContent = () => {
         const emptyContent = `
         <div class="empty-content mx-auto mt-5">
-            <img src="https://todoist.b-cdn.net/assets/images/9b83bf5d1895df53ed06506fd3cd381c.png" />
+            <img src="${empty}" />
             <p><b>What do you need to get done today?</b></p>
             <p>By default, tasks added here will be due today. Click + to add a task.</p>
         </div>

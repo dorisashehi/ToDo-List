@@ -4,7 +4,7 @@ import { UiMenu} from './modules/menu_view';
 import { UiTasks} from './modules/tasks_view';
 import { UiProject} from './modules/project_view';
 import { openDialog, closeDialog} from './modules/utils';
-
+import profile from './assets/images/profile.jpg'
 
 ////ALL THESE CODES BELOW ARE EXECUTED ON PAGE LOAD
 
@@ -17,6 +17,8 @@ UiProject.createProjectDialog();
 //CREATE TASK DIALOG  APPENDED
 UiTasks.createTask();
 
+//ADD IMG TO PROFILE IN MENU TOP
+document.querySelector(".profile-img").src = profile;
 
 ///ALL THESE FUNCTIONS ARE EXECUTED ON PAGE LOAD
 document.querySelectorAll("li.nav-item").forEach((menu) => {//function on click a menu item
