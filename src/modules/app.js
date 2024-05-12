@@ -158,8 +158,7 @@ class Task{
         const weekdays = daysOfWeek.map((day) => format(day, 'yyyy-MM-dd'));
 
         let taksExist = todoArr.filter(item => {
-           let el = (weekdays.includes(item.due_date) && item.completed === false);
-           return el;
+            return (weekdays.includes(item.due_date) && item.completed === false);
 
         });
 
