@@ -1,7 +1,7 @@
 import {UiProject} from "./project_view";;
 import { Task, Project } from './app';
 import {resetForm, openDialog, closeDialog} from './utils';
-import { format } from 'date-fns';
+import { format, isAfter, isBefore } from 'date-fns';
 
 
 
@@ -73,6 +73,12 @@ class UiTasks{
 
         Task.deleteTask(taskID); //DELETE TASK WITH ID
         this.refreshTasks();
+    }
+
+    static getDueDate = (due_date) => {
+        const today = format(new Date(), 'yyyy-MM-dd');
+        const dueDate =  format(due_date, 'yyyy-MM-dd');
+        return isBefore(dueDate, today);
     }
 
 
@@ -215,12 +221,16 @@ class UiTasks{
         //Create date icon
         const dateIcon = document.createElement("i");
         dateIcon.classList.add("fas", "fa-calendar", "px-0");
+        if(this.getDueDate(due_date)) dateIcon.classList.add('red-date');
 
 
         // Create the inner div with class "row task-date" for task due date
         const dueDateDiv = document.createElement('div');
         dueDateDiv.classList.add('date-text',"px-2");
         dueDateDiv.textContent = format(due_date, 'MMMM d');
+        if(this.getDueDate(due_date)) dueDateDiv.classList.add('red-date');
+
+
 
         dateCon.appendChild(dateIcon);
         dateCon.appendChild(dueDateDiv);
@@ -310,7 +320,10 @@ class UiTasks{
                 </div>
 
                 <div class="row comment-editor" style="width: 500px;height: 150px;">
-                    <div id="editor"></div>
+                    <div id="editor">
+                    </div>
+                    <textarea class="form-control form-task-description" rows="5"  id="edit-task-description" name="edit-task-description"  rows="5" maxlength="100" placeholder="Comment" required></textarea>
+
 
                 </div>
 
@@ -357,6 +370,11 @@ class UiTasks{
             e.preventDefault();
             closeDialog("edit-dialog");
             return;
+        });
+
+        document.querySelector("#comment-plus").addEventListener("click", () => { console.log("hello")
+            document.querySelector(".comment-editor").classList.toggle("show");
+
         });
 
 

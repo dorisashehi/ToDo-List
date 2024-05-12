@@ -284,7 +284,7 @@ Content style
             box-shadow: 0px 4px 8px #d0d0d0;
             z-index: 2;
             visibility: hidden;
-            transition: visibility ease-in 250ms;
+            transition: visibility ease-in 180ms;
             display: flex;
 
             div.priority-container, div.date-container{
@@ -487,6 +487,7 @@ Content style
 #edit-dialog{
   width: 770px;
   min-height: 350px;
+  z-index: 3;
   form{
     .form-task-date, .priority-selection, .projects-options{
       margin: 0px;
@@ -513,6 +514,10 @@ Content style
     --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27%3e%3ccircle r=%273%27 fill=%27rgba%280, 0, 0, 0.25%29%27/%3e%3c/svg%3e");
     box-shadow: unset;
   }
+}
+
+.red-date{
+  color: #e34735;
 }
 
 

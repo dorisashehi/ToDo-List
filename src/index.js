@@ -88,6 +88,19 @@ closeTaskDialog.addEventListener("click", (e) => { //close dialog box
 });
 
 
+// Get all edit-box elements
+const editBoxes = document.querySelectorAll('.edit-box');
+
+// Add event listener to the document body for each edit box
+editBoxes.forEach(editBox => {
+    document.body.addEventListener('click', (event) => {
+        // Check if the click is outside of the current edit box and not on the ellipsis icon
+        if (!editBox.contains(event.target) && !event.target.classList.contains("fa-ellipsis-h")) {
+            // If outside, hide the current edit box
+            editBox.classList.remove("show");
+        }
+    });
+});
 
 
 // document.querySelector(".comment-plus").addEventListener("click", () => {
