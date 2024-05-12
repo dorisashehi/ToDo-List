@@ -24,9 +24,17 @@ html{
     transition: all 0.25s ease;
     width: 220px;
     margin-left: -220px; /* Shown when 'open' class is added */
+
+    .toggle-left{
+      display: block;
+      color: #ffffff;
+    }
+
     &.hide{
 
        margin-left: 0px; /* Initially hidden */
+       position: absolute;
+       z-index: 1;
     }
     .title{
       width: 100%;
@@ -202,7 +210,7 @@ Content style
   }
   .content{
     border: 20px solid #6d7484;
-    height: calc(100% - 60px);
+    height: 100vh;
     .content-title{
         padding: 13px 15px;
         color: white;
@@ -595,8 +603,10 @@ Content style
 
   .container-fluid{
     .sidebar-col{
-
       margin-left: 0px; /* Shown when 'open' class is added */
+      .toggle-left{
+        display: none;
+      }
       &.hide{
 
         margin-left: -220px; /* Initially hidden */
@@ -610,6 +620,7 @@ Content style
 
 
   .content-col{
+
     .user{
       .logout-btn{
         display: block;
@@ -619,6 +630,12 @@ Content style
     .navbar-top{
       i.toggle{
         flex: 0 0 10%;
+      }
+      .toggle{
+        &:hover{
+          color: var(--orange-color);
+          cursor: pointer;
+        }
       }
     }
     .menu-name{
