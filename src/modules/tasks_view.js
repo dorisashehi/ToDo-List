@@ -119,9 +119,9 @@ class UiTasks{
          priorityDiv.appendChild(priorityRow);
 
          let priorityList = [
-            {name: "Priority 1", value: "priority1"},
-            {name: "Priority 2", value: "priority2"},
-            {name: "Priority 3", value: "priority3"}
+            {name: "Low", value: "low"},
+            {name: "Medium", value: "medium"},
+            {name: "Hight", value: "high"}
         ]
 
         priorityList.forEach(priority => {
@@ -304,9 +304,9 @@ class UiTasks{
 
                     <h6 class="mt-2">Priority</h6>
                     <select class="priority-selection" id="edit-priority-selection" name="add-priority-selection">
-                        <option class="priority-item" value="priority1">Priority 1</option>
-                        <option class="priority-item" value="priority2">Priority 2</option>
-                        <option class="priority-item" value="priority3">Priority 3</option>
+                        <option class="priority-item" value="low">Low</option>
+                        <option class="priority-item" value="medium">Medium</option>
+                        <option class="priority-item" value="high">High</option>
                     </select>
 
                     <div class="form-group mb-0 col delete-container mt-3 px-0">
@@ -435,9 +435,9 @@ class UiTasks{
                     <input type="date" class="form-control form-task-date" id="add-task-date" name="add-task-date">
                     <select class="priority-selection" id="add-priority-selection" name="priority-selection">
                         <option class="priority-item" value="default" selected disabled>Priority</option>
-                        <option class="priority-item" value="priority1">Priority 1</option>
-                        <option class="priority-item" value="priority2">Priority 2</option>
-                        <option class="priority-item" value="priority3">Priority 3</option>
+                        <option class="priority-item" value="low">Low</option>
+                        <option class="priority-item" value="medium">Medium</option>
+                        <option class="priority-item" value="high">High</option>
                     </select>
                 </div>
             </div>
