@@ -288,7 +288,7 @@ class UiTasks{
 
                 <div class="form-group mb-4 col">
                     <input type="text" class="form-control form-task-name" id="edit-task-name" name="add-task-name" value="${name}" placeholder="Task name" required>
-                    <textarea class="form-control form-task-description" rows="5"  id="edit-task-description" name="edit-task-description"  rows="5" maxlength="100" placeholder="Description" required>${descr}</textarea>
+                    <textarea class="form-control form-task-description" rows="5"  id="edit-task-description" name="edit-task-description"  rows="5" maxlength="200" placeholder="Description" required>${descr}</textarea>
                     <input type="hidden"  name="edit-task-id" id="edit-task-id" value="${id}">
 
                 </div>
@@ -428,7 +428,7 @@ class UiTasks{
                     <input type="text" class="form-control form-task-name" id="add-task-name" name="add-task-name" placeholder="Task name" required />
                 </div>
                 <div class="form-group mb-0">
-                    <textarea class="form-control form-task-description" rows="3"  id="add-task-description" name="add-task-description"  rows="5" maxlength="100" placeholder="Description" required></textarea>
+                    <textarea class="form-control form-task-description" rows="3"  id="add-task-description" name="add-task-description"  rows="5" maxlength="200" placeholder="Description" required></textarea>
 
                 </div>
 

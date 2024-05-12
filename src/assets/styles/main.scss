@@ -661,6 +661,7 @@ Content style
 
   .content-col{
     .content{
+      height: calc(100% - 60px);
       .container{
         .task-item{
           .edit-dots{
