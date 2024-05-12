@@ -1,23 +1,23 @@
 const { v4: uuidv4 } = require('uuid');
-import { isEqual } from 'date-fns';
+import { isEqual, eachDayOfInterval, format } from 'date-fns';
 
 class Storage{
 
-    static addToStorage = (arr, strName) => {
+    static addToStorage = (arr, strName) => { //SAVE ITO STORAGE
         let storage = localStorage.setItem(strName, JSON.stringify(arr));
         return storage;
 
     }
 
-    static getStorage = (strName) => {
+    static getStorage = (strName) => { //GET FROM STORAGE
         let storage = localStorage.getItem(strName) === null ? [] : JSON.parse(localStorage.getItem(strName));
         return storage;
     }
 }
 
-let projects = Storage.getStorage("projects");
+let projects = Storage.getStorage("projects"); //BY DEFAULT GET STORAGE PROJECTS
 
-let todoArr = Storage.getStorage("tasks");
+let todoArr = Storage.getStorage("tasks"); //BY DEFAULT GET TASKS FOM STORAGE
 
 class Project{
 
@@ -29,7 +29,7 @@ class Project{
 
 
 
-    static checkProject = (id) => {
+    static checkProject = (id) => { //CHECK IF THE PROJECT EXISTS
 
         if(!projects) return false
 
@@ -67,15 +67,16 @@ const getLocalTasks = (strName) => {
 
 class Task{
 
-    constructor(name, descr, pro_id, due_date, priority){
+    constructor(name, descr, pro_id, due_date, priority, completed = false){
         this.name = name;
         this.descr = descr;
         this.pro_id = pro_id;
         this.due_date = due_date;
         this.priority = priority;
+        this.completed = completed;
     }
 
-    static createTask = (name, descr, pro_id, due_date, priority) => {
+    static createTask = (name, descr, pro_id, due_date, priority) => { //CREATE TASK AND SAVE INTO STORAGE
         const task = new Task(name, descr, pro_id, due_date, priority);
         task.id = generateRandomId();
 
@@ -110,21 +111,48 @@ class Task{
 
     }
 
+    static editCompleted = (taskID) => { //EDIT ONLY COMPLETED OF SPECIFIC TASK
+
+        const taskIndex = todoArr.findIndex(item => item.id === taskID);
+        todoArr[taskIndex].completed = !todoArr[taskIndex].completed;
+        Storage.addToStorage(todoArr, "tasks");
+
+        return todoArr[taskIndex].completed;
+    }
+
     static getProjects = (storageName) => {
         return getLocalStorage(storageName);
     }
 
-    static checkProTasks = (id) => { //get all tasks of the specific project
+    static checkProTasks = (id) => { //get all tasks of the specific project and which are not completed yet
         if(!todoArr) return;
 
-        let taksExist = todoArr.filter(item => item.pro_id === id);
+        let taksExist = todoArr.filter(item => item.pro_id === id && item.completed === false);
         return taksExist;
     }
 
-    static checkTasksByDate = (date) => {
+    static checkTasksByDate = (date) => { //GET TASKS BASED ON TODAY DATE
         if(!todoArr) return;
 
         let taksExist = todoArr.filter(item => isEqual(item.due_date, date));
+        return taksExist;
+
+    }
+
+
+    static checkTasksByWeek = () => {
+        if(!todoArr) return;
+
+        const daysOfWeek = eachDayOfInterval({ start: new Date(), end: new Date(new
+            Date().setDate(new Date().getDate() + 6)) });
+        const weekdays = daysOfWeek.map((day) => format(day, 'yyyy-MM-dd'));
+
+        let taksExist = todoArr.filter(item => {
+           let el = weekdays.includes(item.due_date);
+           return el;
+
+        });
+
         return taksExist;
 
     }

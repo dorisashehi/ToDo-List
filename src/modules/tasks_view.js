@@ -27,6 +27,11 @@ class UiTasks{
             return  Task.checkTasksByDate(today);
 
         }
+        if(menuClicked === "week"){
+            Task.checkTasksByWeek();
+            return;
+
+        }
         const pro_id = Project.checkProject(menuClicked).id; //get project id from storage based on the name of menu
         const proTasks = Task.checkProTasks(pro_id);   //get tasks of the project based on the id of the project
 
@@ -47,11 +52,23 @@ class UiTasks{
 
     }
 
-    static onDeleteEvent(taskID){
+    static onCompletedEvent(taskID, el){ //ON CLICK COMPLETED CHECKBOX
+
+        if(Task.editCompleted(taskID)) {
+            setTimeout(() => {
+                el.target.closest(".task").remove();
+            }, 700)
+        } //CALL THE COMPLETED FUNCTION TO CHANGE IT IN STORAGE AND REMOVE IT FROM DOM
+
+    }
+
+    static onDeleteEvent(taskID){ //ON DELETE CLICK
 
         Task.deleteTask(taskID); //DELETE TASK WITH ID
         this.refreshTasks();
     }
+
+
 
     static getTaskItem = (task) => {
 
@@ -155,6 +172,7 @@ class UiTasks{
         checkboxInput.setAttribute('name', 'completed');
         checkboxInput.setAttribute('value', id);
 
+
         // Create the checkbox label
         const checkboxLabel = document.createElement('label');
         checkboxLabel.setAttribute('for', `completed-task-${id}`);
@@ -208,6 +226,8 @@ class UiTasks{
         rowDiv.appendChild(checkboxDiv);
         rowDiv.appendChild(taskContentDiv);
         rowDiv.appendChild(dotsDiv);
+
+        checkboxInput.addEventListener("click", (e) => this.onCompletedEvent(id, e));
 
         // Append row div to task div
         taskDiv.appendChild(rowDiv);
