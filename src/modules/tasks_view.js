@@ -97,11 +97,11 @@ class UiTasks{
 
         // Create the checkbox div with class "col-1 complete-btn d-flex justify-content-center pt-1"
         const checkboxDiv = document.createElement('div');
-        checkboxDiv.classList.add('col-1', 'complete-btn', 'd-flex', "flex-column", 'pt-1');
+        checkboxDiv.classList.add('col-md-1','col-2', 'complete-btn', 'd-flex', "flex-column", 'align-items-md-center', 'pt-1');
 
          // Three dots"
          const dotsDiv = document.createElement('div');
-         dotsDiv.classList.add('col-1', 'edit-dots', 'd-flex', 'justify-content-center', 'pt-1');
+         dotsDiv.classList.add('col-1', 'edit-dots', 'justify-content-center', 'pt-1');
 
          const dotsIcon = document.createElement("i");
          dotsIcon.classList.add("fas", "fa-ellipsis-h");
@@ -284,14 +284,14 @@ class UiTasks{
         `
 
             <h4 class="dialog-header">Update Task</h4>
-            <div class="form-fields d-flex">
+            <div class="form-fields d-flex flex-sm-row flex-column ">
 
-                <div class="form-group mb-0 col">
+                <div class="form-group mb-4 col">
                     <input type="text" class="form-control form-task-name" id="edit-task-name" name="add-task-name" value="${name}" placeholder="Task name" required>
                     <textarea class="form-control form-task-description" rows="5"  id="edit-task-description" name="edit-task-description"  rows="5" maxlength="100" placeholder="Description" required>${descr}</textarea>
                     <input type="hidden"  name="edit-task-id" id="edit-task-id" value="${id}">
 
-                    </div>
+                </div>
 
                 <div class="form-group mb-0 d-flex flex-row col-5 d-flex flex-column align-items-start">
                     <h6>
@@ -310,24 +310,12 @@ class UiTasks{
                         <option class="priority-item" value="priority3">Priority 3</option>
                     </select>
 
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="row comment-btn">
-                    <i class="fas fa-plus-circle" id="comment-plus"></i>
-                    <label for="comment-plus">Add Comment</label>
-                </div>
-
-                <div class="row comment-editor" style="width: 500px;height: 150px;">
-                    <div id="editor">
+                    <div class="form-group mb-0 col delete-container mt-3 px-0">
+                        <div class="delete-row" id="delete-row"><i class="fas fa-trash pr-1"></i>Delete</div>
                     </div>
-                    <textarea class="form-control form-task-description" rows="5"  id="edit-task-description" name="edit-task-description"  rows="5" maxlength="100" placeholder="Comment" required></textarea>
-
-
                 </div>
-
             </div>
+
             <div class="d-flex justify-content-between form-buttons">
                 <div class="buttons-group">
 
@@ -346,6 +334,11 @@ class UiTasks{
         UiProject.projectLists("edit-pro-selection");
         document.querySelector(`[value= "${pro_id}"]`).setAttribute("selected", "");
 
+        document.querySelector('#delete-row').addEventListener("click", (e) => {
+            this.onDeleteEvent(id); //delete task
+            this.refreshTasks(); //load task is container from storage
+            closeDialog("edit-dialog"); //close edit form
+        })
 
         const formFields = [
             document.getElementById("edit-task-description"),
@@ -371,13 +364,6 @@ class UiTasks{
             closeDialog("edit-dialog");
             return;
         });
-
-        document.querySelector("#comment-plus").addEventListener("click", () => { console.log("hello")
-            document.querySelector(".comment-editor").classList.toggle("show");
-
-        });
-
-
 
     }
 

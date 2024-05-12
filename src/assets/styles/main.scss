@@ -256,6 +256,7 @@ Content style
           cursor: pointer;
           position: relative;
           height: fit-content;
+          display: none;
 
           i{
             font-size: 0.9rem;
@@ -369,7 +370,7 @@ Content style
 }
 
 #dialog, #edit-dialog, #project-dialog{
-  min-width: 700px;
+
   min-height: 190px;
   border: none;
   border-radius: unset;
@@ -485,7 +486,7 @@ Content style
   }
 }
 #edit-dialog{
-  width: 770px;
+  width: 700px;
   min-height: 350px;
   z-index: 3;
   form{
@@ -494,6 +495,18 @@ Content style
     }
     h6{
       color: #919191;
+    }
+    .delete-row{
+      width: fit-content;
+      color: #b6b9c1;
+      font-size: 0.9rem;
+      font-weight: 500;
+      i{
+        color: #e34735;
+        &:hover{
+          color: #ff1a00;
+        }
+      }
     }
   }
 }
@@ -536,8 +549,8 @@ Content style
 .completed[type="checkbox"]:checked + label::before, .completed[type="checkbox"] + label::before{
   content: "";
   position: absolute;
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   background: #fff;
   left: 0px;
   top: 0px;
@@ -555,8 +568,8 @@ Content style
   content: '✔';
   position: absolute;
   color: #e34735;
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   outline: 2px solid #e34735;
   background: #fff;
   left: 0px;
@@ -595,29 +608,53 @@ Content style
     display: none;
   }
 
-  .container-fluid{
-    .content-col{
-      .user{
-        .logout-btn{
-          display: block;
-        }
-      }
 
-      .navbar-top{
-        i.toggle{
-          flex: 0 0 10%;
-        }
-      }
-      .menu-name{
-        flex: 0 0 60%;
-      }
-
-      .user{
-        flex: 0 0 30%;
+  .content-col{
+    .user{
+      .logout-btn{
+        display: block;
       }
     }
+
+    .navbar-top{
+      i.toggle{
+        flex: 0 0 10%;
+      }
+    }
+    .menu-name{
+      flex: 0 0 60%;
+    }
+
+    .user{
+      flex: 0 0 30%;
+    }
+
   }
+
+  #dialog, #edit-dialog, #project-dialog{
+    min-width: 700px;
+  }
+
 }
+
+@media screen and (min-width:1200px){
+
+  .content-col{
+    .content{
+      .container{
+        .task-item{
+          .edit-dots{
+            display: flex;
+
+          }
+        }
+      }
+    }
+
+  }
+
+}
+
 
 
 .dropdown{
