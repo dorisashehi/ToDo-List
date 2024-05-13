@@ -14,6 +14,7 @@ html{
 
 .container-fluid{
   background-color: #eaeaea;
+  overflow: hidden;
 
   .sidebar-col{
     background-color: #1b2034;
@@ -24,17 +25,19 @@ html{
     transition: all 0.25s ease;
     width: 220px;
     margin-left: -220px; /* Shown when 'open' class is added */
+    min-height: 100vh;
 
-    .toggle-left{
-      display: block;
-      color: #ffffff;
+
+    & > div{
+      height: 100%;
     }
 
     &.hide{
 
        margin-left: 0px; /* Initially hidden */
-       position: absolute;
+       position: relative;
        z-index: 1;
+       width: calc(100vw - 129px);
     }
     .title{
       width: 100%;
@@ -52,7 +55,7 @@ html{
 
       width: 100%;
       border-right: 2px solid #f39702;
-      height: calc(100% - 60px);
+      // height: 100%;
 
       ul.nav{
 
@@ -212,7 +215,7 @@ Content style
   }
   .content{
     border: 20px solid #6d7484;
-    height: 100vh;
+    min-height: calc(100% - 60px);
     .content-title{
         padding: 13px 15px;
         color: white;
@@ -232,6 +235,9 @@ Content style
       max-width: 360px;
     }
     .container{
+      .task-list{
+        min-width: 300px;
+      }
       .task-item{
         max-width: 600px;
         margin: auto;
@@ -292,12 +298,12 @@ Content style
             font-weight: 500;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 8px;
             box-shadow: 0px 4px 8px #d0d0d0;
             z-index: 2;
-            visibility: hidden;
+            display: none;
             transition: visibility ease-in 180ms;
-            display: flex;
+
 
             div.priority-container, div.date-container{
               border-bottom: 1px solid #dddddd;
@@ -306,7 +312,7 @@ Content style
             .priority-container i, .date-container i, .delete-container i{
               margin-right: 15px;
               padding-bottom: 10px;
-              font-size: 1.3rem;
+              font-size: 1rem;
             }
 
             .priority-container{
@@ -347,11 +353,11 @@ Content style
               }
             }
             .edit-row{
-              margin-bottom: 10px;
+              margin-bottom: 6px;
             }
 
             &.show{
-              visibility: visible;
+              display: flex;
             }
 
           }
@@ -602,14 +608,24 @@ Content style
 
 /*Mobile style*/
 
+
+@media screen and (min-width:768px){
+
+  .container-fluid{
+    .sidebar-col{
+      &.hide{
+        width: 220px;
+      }
+    }
+  }
+}
+
 @media screen and (min-width:991px){
 
   .container-fluid{
     .sidebar-col{
       margin-left: 0px; /* Shown when 'open' class is added */
-      .toggle-left{
-        display: none;
-      }
+
       &.hide{
 
         margin-left: -220px; /* Initially hidden */
@@ -661,8 +677,12 @@ Content style
 
   .content-col{
     .content{
-      height: calc(100% - 60px);
+      // height: calc(100% - 60px);
       .container{
+
+        padding-top: 3rem;
+        padding-bottom: 12rem;
+
         .task-item{
           .edit-dots{
             display: flex;

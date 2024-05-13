@@ -50,11 +50,6 @@ document.querySelector(".toggle").addEventListener("click", () => { //function t
     document.querySelector(".sidebar-col").classList.toggle('hide');
 
 })
-document.querySelector(".toggle-left").addEventListener("click", () => { //function to toggle submenu
-    document.querySelector(".sidebar-col").classList.toggle('hide');
-
-})
-
 
 //TOGGLE SUBMENU
 document.querySelectorAll("i.expand").forEach((icon) => { //function to rotate icon of submenu
