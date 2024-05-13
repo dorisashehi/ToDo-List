@@ -1,8 +1,8 @@
 # ToDo-List
 
 
-Task to create a To Do list website.
-Concepts include: handling objects, es6 modules, SOLID principles, classes, localStorage, webpack, and OOP Principles.
+Create a To Do list website. \
+Concepts include: handling objects, es6 modules, SOLID principles, classes, localStorage, webpack, and OOP Principles. \
 (Logout and login -> Work in Progress......)
 
 # Features
