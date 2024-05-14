@@ -2,7 +2,7 @@
 
 
 Create a To Do list website. \
-Concepts include: handling objects, es6 modules, SOLID principles, classes, localStorage, webpack, and OOP Principles. \
+Concepts include: handling objects, es6 modules, module patterns, SOLID principles, classes, localStorage, webpack, and OOP Principles. \
 (Logout and login -> Work in Progress......)
 
 # Features
