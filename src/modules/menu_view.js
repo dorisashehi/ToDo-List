@@ -40,7 +40,6 @@ class UiMenu{
 
 
         const span = document.createElement("span");
-        span.classList.add("d-none", "d-sm-inline");
         span.textContent = name;
 
         link.appendChild(span);

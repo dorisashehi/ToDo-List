@@ -442,8 +442,8 @@ class UiTasks{
                 </div>
             </div>
 
-            <div class="d-flex justify-content-between form-buttons">
-                <select class="projects-options task-pro-selection" name="project-name" id="add-pro-selection">
+            <div class="d-flex justify-content-between flex-column flex-md-row form-buttons">
+                <select class="projects-options task-pro-selection mb-3 mb-md-0" name="project-name" id="add-pro-selection">
                     <option class="project-name d-flex flex-row" value = "default" selected disabled><span>No project choosen</span></option>
                 </select>
                 <div class="buttons-group">
