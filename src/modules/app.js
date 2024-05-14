@@ -27,8 +27,6 @@ class Project{
         this.favorites = favorites;
     }
 
-
-
     static checkProject = (id) => { //CHECK IF THE PROJECT EXISTS
 
         if(!projects) return false
@@ -37,7 +35,6 @@ class Project{
         return proExist;
 
     }
-
 
     static createProject = (id, name, favorited) => { //create a new ptoject and add it to local storage
 
@@ -56,13 +53,6 @@ const generateRandomId = () => { //create a random id to use as task id and proj
 
     const newUuid = uuidv4();
     return newUuid;
-}
-
-const getLocalStorage = (strName) => {
-    return localStorage.getItem(strName);
-}
-const getLocalTasks = (strName) => {
-    return localStorage.getItem(strName);
 }
 
 class Task{
@@ -130,10 +120,6 @@ class Task{
         return todoArr.find(item => item.id === id).completed;
     }
 
-    static getProjects = (storageName) => {
-        return getLocalStorage(storageName);
-    }
-
     static checkProTasks = (id) => { //get all tasks of the specific project and which are not completed yet
         if(!todoArr) return;
 
@@ -149,7 +135,6 @@ class Task{
 
     }
 
-
     static checkTasksByWeek = () => {
         if(!todoArr) return;
 
@@ -163,7 +148,6 @@ class Task{
         });
 
         return taksExist;
-
     }
 
     static checkTasksByStatus = () => {
@@ -176,7 +160,7 @@ class Task{
     }
 
     static checkTask = (id) => {//find task with specific id
-        let taksExist = JSON.parse(getLocalTasks("tasks"))?.find(item => item.id === id);
+        let taksExist = Storage.getStorage("tasks")?.find(item => item.id === id);
         return taksExist;
     }
 

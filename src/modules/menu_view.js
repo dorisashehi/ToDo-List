@@ -1,20 +1,20 @@
 import { projects } from "./app";
-import {UiTasks} from "./tasks_view";
+import { uiTasksModule } from "./tasks_view";
 
-class UiMenu{
+const uiMenuModule = (() =>{
 
-    static getMenuTasks = (menuLi) => { //get clicked menu tasks
-        let tasks = UiTasks.getMenuActTasks(menuLi); //get array of tasks
+    const getMenuTasks = (menuLi) => { //get clicked menu tasks
+        let tasks = uiTasksModule.getMenuActTasks(menuLi); //get array of tasks
 
         if(!tasks || tasks.length === 0) {
-            UiTasks.showEmptyContent();
+            uiTasksModule.showEmptyContent();
             return;
         }
-        UiTasks.showTasksHTML(tasks);  //show taks per project with content
+        uiTasksModule.showTasksHTML(tasks);  //show taks per project with content
 
     }
 
-    static handleMenuClick = (menuItem) => { //funstion to add active menu
+    const handleMenuClick = (menuItem) => { //funstion to add active menu
         document.querySelector("li.nav-item.active")?.classList.remove("active");
         menuItem.classList.add("active");
         document.querySelector(".menu-name").innerHTML = menuItem.querySelector("a.nav-link").innerHTML;
@@ -22,7 +22,7 @@ class UiMenu{
 
     }
 
-    static getMenuItem = (subMenu) => {
+    const getMenuItem = (subMenu) => {
 
         let {id, name} = subMenu;
 
@@ -30,8 +30,8 @@ class UiMenu{
         menuLi.classList.add("w-100", "submenu-item", "nav-item");
         menuLi.setAttribute("data-project", id);
         menuLi.addEventListener("click", () => {
-            this.handleMenuClick(menuLi);
-            this.getMenuTasks(menuLi);
+            handleMenuClick(menuLi);
+            getMenuTasks(menuLi);
         })
 
 
@@ -48,17 +48,17 @@ class UiMenu{
         return menuLi;
     }
 
-    static filterProjects = () => { //filter only favorites submenu
+    const filterProjects = () => { //filter only favorites submenu
         return projects.filter(item => { return item.favorites === "false"});
     }
 
-    static filterFavorites = () => {// filter only projects submenu
+    const filterFavorites = () => {// filter only projects submenu
         return  projects.filter(item => { return item.favorites === "true"});
     }
 
 
 
-    static refreshSubMenu = (menuName) => { //function to load submenu
+    const refreshSubMenu = (menuName) => { //function to load submenu
 
         let subMenuCon = '';
         const ulContent = document.querySelector("ul.submenu."+menuName);
@@ -67,17 +67,17 @@ class UiMenu{
 
             if(menuName == "favorites" && localStorage["projects"]) {
                 ulContent.innerHTML = "";
-                subMenuCon = this.filterFavorites();
+                subMenuCon = filterFavorites();
                 subMenuCon.forEach(item => {
-                    ulContent.appendChild(this.getMenuItem(item));
+                    ulContent.appendChild(getMenuItem(item));
                 })
             }
 
             if(menuName == "projects" &&  localStorage["projects"]) {
                 ulContent.innerHTML = "";
-                subMenuCon = this.filterProjects();
+                subMenuCon = filterProjects();
                 subMenuCon.forEach(item => {
-                    ulContent.appendChild(this.getMenuItem(item));
+                    ulContent.appendChild(getMenuItem(item));
                 })
             }
 
@@ -85,6 +85,12 @@ class UiMenu{
 
     }
 
-}
+    return {
+        refreshSubMenu,
+        handleMenuClick,
+        getMenuTasks
+     }
 
-export {UiMenu}
+})();
+
+export {uiMenuModule}

@@ -1,10 +1,10 @@
 import { Project, projects, generateRandomId } from "./app";
-import { UiMenu } from "./menu_view";
+import { uiMenuModule } from "./menu_view";
 import {resetForm, closeDialog} from './utils';
 
-class UiProject{
+const uiProjectModule = (() => {
 
-    static projectLists = (domEl) => { //SHOW PROJECTS AT PROJECT SELECT OPTIONS
+    const projectLists = (domEl) => { //SHOW PROJECTS AT PROJECT SELECT OPTIONS
         const projectSelect = document.getElementById(domEl);
 
         projectSelect.innerHTML = "";
@@ -23,7 +23,7 @@ class UiProject{
     }
 
     //create project dialog
-    static createProjectDialog = () => {
+    const createProjectDialog = () => {
 
         const projectDialog = document.getElementById("project-dialog");
 
@@ -59,13 +59,13 @@ class UiProject{
         projectDialog.appendChild(dialogForm);
 
         //call below functions
-        this.enableSubmitBtn();
-        this.handleFormSubmit(dialogForm);
+        enableSubmitBtn();
+        handleFormSubmit(dialogForm);
 
     }
 
     //to as favorite project
-    static addToFavorite = () => { //add or remove from favorite
+    const addToFavorite = () => { //add or remove from favorite
 
         const favCheckbox  = document.getElementById("favorites-box");
         let favoritedProject = false;
@@ -77,7 +77,7 @@ class UiProject{
     }
 
     //enable submit button based on input
-    static enableSubmitBtn = () => {
+    const enableSubmitBtn = () => {
         let timer;
 
         document.getElementById("form-project-name").addEventListener("input", (el) => {
@@ -98,7 +98,7 @@ class UiProject{
     }
 
     //submit button action
-     static handleFormSubmit = (form) => {//after form is submited
+    const handleFormSubmit = (form) => {//after form is submited
 
         form.addEventListener("submit", function (event) {
             event.preventDefault(); // Prevent the default form submission behavior
@@ -113,14 +113,21 @@ class UiProject{
             Project.createProject(id ,projectName, favoriteValue);
 
             resetForm(form);
-            UiMenu.refreshSubMenu("projects"); //show project to projects submenu
-            UiMenu.refreshSubMenu("favorites");//show thta project at favorites submenu
-            UiProject.projectLists("add-pro-selection"); //add new project to task project select
+            uiMenuModule.refreshSubMenu("projects"); //show project to projects submenu
+            uiMenuModule.refreshSubMenu("favorites");//show thta project at favorites submenu
+            uiProjectModule.projectLists("add-pro-selection"); //add new project to task project select
             closeDialog("project-dialog");
 
 
         })
     }
 
-}
-export {UiProject}
+    return {
+        projectLists,
+        createProjectDialog,
+        addToFavorite,
+
+    }
+
+})()
+export {uiProjectModule}

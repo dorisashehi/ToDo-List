@@ -1,8 +1,8 @@
 import './assets/styles/main.scss'
 import { Project } from './modules/app';
-import { UiMenu} from './modules/menu_view';
-import { UiTasks} from './modules/tasks_view';
-import { UiProject} from './modules/project_view';
+import { uiMenuModule} from './modules/menu_view';
+import { uiTasksModule} from './modules/tasks_view';
+import { uiProjectModule} from './modules/project_view';
 import { openDialog, closeDialog} from './modules/utils';
 import profile from './assets/images/profile.jpg'
 
@@ -12,10 +12,10 @@ import profile from './assets/images/profile.jpg'
 Project.createProject("17845a4b-1fc0-42e2-9084-744fa24f32e5", "inbox", false);
 
 //CREATE PROJECT DIALOD APPEND TO CODE
-UiProject.createProjectDialog();
+uiProjectModule.createProjectDialog();
 
 //CREATE TASK DIALOG  APPENDED
-UiTasks.createTask();
+uiTasksModule.createTask();
 
 //ADD IMG TO PROFILE IN MENU TOP
 document.querySelector(".profile-img").src = profile;
@@ -27,19 +27,19 @@ document.querySelectorAll("li.nav-item").forEach((menu) => {//function on click 
         const menuItem = el.currentTarget;
         if(menuItem.parentNode.id  === "main-menu" || menuItem.classList.contains("submenu-item")){
 
-            UiMenu.handleMenuClick(menuItem); //add as active
-            UiMenu.getMenuTasks(menuItem);
+            uiMenuModule.handleMenuClick(menuItem); //add as active
+            uiMenuModule.getMenuTasks(menuItem);
 
         }
     })
 })
 
 //LOAD SUBMENU ON PAGE LOAD
-UiMenu.refreshSubMenu("projects");
-UiMenu.refreshSubMenu("favorites");
+uiMenuModule.refreshSubMenu("projects");
+uiMenuModule.refreshSubMenu("favorites");
 
 //DEFAULT ACTIVE MENU TASKS
-UiTasks.refreshTasks();
+uiTasksModule.refreshTasks();
 
 
 
@@ -66,7 +66,7 @@ document.querySelectorAll("i.expand").forEach((icon) => { //function to rotate i
 const openProjectDialog = document.querySelector(".new-project");
 openProjectDialog.addEventListener("click", () => {
     openDialog("project-dialog");
-    UiProject.addToFavorite();
+    uiProjectModule.addToFavorite();
 
 })
 

@@ -1,12 +1,12 @@
-import {UiProject} from "./project_view";;
+import { uiProjectModule } from "./project_view";
 import { Task, Project } from './app';
 import {resetForm, openDialog, closeDialog} from './utils';
 import { format, isBefore } from 'date-fns';
 import empty from '../assets/images/empty.png';
 
-class UiTasks{
+const uiTasksModule = (() => {
 
-    static showEmptyContent = () => {
+    const showEmptyContent = () => {
         const emptyContent = `
         <div class="empty-content mx-auto mt-5">
             <img src="${empty}" />
@@ -17,7 +17,7 @@ class UiTasks{
         document.querySelector(".task-list").innerHTML = emptyContent;
     }
 
-    static getMenuActTasks = (el) => { //GET TASKS OF THE ACTIVE MENU
+    const getMenuActTasks = (el) => { //GET TASKS OF THE ACTIVE MENU
         const menuClicked = el.dataset.project; //get project tesxt in lower case
         if(menuClicked === "today"){
 
@@ -43,38 +43,38 @@ class UiTasks{
 
     }
 
-    static handleOpenOptions(dotsDiv){
+    const handleOpenOptions = (dotsDiv) => {
         dotsDiv.querySelector(".edit-box").classList.toggle("show");
 
     }
 
-    static onClickPriority(taskID, e){ //ON CLICK OF THE PRIORITY ICON
+    const onClickPriority = (taskID, e) => { //ON CLICK OF THE PRIORITY ICON
 
         let priority = e.target.dataset.value; //GET CALUE OF THE PRIORITY CLICKED
         Task.editPriority(taskID, priority); //EDIT PRIORITY OF THAT TASK
-        this.refreshTasks();
+        refreshTasks();
 
     }
 
-    static onCompletedEvent(taskID, el){ //ON CLICK COMPLETED CHECKBOX
+    const onCompletedEvent = (taskID, el) =>{ //ON CLICK COMPLETED CHECKBOX
 
         Task.editCompleted(taskID); //MARK TASK AS COMPLETED
 
         setTimeout(() => {
             el.target.closest(".task").remove();
-            this.refreshTasks();
+            refreshTasks();
         }, 700);
         //CALL THE COMPLETED FUNCTION TO CHANGE IT IN STORAGE AND REMOVE IT FROM DOM
 
     }
 
-    static onDeleteEvent(taskID){ //ON DELETE CLICK
+    const onDeleteEvent = (taskID) =>{ //ON DELETE CLICK
 
         Task.deleteTask(taskID); //DELETE TASK WITH ID
-        this.refreshTasks();
+        refreshTasks();
     }
 
-    static getDueDate = (due_date) => {
+    const getDueDate = (due_date) => {
         const today = format(new Date(), 'yyyy-MM-dd');
         const dueDate =  format(due_date, 'yyyy-MM-dd');
         return isBefore(dueDate, today);
@@ -82,7 +82,7 @@ class UiTasks{
 
 
 
-    static getTaskItem = (task) => {
+    const getTaskItem = (task) => {
 
         let {id, name, descr, due_date} = task;
 
@@ -131,7 +131,7 @@ class UiTasks{
             prioritIcon.setAttribute("data-value", priority.value);
             prioritIcon.title = priority.name;
 
-            prioritIcon.addEventListener("click", (e) => this.onClickPriority(id, e));
+            prioritIcon.addEventListener("click", (e) => onClickPriority(id, e));
             priorityDiv.appendChild(prioritIcon);
 
         });
@@ -164,7 +164,7 @@ class UiTasks{
          const deleteIcon = document.createElement("i");
          deleteIcon.classList.add("fas", "fa-trash");
 
-         deleteIcon.addEventListener("click", () => this.onDeleteEvent(id));
+         deleteIcon.addEventListener("click", () => onDeleteEvent(id));
 
          deleteDiv.appendChild(deleteRow);
          deleteDiv.appendChild(deleteIcon);
@@ -174,7 +174,7 @@ class UiTasks{
          editDiv.appendChild(deleteDiv);
          dotsDiv.appendChild(editDiv);
 
-         dotsDiv.addEventListener("click", () => this.handleOpenOptions(dotsDiv));
+         dotsDiv.addEventListener("click", () => handleOpenOptions(dotsDiv));
 
         // Create the checkbox input
         const checkboxInput = document.createElement('input');
@@ -198,7 +198,7 @@ class UiTasks{
         const taskContentDiv = document.createElement('div');
         taskContentDiv.classList.add('col', 'task-content');
         taskContentDiv.addEventListener("click", () => {
-            this.editTask(id); //pass info of the task to the edit dialog
+            editTask(id); //pass info of the task to the edit dialog
             openDialog("edit-dialog");
         } );
         taskContentDiv.setAttribute('data-task', id);
@@ -220,14 +220,14 @@ class UiTasks{
         //Create date icon
         const dateIcon = document.createElement("i");
         dateIcon.classList.add("fas", "fa-calendar", "px-0");
-        if(this.getDueDate(due_date)) dateIcon.classList.add('red-date');
+        if(getDueDate(due_date)) dateIcon.classList.add('red-date');
 
 
         // Create the inner div with class "row task-date" for task due date
         const dueDateDiv = document.createElement('div');
         dueDateDiv.classList.add('date-text',"px-2");
         dueDateDiv.textContent = format(due_date, 'MMMM d');
-        if(this.getDueDate(due_date)) dueDateDiv.classList.add('red-date');
+        if(getDueDate(due_date)) dueDateDiv.classList.add('red-date');
 
 
 
@@ -244,7 +244,7 @@ class UiTasks{
         rowDiv.appendChild(taskContentDiv);
         rowDiv.appendChild(dotsDiv);
 
-        checkboxInput.addEventListener("click", (e) => this.onCompletedEvent(id, e));
+        checkboxInput.addEventListener("click", (e) => onCompletedEvent(id, e));
 
         // Append row div to task div
         taskDiv.appendChild(rowDiv);
@@ -253,26 +253,26 @@ class UiTasks{
         return taskDiv;
     }
 
-    static showTasksHTML = (tasks) => {  //get html of each task of the active menu
+    const showTasksHTML = (tasks) => {  //get html of each task of the active menu
 
         const taskList = document.querySelector(".task-list"); //that is the container where tasks have to stay
         taskList.innerHTML = ""; //clear content
         tasks.forEach(task => { //add list of the tasks
-            taskList.appendChild(this.getTaskItem(task));
+            taskList.appendChild(getTaskItem(task));
         })
 
     }
 
-    static refreshTasks = () => { //GET ACTIVE MENU TASKS
+    const refreshTasks = () => { //GET ACTIVE MENU TASKS
 
         const menuActive = document.querySelector("li.nav-item.active");
-        let tasks = this.getMenuActTasks(menuActive); //get array of tasks
+        let tasks = getMenuActTasks(menuActive); //get array of tasks
 
-        if(!tasks || tasks.length === 0) {this.showEmptyContent(); return;}  //if not tasks for menu active , show empty content
-        this.showTasksHTML(tasks);
+        if(!tasks || tasks.length === 0) {showEmptyContent(); return;}  //if not tasks for menu active , show empty content
+        showTasksHTML(tasks);
     }
 
-    static editTask = (taskID) => {
+    const editTask = (taskID) => {
 
         const editDialog = document.getElementById("edit-dialog");
         let {descr, due_date, id, name, priority, pro_id} = Task.checkTask(taskID);
@@ -330,12 +330,12 @@ class UiTasks{
 
         //set selected priority
         document.querySelector(`[value= "${priority}"]`).setAttribute("selected", "");
-        UiProject.projectLists("edit-pro-selection");
+        uiProjectModule.projectLists("edit-pro-selection");
         document.querySelector(`[value= "${pro_id}"]`).setAttribute("selected", "");
 
         document.querySelector('#delete-row').addEventListener("click", (e) => {
-            this.onDeleteEvent(id); //delete task
-            this.refreshTasks(); //load task is container from storage
+            onDeleteEvent(id); //delete task
+            refreshTasks(); //load task is container from storage
             closeDialog("edit-dialog"); //close edit form
         })
 
@@ -348,13 +348,13 @@ class UiTasks{
             document.getElementById("edit-pro-selection")
         ];
 
-        this.enableSubmitBtn(formFields , "edit-dialog");
+        enableSubmitBtn(formFields , "edit-dialog");
 
         document.querySelector("#edit-dialog #submit-task").addEventListener("click", (e) => {
             e.preventDefault();
-            this.handleFormUpdate(formFields); //submit form
+            handleFormUpdate(formFields); //submit form
             resetForm(editDialogForm);  //clear form fields
-            this.refreshTasks(); //load task is container from storage
+            refreshTasks(); //load task is container from storage
             closeDialog("edit-dialog"); //close edit form
         });
 
@@ -367,7 +367,7 @@ class UiTasks{
     }
 
     //handle form submit
-    static handleFormUpdate = (formFields) => { //update to storage
+    const handleFormUpdate = (formFields) => { //update to storage
 
         let [descr, taskDate, id, name, taskPriority, taskProID] = formFields;
         Task.editTask(descr.value, taskDate.value, id.value, name.value, taskPriority.value, taskProID.value);
@@ -375,24 +375,24 @@ class UiTasks{
     }
 
     //enable submit button based on input
-    static enableSubmitBtn = (formFields, dialogID) => {
+    const enableSubmitBtn = (formFields, dialogID) => {
         let timer;
 
        formFields.forEach(field => {
            field.addEventListener("input", () => {
                clearTimeout(timer);
                timer = setTimeout(() => {
-                   this.toogleSubmitButton(formFields, dialogID);
+                   toogleSubmitButton(formFields, dialogID);
                },100)
            })
 
        })
    }
 
-   static toogleSubmitButton  = (formFields, dialogID) => {
+   const toogleSubmitButton  = (formFields, dialogID) => {
 
         const submitBtn = document.querySelector(`#${dialogID} #submit-task`);
-        if(this.validateFields(formFields)){
+        if(validateFields(formFields)){
             submitBtn.removeAttribute("disabled");
 
         }else{
@@ -401,7 +401,7 @@ class UiTasks{
 
     }
 
-    static validateFields = (formFields) => {
+    const validateFields = (formFields) => {
         let allFilled = true;
 
         formFields.forEach(item => {
@@ -412,7 +412,7 @@ class UiTasks{
         return allFilled;
     }
 
-    static createTask = () => {
+    const createTask = () => {
 
         const dialog = document.getElementById("dialog");
         const defaultProID = '17845a4b-1fc0-42e2-9084-744fa24f32e5';
@@ -456,7 +456,7 @@ class UiTasks{
         `;
         dialog.appendChild(dialogForm);
 
-        UiProject.projectLists("add-pro-selection");
+        uiProjectModule.projectLists("add-pro-selection");
 
         const formFields = [
             document.getElementById("add-task-name"),
@@ -465,15 +465,15 @@ class UiTasks{
             document.getElementById("add-pro-selection"),
             document.getElementById("add-task-date")
         ];
-        this.enableSubmitBtn(formFields , "dialog");
-        this.handleFormSubmit(dialogForm);
+        enableSubmitBtn(formFields , "dialog");
+        handleFormSubmit(dialogForm);
 
 
 
     }
 
     //handle form submit
-    static handleFormSubmit = (form) => {
+    const handleFormSubmit = (form) => {
         form.addEventListener("submit", function (event) {
             event.preventDefault(); // Prevent the default form submission behavior
 
@@ -487,13 +487,22 @@ class UiTasks{
             Task.createTask(taskName, taskDescription, taskProID, taskDate, taskPriority);
 
             resetForm(form);
-            UiTasks.refreshTasks(); //load again tasks to see the new task added
+            uiTasksModule.refreshTasks(); //load again tasks to see the new task added
             closeDialog("dialog");
 
         })
     }
 
-}
+    return {
+        createTask,
+        refreshTasks,
+        getMenuActTasks,
+        showEmptyContent,
+        showTasksHTML,
+
+    }
+
+})()
 
 
-export {UiTasks}
+export {uiTasksModule}
