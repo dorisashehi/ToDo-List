@@ -2,10 +2,11 @@
 import { User } from './app';
 import { validate } from './validate';
 import { resetForm } from './utils';
+import { layoutModule } from './layout';
 
 const loginModule = (() => {
 
-    const loginHTMl = () => {
+    const signUpHTMl = () => {
 
 
         const loginForm = document.createElement("div");
@@ -63,11 +64,11 @@ const loginModule = (() => {
         ];
 
         validate.enableSubmitBTN(formFields, loginForm.getAttribute("id"));
-        loginHandlerEvent();
+        signupHandlerEvent();
 
     }
 
-    const loginHandlerEvent = () => {
+    const signupHandlerEvent = () => {
 
         const loginForm = document.getElementById("login-form");
 
@@ -101,9 +102,82 @@ const loginModule = (() => {
     }
 
 
-    return { loginHTMl }
+    const loginHTMl = () => {
+
+
+        const loginForm = document.createElement("div");
+        loginForm.setAttribute("id","container-register-login");
+        loginForm.innerHTML = `
+
+            <div class="container-register">
+                <div class="col form-container">
+                    <form id="login-form" method="POST" novalidate>
+                        <h4 class="dialog-header">Sign Up</h4>
+                        <div class="form-fields">
+                            <div class="form-group">
+                                <label for="form-email">Email</label>
+                                <input type="email" class="form-control form-register" id="form-register-email" name="email" placeholder="user.name@example.com" />
+                                <span class="error">Please put an email format</spam>
+                            </div>
+                        </div>
+                        <div class="form-fields">
+                            <div class="form-group">
+                                <label for="form-password">Password</label>
+                                <input type="password" class="form-control form-register" id="form-register-password" name="password" placeholder="Password" />
+                            </div>
+                        </div>
+                        <div class="result-message "></div>
+                        <div class="d-flex justify-content-between form-buttons">
+                            <div class="buttons-group">
+                                <input type="submit" id="submit-register" value="Register" class="btn btn-primary" disabled/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col">
+                    <img src="https://todoist.b-cdn.net/assets/images/7b55dafbc1fe203bd537c738fb1757ed.png" class="register-img"/>
+                </div>
+
+            </div>
+
+        `
+
+        const container = document.getElementById("container-fluid");
+        container.innerHTML = ''; // Clear any existing content
+        container.appendChild(loginForm);
+
+        const formFields = [
+            document.getElementById("form-register-password"),
+            document.getElementById("form-register-email")
+         ];
+
+
+        validate.enableSubmitBTN(formFields, loginForm.getAttribute("id"));
+
+        loginHandlerEvent();
+
+    }
+    const loginHandlerEvent = () => {
+
+        const loginForm = document.getElementById("login-form");
+
+        loginForm.addEventListener("submit", (e) => {
+
+            e.preventDefault();
+
+            const password = loginForm.elements['form-register-password'];
+            const email = loginForm.elements['form-register-email'];
+
+            const user = User.checkUsr(email.value, password.value); //SAVE INTO STORAGE USER IF DOESNT EXIST
+            if(user) layoutModule.layoutHTMl();
+            //return user;
+        });
+    }
+
+    return { signUpHTMl, loginHTMl }
 
 })();
 
 
-export {loginModule};
+export { loginModule };

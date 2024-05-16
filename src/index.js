@@ -11,7 +11,9 @@ import { layoutModule } from './modules/layout';
 const notLoggedIn = false;
 
 if(!notLoggedIn) {
-   loginModule.loginHTMl();
+   const user = loginModule.loginHTMl();
+   console.log("hello");
+   if(user) layoutModule.layoutHTMl();
 }
 else {
     layoutModule.layoutHTMl();

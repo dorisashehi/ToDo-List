@@ -204,6 +204,11 @@ class User{
         let emailExist = Storage.getStorage("users")?.find(item => item.email === email);
         return emailExist;
     }
+
+    static checkUsr = (email, password) => {//find task with specific id
+        let user = Storage.getStorage("users")?.find(item => item.email === email && item.password === password);
+        return user;
+    }
 }
 
 
