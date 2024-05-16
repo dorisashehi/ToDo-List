@@ -6,7 +6,15 @@ import { uiProjectModule} from './modules/project_view';
 import { openDialog, closeDialog} from './modules/utils';
 import profile from './assets/images/profile.jpg'
 import { loginModule } from './modules/login';
+import { layoutModule } from './modules/layout';
 
+const notLoggedIn = false;
+
+if(!notLoggedIn) {
+   loginModule.loginHTMl();
+}
+else {
+    layoutModule.layoutHTMl();
 ////ALL THESE CODES BELOW ARE EXECUTED ON PAGE LOAD
 
 //ADD DEFAULT PROJECT TO STORAGE ON PAGE LOAD
@@ -126,19 +134,4 @@ editBoxes.forEach(editBox => {
 //         ]
 //       }
 //     });
-
-
-//LOGIN FORM
-
-const loginForm = document.querySelector(".login-form");
-loginForm.addEventListener("submit", (e) => {
-
-    e.preventDefault();
-
-    const name = form.elements['name'].value;
-    const password = form.elements['email'].value;
-    const email = form.elements['password'].value;
-
-    console.log(name);
-
-})
+}
