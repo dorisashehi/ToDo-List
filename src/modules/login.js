@@ -79,25 +79,12 @@ const loginModule = (() => {
             const password = loginForm.elements['form-register-password'];
             const email = loginForm.elements['form-register-email'];
 
-            validateEmail(email);
+            validate.validateEmail(email);
             const result = User.createUser(name.value, email.value, password.value); //SAVE INTO STORAGE USER IF DOESNT EXIST
             afterUserSaved(result, loginForm);
 
 
         });
-    }
-
-    const validateEmail = (email) => { //VALIDATE EMAIL MATCH REGEX
-
-        let emailRegEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const errorDIV =  email.nextElementSibling;
-        if(email.value ==="" || !emailRegEX.test(email.value)){
-            errorDIV.classList.add('active');
-            return;
-        }else{
-            errorDIV.classList.remove('active');
-        }
-
     }
 
     const afterUserSaved = ( result, form ) => { //SHOW RESULT IF USER SAVED IN STORAGE OR NOT

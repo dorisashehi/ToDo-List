@@ -41,7 +41,20 @@ const validate = (() => {
         return allFilled;
     }
 
-    return { enableSubmitBTN }
+    const validateEmail = (email) => { //VALIDATE EMAIL MATCH REGEX
+
+        let emailRegEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const errorDIV =  email.nextElementSibling;
+        if(email.value ==="" || !emailRegEX.test(email.value)){
+            errorDIV.classList.add('active');
+            return;
+        }else{
+            errorDIV.classList.remove('active');
+        }
+
+    }
+
+    return { enableSubmitBTN, validateEmail }
 
 
 })();
