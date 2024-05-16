@@ -19,6 +19,7 @@ let projects = Storage.getStorage("projects"); //BY DEFAULT GET STORAGE PROJECTS
 
 let todoArr = Storage.getStorage("tasks"); //BY DEFAULT GET TASKS FOM STORAGE
 
+let users = Storage.getStorage("users");
 class Project{
 
     constructor(id, name, favorites){
@@ -166,7 +167,46 @@ class Task{
 
 }
 
+class User{
+
+    constructor(name, email, password){
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    static createUser(name, email, password){
+
+        let user = new User(name, email, password);
+        user.id = generateRandomId();
+
+        if (this.checkUsrEmail(email)){ //user with that email already registered
+            return (
+                {
+                    "message": `Email ${email} already registered`,
+                    "error": true
+                }
+            )
+        }
+
+        users = [...users, user];
+        Storage.addToStorage(users, "users");
+        return (
+            {
+                "message": `Success! Email ${email} registered`,
+                "success": true
+            }
+        )
+
+    }
+
+    static checkUsrEmail = (email) => {//find task with specific id
+        let emailExist = Storage.getStorage("users")?.find(item => item.email === email);
+        return emailExist;
+    }
+}
 
 
 
-export {Project, Task, projects, todoArr, generateRandomId}
+
+export {Project, Task, User, projects, todoArr, users, generateRandomId}

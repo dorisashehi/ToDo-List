@@ -1,4 +1,7 @@
 //const bcrypt = require("bcrypt");
+import { User } from './app';
+import { validate } from './validate';
+import { resetForm } from './utils';
 
 const loginModule = (() => {
 
@@ -6,34 +9,36 @@ const loginModule = (() => {
 
 
         const loginForm = document.createElement("div");
-        loginForm.classList.add("container-register-login");
+        loginForm.setAttribute("id","container-register-login");
         loginForm.innerHTML = `
 
             <div class="container-register">
                 <div class="col form-container">
                     <form id="login-form" method="POST" novalidate>
-                        <h4 class="dialog-header mb-3">Sign Up</h4>
+                        <h4 class="dialog-header">Sign Up</h4>
                         <div class="form-fields">
                             <div class="form-group mb-3">
                                 <label for="form-name">Name</label>
-                                <input type="text" class="form-control form-register" id="form-register-name" name="form-register-name" placeholder="User Name" />
+                                <input type="text" class="form-control form-register" id="form-register-name" name="name" placeholder="User Name" />
                             </div>
                         </div>
                         <div class="form-fields">
-                            <div class="form-group mb-3">
+                            <div class="form-group">
                                 <label for="form-email">Email</label>
-                                <input type="text" class="form-control form-register" id="form-register-email" name="form-register-email" placeholder="User Email" />
+                                <input type="email" class="form-control form-register" id="form-register-email" name="email" placeholder="user.name@example.com" />
+                                <span class="error">Please put an email format</spam>
                             </div>
                         </div>
                         <div class="form-fields">
-                            <div class="form-group mb-3">
+                            <div class="form-group">
                                 <label for="form-password">Password</label>
-                                <input type="text" class="form-control form-register" id="form-register-password" name="form-register-password" placeholder="Password" />
+                                <input type="password" class="form-control form-register" id="form-register-password" name="password" placeholder="Password" />
                             </div>
                         </div>
+                        <div class="result-message "></div>
                         <div class="d-flex justify-content-between form-buttons">
                             <div class="buttons-group">
-                                <input type="submit" id="submit-register" value="Register" class="btn btn-primary"/>
+                                <input type="submit" id="submit-register" value="Register" class="btn btn-primary" disabled/>
                             </div>
                         </div>
                     </form>
@@ -50,6 +55,14 @@ const loginModule = (() => {
         const container = document.getElementById("container-fluid");
         container.innerHTML = ''; // Clear any existing content
         container.appendChild(loginForm);
+
+        const formFields = [
+           document.getElementById("form-register-name"),
+           document.getElementById("form-register-password"),
+           document.getElementById("form-register-email")
+        ];
+
+        validate.enableSubmitBTN(formFields, loginForm.getAttribute("id"));
         loginHandlerEvent();
 
     }
@@ -57,19 +70,49 @@ const loginModule = (() => {
     const loginHandlerEvent = () => {
 
         const loginForm = document.getElementById("login-form");
-        console.log(loginForm);
+
         loginForm.addEventListener("submit", (e) => {
 
             e.preventDefault();
 
-            const name = loginForm.elements['form-register-name'].value;
-            const password = loginForm.elements['form-register-password'].value;
-            const email = loginForm.elements['form-register-email'].value;
+            const name = loginForm.elements['form-register-name'];
+            const password = loginForm.elements['form-register-password'];
+            const email = loginForm.elements['form-register-email'];
 
-            console.log({name, password, email});
+            validateEmail(email);
+            const result = User.createUser(name.value, email.value, password.value); //SAVE INTO STORAGE USER IF DOESNT EXIST
+            afterUserSaved(result, loginForm);
+
 
         });
     }
+
+    const validateEmail = (email) => { //VALIDATE EMAIL MATCH REGEX
+
+        let emailRegEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const errorDIV =  email.nextElementSibling;
+        if(email.value ==="" || !emailRegEX.test(email.value)){
+            errorDIV.classList.add('active');
+            return;
+        }else{
+            errorDIV.classList.remove('active');
+        }
+
+    }
+
+    const afterUserSaved = ( result, form ) => { //SHOW RESULT IF USER SAVED IN STORAGE OR NOT
+
+        const resultDIV = document.querySelector(".result-message");
+        resultDIV.innerHTML = "";
+        resultDIV.classList.remove('error');
+        resultDIV.classList.remove('success');
+
+        let resultClass = 'error';
+        if (result.success){resultClass = "success"; resetForm(form);}
+        if(result) resultDIV.innerHTML = result.message; resultDIV.classList.add(resultClass);
+
+    }
+
 
     return { loginHTMl }
 

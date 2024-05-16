@@ -10,9 +10,33 @@
         display: flex;
         justify-content: end;
 
-        .login-form{
-            width: 500px;
+        #login-form{
+            width: 300px;
         }
+
+        .form-group{
+            .error{
+                display: none;
+                transition: visibility ease-in 200ms;
+
+            }
+            .error.active{
+                display: block;
+                color: #e34735;
+            }
+
+        }
+        .result-message{
+
+            &.success{
+                color: #d3e3e0;
+            }
+            &.error{
+                color: #e34735;
+            }
+
+        }
+
     }
     .form-control{
 
