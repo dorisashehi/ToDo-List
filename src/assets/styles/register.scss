@@ -1,0 +1,32 @@
+.container-register{
+
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+
+    .form-container{
+
+        padding: 30px;
+        display: flex;
+        justify-content: end;
+
+        .login-form{
+            width: 500px;
+        }
+    }
+    .form-control{
+
+        border: 2px dashed #bcbcbc;
+        padding: 15px;
+        border-radius: 0px;
+
+    }
+    .register-img{
+
+        width: 400px;
+
+    }
+
+
+}
+

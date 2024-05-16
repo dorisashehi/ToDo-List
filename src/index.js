@@ -5,6 +5,7 @@ import { uiTasksModule} from './modules/tasks_view';
 import { uiProjectModule} from './modules/project_view';
 import { openDialog, closeDialog} from './modules/utils';
 import profile from './assets/images/profile.jpg'
+import { loginModule } from './modules/login';
 
 ////ALL THESE CODES BELOW ARE EXECUTED ON PAGE LOAD
 
@@ -126,3 +127,18 @@ editBoxes.forEach(editBox => {
 //       }
 //     });
 
+
+//LOGIN FORM
+
+const loginForm = document.querySelector(".login-form");
+loginForm.addEventListener("submit", (e) => {
+
+    e.preventDefault();
+
+    const name = form.elements['name'].value;
+    const password = form.elements['email'].value;
+    const email = form.elements['password'].value;
+
+    console.log(name);
+
+})
