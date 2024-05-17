@@ -3,8 +3,11 @@ import { User } from './app';
 import { validate } from './validate';
 import { resetForm } from './utils';
 import { layoutModule } from './layout';
+import { init } from './init';
 
 const loginModule = (() => {
+
+    const resultDIV = document.querySelector(".result-message");
 
     const signUpHTMl = () => {
 
@@ -15,7 +18,7 @@ const loginModule = (() => {
 
             <div class="container-register">
                 <div class="col form-container">
-                    <form id="login-form" method="POST" novalidate>
+                    <form id="register-form" method="POST" novalidate>
                         <h4 class="dialog-header">Sign Up</h4>
                         <div class="form-fields">
                             <div class="form-group mb-3">
@@ -39,7 +42,7 @@ const loginModule = (() => {
                         <div class="result-message "></div>
                         <div class="d-flex justify-content-between form-buttons">
                             <div class="buttons-group">
-                                <input type="submit" id="submit-register" value="Register" class="btn btn-primary" disabled/>
+                                <input type="submit" id="submit" value="Register" class="btn btn-primary" disabled/>
                             </div>
                         </div>
                     </form>
@@ -70,7 +73,7 @@ const loginModule = (() => {
 
     const signupHandlerEvent = () => {
 
-        const loginForm = document.getElementById("login-form");
+        const loginForm = document.getElementById("register-form");
 
         loginForm.addEventListener("submit", (e) => {
 
@@ -96,7 +99,7 @@ const loginModule = (() => {
         resultDIV.classList.remove('success');
 
         let resultClass = 'error';
-        if (result.success){resultClass = "success"; resetForm(form);}
+        if (result.type == 'success'){resultClass = "success"; resetForm(form);}
         if(result) resultDIV.innerHTML = result.message; resultDIV.classList.add(resultClass);
 
     }
@@ -116,20 +119,20 @@ const loginModule = (() => {
                         <div class="form-fields">
                             <div class="form-group">
                                 <label for="form-email">Email</label>
-                                <input type="email" class="form-control form-register" id="form-register-email" name="email" placeholder="user.name@example.com" />
+                                <input type="email" class="form-control form-register" id="form-login-email" name="email" placeholder="user.name@example.com" />
                                 <span class="error">Please put an email format</spam>
                             </div>
                         </div>
                         <div class="form-fields">
                             <div class="form-group">
                                 <label for="form-password">Password</label>
-                                <input type="password" class="form-control form-register" id="form-register-password" name="password" placeholder="Password" />
+                                <input type="password" class="form-control form-register" id="form-login-password" name="password" placeholder="Password" />
                             </div>
                         </div>
                         <div class="result-message "></div>
                         <div class="d-flex justify-content-between form-buttons">
                             <div class="buttons-group">
-                                <input type="submit" id="submit-register" value="Register" class="btn btn-primary" disabled/>
+                                <input type="submit" id="submit" value="LogIn" class="btn btn-primary" disabled/>
                             </div>
                         </div>
                     </form>
@@ -148,8 +151,8 @@ const loginModule = (() => {
         container.appendChild(loginForm);
 
         const formFields = [
-            document.getElementById("form-register-password"),
-            document.getElementById("form-register-email")
+            document.getElementById("form-login-password"),
+            document.getElementById("form-login-email")
          ];
 
 
@@ -166,12 +169,33 @@ const loginModule = (() => {
 
             e.preventDefault();
 
-            const password = loginForm.elements['form-register-password'];
-            const email = loginForm.elements['form-register-email'];
+            const password = loginForm.elements['form-login-password'];
+            const email = loginForm.elements['form-login-email'];
 
-            const user = User.checkUsr(email.value, password.value); //SAVE INTO STORAGE USER IF DOESNT EXIST
-            if(user) layoutModule.layoutHTMl();
-            //return user;
+            const user = User.checkUsrEmail(email.value); //SAVE INTO STORAGE USER IF DOESNT EXIST
+
+
+            const resultDIV = document.querySelector(".result-message");
+            resultDIV.innerHTML = "";
+            resultDIV.classList.remove('error');
+
+            if(user === null){
+
+                resultDIV.innerHTML = "Wrong username"; resultDIV.classList.add('error');
+
+            }else if(password.value === user.password && email.value === user.email) {
+
+                sessionStorage.setItem('currentloggedin',user.id);
+
+                resetForm(loginForm);
+                layoutModule.layoutHTMl();
+                init();
+
+            }else{
+
+                resultDIV.innerHTML = "Wrong password"; resultDIV.classList.add('error');
+            }
+
         });
     }
 

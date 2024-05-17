@@ -18,7 +18,7 @@ const validate = (() => {
 
     const toogleSubmitButton  = (formFields, dialogID) => {
 
-        const submitBtn = document.querySelector(`#${dialogID} #submit-register`);
+        const submitBtn = document.querySelector(`#${dialogID} #submit`);
         if(validateFields(formFields)){
             submitBtn.removeAttribute("disabled");
 

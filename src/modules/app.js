@@ -169,10 +169,11 @@ class Task{
 
 class User{
 
-    constructor(name, email, password){
+    constructor(name, email, password, auth = 0){
         this.name = name;
         this.email = email;
         this.password = password;
+        this.auth = auth;
     }
 
     static createUser(name, email, password){
@@ -184,7 +185,7 @@ class User{
             return (
                 {
                     "message": `Email ${email} already registered`,
-                    "error": true
+                    "type": error
                 }
             )
         }
@@ -194,7 +195,7 @@ class User{
         return (
             {
                 "message": `Success! Email ${email} registered`,
-                "success": true
+                "type": success
             }
         )
 
