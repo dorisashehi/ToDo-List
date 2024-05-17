@@ -1,6 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 import { isEqual, eachDayOfInterval, format } from 'date-fns';
 
+
 class Storage{
 
     static addToStorage = (arr, strName) => { //SAVE ITO STORAGE
@@ -185,7 +186,7 @@ class User{
             return (
                 {
                     "message": `Email ${email} already registered`,
-                    "type": error
+                    "type": 'error'
                 }
             )
         }
@@ -194,8 +195,8 @@ class User{
         Storage.addToStorage(users, "users");
         return (
             {
-                "message": `Success! Email ${email} registered`,
-                "type": success
+                "data": user,
+                "type": 'success'
             }
         )
 
@@ -206,10 +207,6 @@ class User{
         return emailExist;
     }
 
-    static checkUsr = (email, password) => {//find task with specific id
-        let user = Storage.getStorage("users")?.find(item => item.email === email && item.password === password);
-        return user;
-    }
 }
 
 

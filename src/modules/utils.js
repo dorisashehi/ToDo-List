@@ -17,5 +17,23 @@ const closeDialog = (closeBtnID) => {
 
 }
 
+const setLoggedInSession = (userID) => {
 
-export {resetForm, openDialog, closeDialog};
+    sessionStorage.setItem('currentloggedin', userID);
+
+}
+
+const getLoggedInUser = (sessionName) => {
+
+    return sessionStorage.getItem(sessionName);
+
+}
+
+const removeLoggedIn = () => {
+
+    sessionStorage.removeItem('currentloggedin');
+
+
+}
+
+export {resetForm, openDialog, closeDialog, setLoggedInSession, getLoggedInUser, removeLoggedIn};

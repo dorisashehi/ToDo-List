@@ -2,8 +2,9 @@ import { Project } from './app';
 import { uiMenuModule} from './menu_view';
 import { uiTasksModule} from './tasks_view';
 import { uiProjectModule} from './project_view';
-import { openDialog, closeDialog} from './utils';
+import { openDialog, closeDialog, removeLoggedIn} from './utils';
 import profile from '../assets/images/profile.jpg'
+import {loginModule } from './login';
 
 const init = (() => {
 
@@ -106,6 +107,11 @@ const init = (() => {
             }
         });
     });
+
+    document.querySelector('.logout-btn').addEventListener('click', () => {
+        removeLoggedIn();
+        loginModule.loginHTMl();
+    })
 });
 
 export { init }

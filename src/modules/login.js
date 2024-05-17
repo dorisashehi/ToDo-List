@@ -4,6 +4,7 @@ import { validate } from './validate';
 import { resetForm } from './utils';
 import { layoutModule } from './layout';
 import { init } from './init';
+import { setLoggedInSession } from './utils';
 
 const loginModule = (() => {
 
@@ -66,8 +67,8 @@ const loginModule = (() => {
            document.getElementById("form-register-email")
         ];
 
-        validate.enableSubmitBTN(formFields, loginForm.getAttribute("id"));
-        signupHandlerEvent();
+        validate.enableSubmitBTN(formFields, loginForm.getAttribute("id")); //VALIDATE FORM FIELDS
+        signupHandlerEvent(); //SUBMIT BUTTON EVENT
 
     }
 
@@ -85,27 +86,32 @@ const loginModule = (() => {
 
             validate.validateEmail(email);
             const result = User.createUser(name.value, email.value, password.value); //SAVE INTO STORAGE USER IF DOESNT EXIST
-            afterUserSaved(result, loginForm);
+            afterUserSaved(result); //CLEAR FORM REDIRECT
 
 
         });
     }
 
-    const afterUserSaved = ( result, form ) => { //SHOW RESULT IF USER SAVED IN STORAGE OR NOT
+    const afterUserSaved = ( result ) => { //SHOW RESULT IF USER SAVED IN STORAGE OR NOT
 
         const resultDIV = document.querySelector(".result-message");
         resultDIV.innerHTML = "";
         resultDIV.classList.remove('error');
-        resultDIV.classList.remove('success');
 
-        let resultClass = 'error';
-        if (result.type == 'success'){resultClass = "success"; resetForm(form);}
-        if(result) resultDIV.innerHTML = result.message; resultDIV.classList.add(resultClass);
+        if(result.type == 'error') { //IF USER COULDN'T CREATED
+
+            resultDIV.innerHTML = result.message;
+            resultDIV.classList.add("error");
+            return;
+        }
+
+        sessionStorage.setItem('currentloggedin',result.data.id); //PUT IN A SESSION THE USER ID LOGGED IN
+        layoutModule.layoutHTMl(); //LOAD LAYOUT
 
     }
 
 
-    const loginHTMl = () => {
+    const loginHTMl = () => { //HTML TO LOGIN
 
 
         const loginForm = document.createElement("div");
@@ -135,6 +141,7 @@ const loginModule = (() => {
                                 <input type="submit" id="submit" value="LogIn" class="btn btn-primary" disabled/>
                             </div>
                         </div>
+                        <span class="signup-content">Don’t have an account? <a class="signup-link">Sign up</a></span
                     </form>
                 </div>
 
@@ -158,10 +165,18 @@ const loginModule = (() => {
 
         validate.enableSubmitBTN(formFields, loginForm.getAttribute("id"));
 
-        loginHandlerEvent();
+        loginHandlerEvent(); //login event
+        signupLinkEvent(); // if not registered sign up
 
     }
-    const loginHandlerEvent = () => {
+
+    const signupLinkEvent = () => { //sign up link event
+        document.querySelector('.signup-link').addEventListener('click', () => {
+            signUpHTMl();
+        })
+
+    }
+    const loginHandlerEvent = () => { //login event
 
         const loginForm = document.getElementById("login-form");
 
@@ -183,9 +198,9 @@ const loginModule = (() => {
 
                 resultDIV.innerHTML = "Wrong username"; resultDIV.classList.add('error');
 
-            }else if(password.value === user.password && email.value === user.email) {
+            }else if(password.value === user?.password && email.value === user?.email) {
 
-                sessionStorage.setItem('currentloggedin',user.id);
+                setLoggedInSession(user.id);
 
                 resetForm(loginForm);
                 layoutModule.layoutHTMl();
