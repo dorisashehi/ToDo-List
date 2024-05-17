@@ -20,7 +20,7 @@ const loginModule = (() => {
             <div class="container-register">
                 <div class="col form-container">
                     <form id="register-form" method="POST" novalidate>
-                        <h4 class="dialog-header">Sign Up</h4>
+                        <h4 class="header">Sign Up</h4>
                         <div class="form-fields">
                             <div class="form-group mb-3">
                                 <label for="form-name">Name</label>
@@ -46,6 +46,7 @@ const loginModule = (() => {
                                 <input type="submit" id="submit" value="Register" class="btn btn-primary" disabled/>
                             </div>
                         </div>
+                        <span class="signup-content">Already signed up? <a class="login-link">Go to login</a></span
                     </form>
                 </div>
 
@@ -69,6 +70,14 @@ const loginModule = (() => {
 
         validate.enableSubmitBTN(formFields, loginForm.getAttribute("id")); //VALIDATE FORM FIELDS
         signupHandlerEvent(); //SUBMIT BUTTON EVENT
+        loginLinkEvent();
+
+    }
+
+    const loginLinkEvent = () => { //sign up link event
+        document.querySelector('.login-link').addEventListener('click', () => {
+            loginHTMl();
+        })
 
     }
 
@@ -121,7 +130,7 @@ const loginModule = (() => {
             <div class="container-register">
                 <div class="col form-container">
                     <form id="login-form" method="POST" novalidate>
-                        <h4 class="dialog-header">Sign Up</h4>
+                        <h4 class="header">Log In</h4>
                         <div class="form-fields">
                             <div class="form-group">
                                 <label for="form-email">Email</label>
@@ -136,7 +145,7 @@ const loginModule = (() => {
                             </div>
                         </div>
                         <div class="result-message "></div>
-                        <div class="d-flex justify-content-between form-buttons">
+                        <div class="d-flex justify-content-between form-buttons mb-3">
                             <div class="buttons-group">
                                 <input type="submit" id="submit" value="LogIn" class="btn btn-primary" disabled/>
                             </div>

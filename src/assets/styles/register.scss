@@ -10,22 +10,90 @@
         display: flex;
         justify-content: end;
 
-        #login-form{
-            width: 300px;
-        }
+        form{
+            width: 450px;
+            background-color: #ffffff;
+            box-shadow: 0px 4px 8px #d0d0d0;
+            padding: 35px 0px;
 
-        .form-group{
-            .error{
-                display: none;
-                transition: visibility ease-in 200ms;
-
+            .header{
+                padding: 0px 30px 10px 30px;
+                border-bottom: 1px solid #dddddd;
+                color: #767c8b;
+                text-align: left;
             }
-            .error.active{
+
+            .form-fields{
+                padding: 0px 30px 0px 30px;
+
+                .form-group{
+                    .error{
+                        display: none;
+                        transition: visibility ease-in 200ms;
+
+                    }
+                    .error.active{
+                        display: block;
+                        color: #e34735;
+                    }
+                    label{
+                        color: #929292;
+                        font-size: 0.9rem;
+                        font-weight: 500;
+                    }
+                    .form-control{
+                        border: 2px dashed #b7b7b7;
+                        border-radius: 0em;
+                        padding: 10px;
+                        font-size: 0.9rem;
+
+                        &::placeholder{
+
+                            font-size: 0.9rem;
+                            color: #919191;
+
+                        }
+
+                        &:focus{
+                            box-shadow: unset;
+                        }
+
+
+
+                    }
+
+
+
+                }
+            }
+
+            .form-buttons{
+                border-top: 1px solid var(--yellow-color);
+                padding: 15px 30px;
+                margin-top: 13px;
+                cursor: pointer;
+            }
+
+            .signup-content{
+
+                width: 100%;
+                text-align: center;
                 display: block;
-                color: #e34735;
+                font-size: 0.9rem;
+                font-style: italic;
+                a{
+                    color: #e34735 !important;
+                    font-weight: 500;
+                    color: #929292;
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+
             }
 
         }
+
+
         .result-message{
 
             &.success{
