@@ -52,7 +52,7 @@ const loginModule = (() => {
                     </form>
                 </div>
 
-                <div class="col">
+                <div class="col image-column">
                     <div class="row mb-3">
                         <img src="${signup1}" class="register-img"/>
                         <img  src="${signup2}" " class="register-img"/>
@@ -174,8 +174,13 @@ const loginModule = (() => {
                     </form>
                 </div>
 
-                <div class="col">
-                    <img src="https://todoist.b-cdn.net/assets/images/7b55dafbc1fe203bd537c738fb1757ed.png" class="register-img"/>
+                <div class="col image-column">
+                    <img src="https://todoist.b-cdn.net/assets/images/7b55dafbc1fe203bd537c738fb1757ed.png" class="login-img"/>
+                    <div class="description">
+                        Before Todoist, my to-do lists were scattered all around! Now, everything is in order and in one place.
+
+                        <span>– Matt M.</span>
+                    </div>
                 </div>
 
             </div>
