@@ -1,4 +1,4 @@
-.container-register{
+.container-wrapper{
 
     min-height: 100vh;
     display: flex;
@@ -74,7 +74,7 @@
                 cursor: pointer;
             }
 
-            .signup-content{
+            .signup-content, .error{
 
                 width: 100%;
                 text-align: center;
@@ -89,6 +89,18 @@
                     cursor: pointer;
                 }
 
+            }
+            em{
+                color: #e34735;
+                font-weight: 500;
+            }
+            .error{
+                color: #e34735 !important;
+                padding: 5px 0px;
+                text-align: left !important;
+            }
+            .result-message{
+                padding-left: 30px;
             }
 
         }
@@ -115,7 +127,7 @@
     }
     .register-img{
 
-        width: 400px;
+        width: 300px;
 
     }
 
