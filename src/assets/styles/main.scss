@@ -185,7 +185,7 @@ ul.show-dropdown{
 }
 
 .only-mobile{
-  color: var(--yellow-color);
+  color: #ffffff;
   font-size: 1rem;
 }
 
@@ -596,7 +596,7 @@ Content style
   top: 0px;
   transition: all .3s ease;
   line-height: 16px;
-  font-size: 12px;
+  font-size: 10px;
 }
 .completed[type="checkbox"]:checked + label::after, .completed[type="checkbox"] + label::after{
   opacity: 1;
