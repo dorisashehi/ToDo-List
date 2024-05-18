@@ -112,6 +112,12 @@ const init = (() => {
         removeLoggedIn();
         loginModule.loginHTMl();
     })
+
+
+    document.querySelector('.mobile-logout').addEventListener('click', () => {
+        removeLoggedIn();
+        loginModule.loginHTMl();
+    })
 });
 
 export { init }

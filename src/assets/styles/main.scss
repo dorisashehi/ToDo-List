@@ -587,7 +587,7 @@ Content style
 .completed[type="checkbox"]:not(:checked) + label::after, .completed[type="checkbox"]:checked + label::after{
   content: '✔';
   position: absolute;
-  color: #e34735;
+  color: #e34735 !important;
   width: 14px;
   height: 14px;
   outline: 2px solid #e34735;
@@ -596,6 +596,7 @@ Content style
   top: 0px;
   transition: all .3s ease;
   line-height: 16px;
+  font-size: 12px;
 }
 .completed[type="checkbox"]:checked + label::after, .completed[type="checkbox"] + label::after{
   opacity: 1;
@@ -637,7 +638,7 @@ Content style
   }
 
   .only-mobile{
-    display: none;
+    display: none !important;
   }
 
 

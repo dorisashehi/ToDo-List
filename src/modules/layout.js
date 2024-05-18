@@ -79,7 +79,7 @@ const layoutModule = (() => {
 
                     <div class="user d-flex gap-3 align-items-center justify-content-center ">
                         <img  class="profile-img"/>
-                        <i class="fas fa-sign-out-alt only-mobile"></i>
+                        <i class="fas fa-sign-out-alt only-mobile mobile-logout"></i>
                         <button class="btn btn-primary logout-btn" alt="Logout">Logout</button>
                     </div>
 
