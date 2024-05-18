@@ -22,7 +22,6 @@ let projects = Storage.getStorage("projects"); //BY DEFAULT GET STORAGE PROJECTS
 
 
 let todoArr = Storage.getStorage("tasks"); //BY DEFAULT GET TASKS FOM STORAGE
-console.log(todoArr);
 
 let users = Storage.getStorage("users");
 class Project{
@@ -204,16 +203,16 @@ class Task{
 
 class User{
 
-    constructor(name, email, password, auth = 0){
+    constructor(name, email, password){
         this.name = name;
         this.email = email;
         this.password = password;
-        this.auth = auth;
     }
 
     static createUser(name, email, password){
 
-        let user = new User(name, email, password);
+        console.log(btoa(password));
+        let user = new User(name, email, btoa(password));
         user.id = generateRandomId();
 
         if (this.checkUsrEmail(email)){ //user with that email already registered

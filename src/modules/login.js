@@ -232,7 +232,8 @@ const loginModule = (() => {
                 resultDIV.innerHTML = "User doesn't exist";
                 resultDIV.classList.add('error');
 
-            }else if(password.value === user?.password && email.value === user?.email) {
+
+            }else if(password.value === atob(user?.password) && email.value === user?.email) {
 
                 setLoggedInSession(user.id); //SET SESSION FOR USER LOGGED IN
 
