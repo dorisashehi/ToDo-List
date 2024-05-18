@@ -6,8 +6,6 @@ import { getLoggedInUser } from './modules/utils';
 
 const loggedIn = getLoggedInUser('currentloggedin');
 
-console.log(getLoggedInUser('currentloggedin'));
-
 if(loggedIn === null) {
 
    const user = loginModule.loginHTMl();

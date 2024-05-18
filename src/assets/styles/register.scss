@@ -114,18 +114,19 @@
     }
     .description{
         width: 225px;
+        line-height: 1.2rem;
         display: flex;
         flex-direction: column;
         padding: 20px;
         background: #ffffff;
         gap: 25px;
         position: absolute;
-        transform: translate(71%, -56%);
+        transform: translate(65%, -45%);
         box-shadow: 0px 4px 8px #d0d0d0;
         border-radius: 0.5em;
     }
     img.login-img{
-        width: 400px;
+        width: 350px;
 
     }
     .col{
@@ -166,10 +167,10 @@
 @media screen and (min-width:1200px){
     .container-wrapper{
         .description {
-            width: 300px;
+            width: 250px;
         }
         img.login-img{
-            width: 500px;
+            width: 360px;
         }
         img.register-img{
             width: 300px;

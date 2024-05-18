@@ -22,6 +22,7 @@ let projects = Storage.getStorage("projects"); //BY DEFAULT GET STORAGE PROJECTS
 
 
 let todoArr = Storage.getStorage("tasks"); //BY DEFAULT GET TASKS FOM STORAGE
+console.log(todoArr);
 
 let users = Storage.getStorage("users");
 class Project{
