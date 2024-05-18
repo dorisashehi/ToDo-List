@@ -1,5 +1,6 @@
 import { projects } from "./app";
 import { uiTasksModule } from "./tasks_view";
+import { getLoggedInUser } from '../modules/utils';
 
 const uiMenuModule = (() =>{
 
@@ -69,7 +70,10 @@ const uiMenuModule = (() =>{
                 ulContent.innerHTML = "";
                 subMenuCon = filterFavorites();
                 subMenuCon.forEach(item => {
-                    ulContent.appendChild(getMenuItem(item));
+                    if(item.userID ===  getLoggedInUser('currentloggedin')){
+                        ulContent.appendChild(getMenuItem(item));
+
+                    }
                 })
             }
 
@@ -77,7 +81,10 @@ const uiMenuModule = (() =>{
                 ulContent.innerHTML = "";
                 subMenuCon = filterProjects();
                 subMenuCon.forEach(item => {
-                    ulContent.appendChild(getMenuItem(item));
+
+                    if(item.userID ===  getLoggedInUser('currentloggedin')){
+                        ulContent.appendChild(getMenuItem(item));
+                    }
                 })
             }
 

@@ -1,6 +1,6 @@
 import { Project, projects, generateRandomId } from "./app";
 import { uiMenuModule } from "./menu_view";
-import {resetForm, closeDialog} from './utils';
+import {resetForm, closeDialog, getLoggedInUser} from './utils';
 
 const uiProjectModule = (() => {
 
@@ -10,15 +10,19 @@ const uiProjectModule = (() => {
         projectSelect.innerHTML = "";
 
         projects?.forEach(item => {
-            const option = document.createElement("option");
-            option.classList.add("project-name", "d-flex","flex-row");
-            option.value =item.id;
+            if (item.userID === getLoggedInUser('currentloggedin')){
 
-            const optionSpan = document.createElement("span");
-            optionSpan.textContent = item.name;
+                const option = document.createElement("option");
+                option.classList.add("project-name", "d-flex","flex-row");
+                option.value =item.id;
 
-            option.appendChild(optionSpan);
-            projectSelect.appendChild(option);
+                const optionSpan = document.createElement("span");
+                optionSpan.textContent = item.name;
+
+                option.appendChild(optionSpan);
+                projectSelect.appendChild(option);
+
+            }
         })
     }
 

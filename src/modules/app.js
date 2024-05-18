@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
 import { isEqual, eachDayOfInterval, format } from 'date-fns';
-
+import { getLoggedInUser } from '../modules/utils';
 
 class Storage{
 
@@ -16,36 +16,58 @@ class Storage{
     }
 }
 
+
+
 let projects = Storage.getStorage("projects"); //BY DEFAULT GET STORAGE PROJECTS
+
 
 let todoArr = Storage.getStorage("tasks"); //BY DEFAULT GET TASKS FOM STORAGE
 
 let users = Storage.getStorage("users");
 class Project{
 
-    constructor(id, name, favorites){
+    constructor(id, name, favorites, userID){
         this.id = id;
         this.name = name;
         this.favorites = favorites;
+        this.userID = userID;
     }
 
     static checkProject = (id) => { //CHECK IF THE PROJECT EXISTS
 
         if(!projects) return false
+        const userID = getLoggedInUser('currentloggedin');
 
-        let proExist = projects.find(item => item.id === id);
+        let proExist = projects.find(item => item.id === id && item.userID === userID);
         return proExist;
 
     }
 
+    static checkProjectName = (name) => { //CHECK IF THE PROJECT EXISTS
+
+        if(!projects) return false
+        const userID = getLoggedInUser('currentloggedin');
+
+        let proExist = projects.find(item => item.name === name && item.userID === userID);
+        return proExist;
+
+    }
     static createProject = (id, name, favorited) => { //create a new ptoject and add it to local storage
 
         //project exists, STOP executation
         if(this.checkProject(id)) return;
+        if(this.checkProjectName(name)) return;
 
         const project = new Project(id, name, favorited);
+        project.userID = getLoggedInUser('currentloggedin');
         projects = [...projects, project];
         Storage.addToStorage(projects, "projects");
+
+    }
+
+    static getDefaultProjectID = () => { //GET INBOX PROJECT ID
+        let project = projects.find(item => item.userID === getLoggedInUser('currentloggedin'));
+        return project.id;
 
     }
 
@@ -145,7 +167,10 @@ class Task{
         const weekdays = daysOfWeek.map((day) => format(day, 'yyyy-MM-dd'));
 
         let taksExist = todoArr.filter(item => {
-            return (weekdays.includes(item.due_date) && item.completed === false);
+
+            if(Project.checkProject(item.pro_id)){
+                return (weekdays.includes(item.due_date) && item.completed === false);
+            }
 
         });
 
@@ -156,7 +181,15 @@ class Task{
 
         if(!todoArr) return;
 
-        let taksExist = todoArr.filter(item => item.completed === true);
+        let taksExist = todoArr.filter(item => {
+
+
+            if(typeof Project.checkProject(item.pro_id) !== 'undefined'){
+                return item.completed === true
+            }
+
+        });
+        console.log(taksExist);
         return taksExist;
 
     }

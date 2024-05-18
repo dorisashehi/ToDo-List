@@ -1,3 +1,5 @@
+import { Project } from "./app";
+
 const layoutModule = (() => {
 
 
@@ -18,7 +20,7 @@ const layoutModule = (() => {
                     <div class="sidebar-content col px-0">
 
                         <ul class="nav flex-column" id="main-menu">
-                            <li class="nav-item active" data-project="17845a4b-1fc0-42e2-9084-744fa24f32e5">
+                            <li class="nav-item active" data-project="inbox">
                                 <a href="#" class="nav-link px-0 d-flex align-items-center">
                                     <i class="fas fa-inbox"></i><span class="px-3">Inbox</span>
                                 </a>

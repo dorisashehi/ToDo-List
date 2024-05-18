@@ -1,8 +1,8 @@
-import { Project } from './app';
+import { Project, generateRandomId } from './app';
 import { uiMenuModule} from './menu_view';
 import { uiTasksModule} from './tasks_view';
 import { uiProjectModule} from './project_view';
-import { openDialog, closeDialog, removeLoggedIn} from './utils';
+import { openDialog, closeDialog, removeLoggedIn, getLoggedInUser} from './utils';
 import profile from '../assets/images/profile.jpg'
 import {loginModule } from './login';
 
@@ -11,7 +11,7 @@ const init = (() => {
     ////ALL THESE CODES BELOW ARE EXECUTED ON PAGE LOAD
 
     //ADD DEFAULT PROJECT TO STORAGE ON PAGE LOAD
-    Project.createProject("17845a4b-1fc0-42e2-9084-744fa24f32e5", "inbox", false);
+    Project.createProject(generateRandomId(), "inbox", false, getLoggedInUser('currentloggedin'));
 
     //CREATE PROJECT DIALOD APPEND TO CODE
     uiProjectModule.createProjectDialog();

@@ -15,6 +15,7 @@ if(loggedIn === null) {
 
 }
 else {
+
     layoutModule.layoutHTMl();
     init();
 
