@@ -2,7 +2,7 @@
 
     min-height: 100vh;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 
     .form-container{
 
@@ -11,7 +11,7 @@
         justify-content: center;
 
         form{
-            width: 450px;
+            width: 600px;
             background-color: #ffffff;
             box-shadow: 0px 4px 8px #d0d0d0;
             padding: 35px 0px;
@@ -21,10 +21,13 @@
                 border-bottom: 1px solid #dddddd;
                 color: #767c8b;
                 text-align: left;
+                font-size: 2rem;
+                margin-bottom: 40px;
             }
 
             .form-fields{
                 padding: 0px 30px 0px 30px;
+                margin-bottom: 40px;
 
                 .form-group{
                     .error{
@@ -35,21 +38,23 @@
                     .error.active{
                         display: block;
                         color: #e34735;
+                        font-size: 1rem;
                     }
                     label{
                         color: #929292;
-                        font-size: 0.9rem;
+                        font-size: 1.2rem;
                         font-weight: 500;
                     }
                     .form-control{
                         border: 2px dashed #b7b7b7;
                         border-radius: 0em;
                         padding: 10px;
-                        font-size: 0.9rem;
+                        font-size: 1.2rem;
+                        height: 60px;
 
                         &::placeholder{
 
-                            font-size: 0.9rem;
+                            font-size: 1rem;
                             color: #919191;
 
                         }
@@ -73,7 +78,7 @@
                 width: 100%;
                 text-align: center;
                 display: block;
-                font-size: 0.9rem;
+                font-size: 1.2rem;
                 font-style: italic;
                 a{
                     color: #e34735 !important;
@@ -95,6 +100,12 @@
             }
             .result-message{
                 padding-left: 30px;
+            }
+
+            #submit{
+                padding: 10px 53px;
+                font-size: 1.2rem;
+
             }
 
         }
@@ -151,30 +162,55 @@
 }
 
 
+.logo{
+    text-align: center;
+    margin-top: 70px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 50px;
+    svg{
+        width: 40px;
+        height: 50px;
+    }
+    .logo-text{
 
+        color: #767c8b;
+        font-size: 1.5rem;
+        font-weight: 500;
+
+    }
+}
 @media screen and (min-width:991px){
     .container-wrapper{
-        .image-column{
-            display: block;
-        }
         .form-container {
-            justify-content: end;
-        }
+            form{
+                .form-fields{
+                    padding: 0px 50px 0px 50px;
+                }
 
+                .form-buttons{
+                    padding: 15px 55px;
+                }
+
+            }
+        }
     }
 }
 
 @media screen and (min-width:1200px){
     .container-wrapper{
+        .image-column{
+            display: block;
+        }
         .description {
-            width: 250px;
+            width: 300px;
         }
         img.login-img{
-            width: 360px;
+            width: 550px;
         }
         img.register-img{
             width: 300px;
-
         }
     }
 }

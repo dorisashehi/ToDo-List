@@ -47,7 +47,7 @@ html{
       height: 60px;
     }
 
-    a.logo{
+    a.dashboard-logo{
       font-size: 1.3rem;
       color: var(--white-color);
       font-weight: bold;
@@ -175,7 +175,12 @@ ul.show-dropdown{
   display: block;
 }
 
-
+#task-plus:hover{
+  transition: transform .5s linear;
+}
+#task-plus:hover{
+  transform: scale(1.5);
+}
 // .sidebar-col{
 //   display: none;
 // }
@@ -226,8 +231,13 @@ Content style
         background-color: var(--yellow-color);
     }
     i.fa-plus-circle{
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       color: var(--yellow-color);
+    }
+    label{
+      font-weight: 500;
+      font-size: 1.4rem;
+      padding-left: 10px;
     }
     i.fa-plus-circle:hover{
       color: var(--orange-color);

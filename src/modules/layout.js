@@ -12,7 +12,7 @@ const layoutModule = (() => {
                 <div class="d-flex flex-column align-items-center align-items-sm-start">
 
                     <div class="title py-3 d-flex justify-content-between px-2">
-                        <a href="/" class="d-flex align-items-baseline justify-content-center logo text-decoration-none">
+                        <a href="/" class="d-flex align-items-baseline justify-content-center dashboard-logo text-decoration-none">
                             <span class="px-2">To Do</span>
                         </a>
 
