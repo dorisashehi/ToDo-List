@@ -230,11 +230,6 @@ const loginModule = (() => {
             e.preventDefault();
             clearErrors();
 
-            new Notification("New Desktop Notifiction", {
-                body:"jhfhgfhg"
-            })
-
-
             const password = loginForm.elements['form-login-password'];
             const email = loginForm.elements['form-login-email'];
             const resultDIV = document.querySelector(".result-message");
